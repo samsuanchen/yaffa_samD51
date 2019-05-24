@@ -15,6 +15,7 @@ const char exit_str[] = "exit";
 // parameters by executing UNLOOP.
 void _exit(void) {
   ip = (cell_t*)rStack_pop();
+  ip_begin = (cell_t*)rStack_pop();
 }
 
 #endif

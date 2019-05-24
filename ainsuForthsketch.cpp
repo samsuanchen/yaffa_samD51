@@ -224,6 +224,7 @@ cell_t* pDoes;               // Used by CREATE and DOES>
 /******************************************************************************/
 uint8_t state; // Holds the text interpreters compile/interpreter state
 cell_t* ip;   // Instruction Pointer
+cell_t* ip_begin;   // Instruction Pointer begin colon definition
 cell_t	w;     // Working Register
 uint8_t base;  // stores the number conversion radix
 

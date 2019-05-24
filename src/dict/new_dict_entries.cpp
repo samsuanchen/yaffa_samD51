@@ -798,7 +798,7 @@ void _chars(void) {
 userEntry_t* pDefining;
 void _create(void) {
   extern userEntry_t* pNewUserEntry;
-//Serial.print("\r\n_create() pNewUserEntry->name "), Serial.print(pNewUserEntry->name);
+  extern cell_t* ip_begin;;
   pDefining = pNewUserEntry;
   openEntry();
   *pHere++ = VARIABLE_IDX; /* samsuanchen@gmail 20190521
@@ -832,6 +832,7 @@ void _nip(void) { // value --
 cell_t* pNewDoes;
 void _does(void) {
   *pHere++ = SUBROUTINE_IDX;
+  Serial.print("\r\n_does() ip=$"); Serial.print((cell_t)ip,16);
   pNewDoes = pHere; // samsuanchen@gmail.com 20190521
   // Store location for a subroutine call
 //*pHere++ = (size_t)pHere + sizeof(cell_t);
@@ -1775,7 +1776,7 @@ void _psee(void) { // samsuanchen@gmail.com
             Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
             xtToName(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print(" (does> "); Serial.print((char*)*(++addr)); Serial.print(")");
+            	Serial.print("(does> "); xtToName(*(++addr)); Serial.print(")");
             	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             	break;
             }

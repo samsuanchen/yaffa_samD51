@@ -241,10 +241,9 @@ userEntry_t* nextRamEntry(userEntry_t* pUserEntry){ ////////////////////////
   then ;
 */
 //const char nextRamEntry_str[] = "nextRamEntry";
-void _nextRamEntry(){ // ( entry -- entry' true | false )
+void _nextRamEntry(){ // ( entry -- entry' | 0 )
 	userEntry_t* entry = (userEntry_t*) dStack_pop();
 	userEntry_t* adr = nextRamEntry(entry);
-	if(adr) dStack_push( (cell_t) adr );
 	dStack_push( (cell_t) adr );
 }
 #define OUTLMT 70

@@ -17,6 +17,7 @@ void executeWord(void) {
      w = *ip++;
      if (w > 255) {
       // ip is an address in code space
+       rStack_push((size_t)ip_begin);
        rStack_push((size_t)ip); // push the address to return to
        ip = (cell_t*)w;          // set the ip to the new address
      }

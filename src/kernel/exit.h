@@ -7,6 +7,7 @@ extern void _exit(void);
 
 // prototypes - variables
 extern cell_t* ip;   // Instruction Pointer
+extern cell_t* ip_begin;   // Instruction Pointer
 
 // prototypes - external functions
 extern cell_t rStack_pop(void);

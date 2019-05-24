@@ -8,6 +8,7 @@ extern void executeWord(void);
 extern uint8_t flags;                 // Internal Flags
 extern int8_t errorCode; // = 0;
 extern cell_t* ip;   // Instruction Pointer
+extern cell_t* ip_begin;
 extern cell_t w;     // Working Register
 
 // prototypes - external functions

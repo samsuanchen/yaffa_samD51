@@ -29,6 +29,7 @@ extern cell_t* pHere;               // HERE, points to the next free position in
 extern uint8_t state; // Holds the text interpreters compile/interpreter state
 
 extern cell_t* ip;   // Instruction Pointer
+extern cell_t* ip_begin;
 
 extern cell_t w;     // Working Register
 

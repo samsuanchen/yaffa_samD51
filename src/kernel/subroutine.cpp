@@ -10,12 +10,10 @@
 const char subroutine_str[] = "subroutine";
 void _subroutine(void) {
   extern userEntry_t* pDefining;
-//Serial.print("\r\n_subroutine() pDefining: 0x"),Serial.print((cell_t)pDefining->name,16);
-//Serial.print("\r\npLastUserEntry->cfa 0x"),Serial.print((cell_t)pLastUserEntry->cfa,16);
-//Serial.print("\r\npNewDoes 0x"),Serial.print((cell_t) pNewDoes,16);
-  *pLastUserEntry->cfa = (cell_t) pNewDoes;
-  extern cell_t* pHere;
-  *(pHere-2) = (cell_t) pDefining->name;
+  extern cell_t* ip;
+  extern cell_t* ip_begin;
+  *pLastUserEntry->cfa = (cell_t) ip;
+  *(pLastUserEntry->cfa+1) = (cell_t) ip_begin;
   _exit(); /* samsuanchen@gmail.com 20190521
   *pDoes = (cell_t)*ip++; */
 }

@@ -1,4 +1,23 @@
 \ samsuanchen@gmail.com 20190523 13:50
+\ A. save this script to flash
+\ A.0. connect samD51 to PC
+\ A.0. open Arduino IDE
+\ A.0. Tools/Board/Adafruit ItsyBitsy M4 (samD51)
+\ A.0. Tools/Port
+\ A.0. open Tera Term VT
+\ A.0.0. Setup/Serial Port
+\ A.0.1. Baud rate: 115200
+\ A.1. enter "eflmkdir"
+\ A.2. enter "download"
+\ A.3. paste this script
+\ B. update this script to flash
+\ B.0. open Tera Term VT
+\ B.0.0. Reset samD51
+\ B.1. File/Disconnect
+\ B.2. enter "remove"
+\ B.3. enter "download"
+\ B.4. paste this script
+
 decimal
 : .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
   if spaces
@@ -75,37 +94,6 @@ decimal
 : seeAll \ ( -- ) see all words (in decreasing order)
   cr seeRamWords seeRomWords ; \ seeAllremove
 : ww \ ( -- ) show all wordnames (in ascending order)
-  cr 0
-  begin 1+ dup romEntry @
-  while dup w. dup .name space
-  repeat ramFirst
-  begin over w. dup entry>cfa .name space
-    swap 1+ swap nextRamEntry 0=
-  until drop ; \ ww
-: ss \ ( -- ) see all words (in ascending order)
-  cr 0
-  begin 1+ dup romEntry @
-  while dup w. dup (see)
-  repeat ramFirst
-  begin over w. dup entry>cfa (see)
-    swap 1+ swap nextRamEntry 0=
-  until drop ; \ ss
-: tst 48 0
-  do i 12 mod 0=
-   if cr
-   then 250 i cells freq + @ dup 4 .0r space
-   14 tone 275 delay
-  loop ; \ tst
-variable keyNote
-: keyNote: create 1 allot , does> r> cell+ @ keyNote ! ;
-220 keyNote: A
-see keyNote
-see keyNote:
-see A
-A
-see keyNote
-204 constant stopWordId
-: www \ ( -- ) show each wordId and wordName in ascending order
   cr
   \ for each rom words
   0
@@ -115,14 +103,39 @@ see keyNote
   \ for each ram words
   ramFirst
   begin ( iWord ramEntry ) ?dup
-  while over w. over stopWordId =
-    if exit
-	then dup entry>cfa .name space
-    swap 1+ swap nextRamEntry drop
+  while over w. dup entry>cfa .name space
+    swap 1+ swap nextRamEntry
   repeat ( nWords ) drop ; \ www
+: ss \ ( -- ) see all words (in ascending order)
+  cr
+  \ for each rom words
+  0
+  begin 1+ ( iRomWord+1 ) dup romEntry @
+  while ( iRomWord+1 ) dup w. dup (see)
+  repeat ( nRomWords )
+  \ for each ram words
+  ramFirst
+  begin ( iWord ramEntry ) ?dup
+  while over w. dup entry>cfa (see)
+    swap 1+ swap nextRamEntry
+  repeat ( nWords ) drop ; \ ss
+: tst 48 0
+  do i 12 mod 0=
+   if cr
+   then 250 i cells freq + @ dup 4 .0r space
+   14 tone 275 delay
+  loop ; \ tst
+: printableChars base @ hex $7f $21 cr
+  do i 2 .0r space i emit space i $f and 0=
+    if cr
+	then
+  loop base ! ; printableChars
+variable keyNote
+: keyNote: create 1 allot , does> r> r> drop cell+ @ keyNote ! ;
+220 keyNote: A
+see keyNote
+see keyNote:
+see A
+A
+see keyNote
 \end.
-
-
-toDo:
-  1. fix throw to flush terminal input
-  2. fix www 

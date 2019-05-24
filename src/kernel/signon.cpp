@@ -51,7 +51,7 @@ void signOn(void) {
     Serial.print("\033\133\064\064m"); // ESC [44m - black bg // for the stanza
     Serial.print(" YAFFA samd51Forth (");
     w = 0; while (flashDict[w++].name); Serial.print(w);
-    Serial.print(" words) - 201905 - samsuanchen@gmail.com ");
+    Serial.print(" flashWords) - 201905 - samsuanchen@gmail.com ");
     Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza
     Serial.print(" \r\n ok\r\n");  // leading black space on the wa1tnr line
 //  Serial.print("  \r\n         YAFFA - Yet Another Forth For Arduino, \r\n");

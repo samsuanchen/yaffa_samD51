@@ -24,8 +24,9 @@ void interpreter(void) {
       if (isWord(cTokenBuffer)) {
         if (wordFlags & IMMEDIATE) {
           if (w > 255) {
-            rStack_push(0);        // Push 0 as our return address
-            ip = (cell_t *)w;    // set the ip to the XT (memory location)
+            rStack_push(0);           // Push ip_begin=0 as our return address
+            rStack_push(0);        // Push ip=0 as our return address
+            ip = ip_begin = (cell_t *)w;    // set the ip to the XT (memory location)
             executeWord();
           } else {
             function = flashDict[w - 1].function;
@@ -56,8 +57,9 @@ void interpreter(void) {
           return;
         }
         if (w > 255) {
-          rStack_push(0);           // Push 0 as our return address
-          ip = (cell_t *)w;         // set the ip to the XT (memory location)
+          rStack_push(0);           // Push ip_begin=0 as our return address
+          rStack_push(0);           // Push ip=0 as our return address
+          ip = ip_begin = (cell_t *)w;         // set the ip to the XT (memory location)
           executeWord();
           if (errorCode) return;
         } else {
