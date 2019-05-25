@@ -1,23 +1,28 @@
 \ samsuanchen@gmail.com 20190523 13:50
+\
 \ A. save this script to flash
-\ A.0. connect samD51 to PC
-\ A.0. open Arduino IDE
-\ A.0. Tools/Board/Adafruit ItsyBitsy M4 (samD51)
-\ A.0. Tools/Port
-\ A.0. open Tera Term VT
-\ A.0.0. Setup/Serial Port
-\ A.0.1. Baud rate: 115200
-\ A.1. enter "eflmkdir"
-\ A.2. enter "download"
-\ A.3. paste this script
-\ B. update this script to flash
-\ B.0. open Tera Term VT
-\ B.0.0. Reset samD51
-\ B.1. File/Disconnect
-\ B.2. enter "remove"
-\ B.3. enter "download"
-\ B.4. paste this script
-
+\ A.1. connect samD51 to PC
+\ A.1.1. open Arduino IDE
+\ A.1.2. select Tools/Board/Adafruit ItsyBitsy M4 (samD51)
+\ A.1.3. select Tools/Port
+\ A.1.4. select Sketch/Upload
+\ A.2. open Tera Term VT
+\ A.2.1. select Setup/Serial Port/ Port:
+\ A.2.2. select Setup/Serial Port/ Baud rate:
+\ A.2.3. select Setup/Serial Port/ OK
+\ A.3. enter ": x eflmkdir ; x"
+\ A.4. enter "download"
+\ A.5. paste this script
+\ A.6. enter "\end."
+\
+\ B. append another script to flash
+\ B.1. enter "download"
+\ B.2. paste another script
+\ B.3. enter "\end."
+\
+\ C. erase this script in flash
+\ C.1. enter "remove"
+xxx
 decimal
 : .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
   if spaces

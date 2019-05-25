@@ -164,9 +164,9 @@ const flashEntry_t flashDict[] = {
   { "<#",             _lt_number_sign,  NORMAL }, // samsuanchen@gmail.com 20190510
   { ">",              _gt,              NORMAL }, // samsuanchen@gmail.com 20190515
   { ">body",          _to_body,         NORMAL },
-//   { ">in",          _to_in,           NORMAL },
-//   { ">number",      _to_number,       NORMAL },
-  { ">r",           _to_r,            NORMAL },
+  { ">in",            _to_in,           NORMAL },
+  { ">number",        _to_number,       NORMAL },
+  { ">r",             _to_r,            NORMAL },
   { "?dup",   _question_dup,    NORMAL },
   { "@",          _fetch,           NORMAL },
   { "abort\"",    _abort_quote,     IMMEDIATE + COMP_ONLY },
@@ -263,17 +263,17 @@ const flashEntry_t flashDict[] = {
 
 #ifdef CORE_EXT_SET
   { ".(",      _dot_paren,       IMMEDIATE },
-//   { "0<>", _zero_not_equal,  NORMAL },
-//   { "0>",   _zero_greater,    NORMAL },
-//   { "2>r",       _two_to_r,        NORMAL },
-//   { "2r>",     _two_r_from,      NORMAL },
-//   { "2r@",    _two_r_fetch,     NORMAL },
-//   { "<>",            _neq,             NORMAL },
+  { "0<>", _zero_not_equal,  NORMAL },
+  { "0>",   _zero_greater,    NORMAL },
+  { "2>r",       _two_to_r,        NORMAL },
+  { "2r>",     _two_r_from,      NORMAL },
+  { "2r@",    _two_r_fetch,     NORMAL },
+  { "<>",            _neq,             NORMAL },
   { "hex",            _hex,             NORMAL },
-//   { "case",           _case,            IMMEDIATE + COMP_ONLY },    // CAL
-//   { "of",             _of,              IMMEDIATE + COMP_ONLY },    // CAL
-//   { "endof",          _endof,           IMMEDIATE + COMP_ONLY },    // CAL
-//   { "endcase",        _endcase,         IMMEDIATE + COMP_ONLY },    // CAL
+  { "case",           _case,            IMMEDIATE + COMP_ONLY },    // CAL
+  { "of",             _of,              IMMEDIATE + COMP_ONLY },    // CAL
+  { "endof",          _endof,           IMMEDIATE + COMP_ONLY },    // CAL
+  { "endcase",        _endcase,         IMMEDIATE + COMP_ONLY },    // CAL
   { "help",           _help,            NORMAL },
   { "who",            _who,             NORMAL }, // who is this target? dump shows it.
 #endif
@@ -366,6 +366,41 @@ const flashEntry_t flashDict[] = {
   { "noTone",       _noTone,        NORMAL },
   { "freq",       _freq,        NORMAL },
   { "isWord",     _isWord,        NORMAL },
+  { "setEscPrint",_setEscPrint,NORMAL },
+  { "fgYellow",   _fgYellow,   NORMAL },
+  { "bgBlue",     _bgBlue,        NORMAL },
+  { "fgBlack",   _fgBlack,      NORMAL },
+  { "fgRed",   _fgRed,      NORMAL },
+  { "fgGreen",   _fgGreen,      NORMAL },
+  { "fgYellow",   _fgYellow,      NORMAL },
+  { "fgBlue",   _fgBlue,      NORMAL },
+  { "fgMagenta",   _fgMagenta,      NORMAL },
+  { "fgCyan",   _fgCyan,      NORMAL },
+  { "fgWhite",   _fgWhite,      NORMAL },
+  { "fgBrightBlack",   _fgBrightBlack,      NORMAL },
+  { "fgBrightRed",   _fgBrightRed,      NORMAL },
+  { "fgBrightGreen",   _fgBrightGreen,      NORMAL },
+  { "fgBrightYellow",   _fgBrightYellow,      NORMAL },
+  { "fgBrightBlue",   _fgBrightBlue,      NORMAL },
+  { "fgBrightMagenta",   _fgBrightMagenta,      NORMAL },
+  { "fgBrightCyan",   _fgBrightCyan,      NORMAL },
+  { "fgBrightWhite",   _fgBrightWhite,      NORMAL },
+  { "bgBlack",   _bgBlack,      NORMAL },
+  { "bgRed",   _bgRed,      NORMAL },
+  { "bgGreen",   _bgGreen,      NORMAL },
+  { "bgYellow",   _bgYellow,      NORMAL },
+  { "bgBlue",   _bgBlue,      NORMAL },
+  { "bgMagenta",   _bgMagenta,      NORMAL },
+  { "bgCyan",   _bgCyan,      NORMAL },
+  { "bgWhite",   _bgWhite,      NORMAL },
+  { "bgBrightBlack",   _bgBrightBlack,      NORMAL },
+  { "bgBrightRed",   _bgBrightRed,      NORMAL },
+  { "bgBrightGreen",   _bgBrightGreen,      NORMAL },
+  { "bgBrightYellow",   _bgBrightYellow,      NORMAL },
+  { "bgBrightBlue",   _bgBrightBlue,      NORMAL },
+  { "bgBrightMagenta",   _bgBrightMagenta,      NORMAL },
+  { "bgBrightCyan",   _bgBrightCyan,      NORMAL },
+  { "bgBrightWhite",   _bgBrightWhite,      NORMAL },
 #endif // #ifdef HAS_QSPI_FLASH_DEMO
 
 #endif // #ifdef SPI_FLASH_SRC

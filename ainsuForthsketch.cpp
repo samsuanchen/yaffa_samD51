@@ -288,6 +288,8 @@ void setup(void) {
     blink_m();
   }
   tone(A0, 440, 1000), delay(250), tone(A0, 330, 1000); //noTone(A0);
+  extern void _fgYellow(void), _bgBlack(void);
+  _fgYellow(), _bgBlack();
   Serial.print("\r\n Serial.begin(115200) buzzer pin A0 = "), Serial.println(A0);
 
 #ifdef HAS_QSPI_FLASHROM_LIB // see yaffa.h for setting this toggle
