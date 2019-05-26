@@ -537,9 +537,14 @@ void _gt(void) {
 // exists if xt is not for a word defined by CREATE.
 void _to_body(void) {
   cell_t* xt = (cell_t*)dStack_pop();
-  if ((size_t)xt > 0xFF) {
-    if (*xt++ == LITERAL_IDX) {
-      dStack_push(*xt);
+  if ((cell_t)xt > 0xFF) {
+    if (*xt == VARIABLE_IDX) {
+      dStack_push((size_t)xt+4);
+      return;
+    }
+    cell_t n = *xt;
+    if(n>(cell_t)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX) {
+      dStack_push((cell_t)xt+8);
       return;
     }
   }
@@ -549,15 +554,10 @@ void _to_body(void) {
 
 // const char to_in_str[] = ">in";
 // ( -- a-addr )
-// void _to_in(void) {
-//   dStack_push((size_t)&cpToIn);
-// }
-
-
-
+void _to_in(void) { dStack_push( (size_t) &cpToIn ); }
 
 // const char to_number_str[] = ">number";
-// ( ud1 c-addr1 u1 -- ud2 c-addr u2 )
+// ( ud1 c-addr1 u1 -- ud2 c-addr2 u2 )
 // ud2 is the unsigned result of converting the characters within the string
 // specified by c-addr1 u1 into digits, using the number in BASE, and adding
 // each into ud1 after multiplying ud1 by the number in BASE.  Conversion
@@ -567,46 +567,38 @@ void _to_body(void) {
 // the first character past the end of the string if the string was entirely
 // converted.  u2 is the number of unconverted characters in the string.  An
 // ambiguous condition exists if ud2 overflows during the conversion.
-// void _to_number(void) {
-//   uint8_t len;
-//   char* ptr;
-//   cell_t accum;
-
-//   unsigned char negate = 0;                  // flag if number is negative
-//   len = (uint8_t)dStack_pop();
-//   ptr = (char*)dStack_pop();
-//   accum = dStack_pop();
-  
+void _to_number(void) {
+  Serial.print("\r\n_to_number() ");
+  uint8_t negate = 0;                  // flag if number is negative
+  uint8_t len = (uint8_t)dStack_pop();
+  char* ptr = (char*)dStack_pop();
+  cell_t accum = dStack_pop();
   // Look at the initial character, handling either '-', '$', or '%'
-//   switch (*ptr) {
-//     case '$':  base = HEXIDECIMAL; goto SKIP;
-//     case '%':  base = BINARY; goto SKIP;
-//     case '#':  base = DECIMAL; goto SKIP;
-//     case '+':  negate = 0; goto SKIP;
-//     case '-':  negate = 1;
-// SKIP:                // common code to skip initial character
-//     ptr++;
-//     break;
-//   }
+  switch (*ptr) {
+    case '$':  base = HEXIDECIMAL; goto SKIP;
+    case '%':  base = BINARY; goto SKIP;
+    case '#':  base = DECIMAL; goto SKIP;
+    case '+':  negate = 0; goto SKIP;
+    case '-':  negate = 1;
+SKIP:                // common code to skip initial character
+    ptr++;
+    break;
+  }
   // Iterate over rest of string, and if rest of digits are in
   // the valid set of characters, accumulate them.  If any
   // invalid characters found, abort and return 0.
-//   while (len < 0) {
-//     char* pos = strchr(charset, (int)tolower(*ptr));
-//     cell_t offset = pos - charset;
-//     if ((offset < base) && (offset > -1))  
-//       accum = (accum * base) + (pos - charset);
-//     else {
-//       break;           // exit, We hit a non number
-//     }
-//     ptr++;
-//     len--;
-//   }
-//   if (negate) accum = ~accum + 1;     // apply sign, if necessary
-//   dStack_push(accum); // Push the resultant number
-//   dStack_push((size_t)ptr); // Push the last convertered caharacter
-//   dStack_push(len); // push the remading length of unresolved charaters
-// }
+  while (len > 0) {
+    char* pos = strchr(charset, (int)tolower(*ptr));
+    cell_t offset = pos - charset;
+    if ((offset >= base) || (offset < 0)) break; // exit, We hit a non number
+    accum = accum * base + offset;
+    ptr++, len--;
+  }
+  if (negate) accum = ~accum + 1;     // apply sign, if necessary
+  dStack_push(accum); // Push the resultant number
+  dStack_push((size_t)ptr); // Push the last convertered caharacter
+  dStack_push(len); // push the remading length of unresolved charaters
+}
 
 
 
@@ -795,11 +787,9 @@ void _chars(void) {
 // name EXECUTION: ( -- a-addr )
 // a-addr is the address of name's data field. The execution semantics of name may
 // be extended by using DOES>.
-userEntry_t* pDefining;
 void _create(void) {
   extern userEntry_t* pNewUserEntry;
   extern cell_t* ip_begin;;
-  pDefining = pNewUserEntry;
   openEntry();
   *pHere++ = VARIABLE_IDX; /* samsuanchen@gmail 20190521
 //   *pHere++ = LITERAL_IDX; */
@@ -829,14 +819,11 @@ void _nip(void) { // value --
 // Compilation: (C: colon-sys1 -- colon-sys2)
 // Run-Time: ( -- ) (R: nest-sys1 -- )
 // Initiation: ( i*x -- i*x a-addr ) (R: -- next-sys2 )
-cell_t* pNewDoes;
 void _does(void) {
   *pHere++ = SUBROUTINE_IDX;
-  Serial.print("\r\n_does() ip=$"); Serial.print((cell_t)ip,16);
-  pNewDoes = pHere; // samsuanchen@gmail.com 20190521
   // Store location for a subroutine call
-//*pHere++ = (size_t)pHere + sizeof(cell_t);
-//*pHere++ = EXIT_IDX;
+  // *pHere++ = (size_t)pHere + sizeof(cell_t);
+  // *pHere++ = EXIT_IDX;
   // Start Subroutine coding
 }
 
@@ -1478,56 +1465,56 @@ void _right_bracket(void) { state = TRUE; }
 // const char zero_not_equal_str[] = "0<>";
 // ( x -- flag)
 // flag is true if and only if x is not equal to zero. 
-// void _zero_not_equal(void) { 
-//   w = dStack_pop();
-//   if (w == 0) dStack_push(FALSE);
-//   else dStack_push(TRUE);
-// }
+void _zero_not_equal(void) { 
+  w = dStack_pop();
+  if (w == 0) dStack_push(FALSE);
+  else dStack_push(TRUE);
+}
 
 // const char zero_greater_str[] = "0>";
 // (n -- flag)
 // flag is true if and only if n is greater than zero.
-// void _zero_greater(void) {
-//   w = dStack_pop();
-//   if (w > 0) dStack_push(TRUE);
-//   else dStack_push(FALSE);
-// }
+void _zero_greater(void) {
+  w = dStack_pop();
+  if (w > 0) dStack_push(TRUE);
+  else dStack_push(FALSE);
+}
 
 // const char two_to_r_str[] = "2>r";
 // Interpretation: Interpretation semantics for this word are undefined. 
 // Execution: ( x1 x2 -- ) ( R:  -- x1 x2 )
 // Transfer cell pair x1 x2 to the return stack.  Semantically equivalent
 // to SWAP >R >R.
-// void _two_to_r(void) {
-//   _swap();
-//   _to_r();
-//   _to_r();
-// }
+void _two_to_r(void) {
+  _swap();
+  _to_r();
+  _to_r();
+}
 
 // const char two_r_from_str[] = "2r>";
 // Interpretation: Interpretation semantics for this word are undefined. 
 // Execution: ( -- x1 x2 )  ( R:  x1 x2 -- ) 
 // Transfer cell pair x1 x2 from the return stack.  Semantically equivalent to
 // R> R> SWAP. 
-// void _two_r_from(void) {
-//   _r_from();
-//   _r_from();
-//   _swap();
-// }
+void _two_r_from(void) {
+  _r_from();
+  _r_from();
+  _swap();
+}
 
 // const char two_r_fetch_str[] = "2r@";
 // Interpretation: Interpretation semantics for this word are undefined. 
 // Execution: ( -- x1 x2 )  ( R:  x1 x2 -- x1 x2 ) 
 // Copy cell pair x1 x2 from the return stack.  Semantically equivalent to
 // R> R> 2DUP >R >R SWAP. 
-// void _two_r_fetch(void) {
-//   _r_from();
-//   _r_from();
-//   _two_dup();
-//   _to_r();
-//   _to_r();
-//   _swap();
-// }
+void _two_r_fetch(void) {
+  _r_from();
+  _r_from();
+  _two_dup();
+  _to_r();
+  _to_r();
+  _swap();
+}
 
 // const char colon_noname_str[] = ":noname";
 // ( C:  -- colon-sys )  ( S:  -- xt )
@@ -1556,12 +1543,12 @@ void _right_bracket(void) { state = TRUE; }
 // const char neq_str[] = "<>";
 // (x1 x2 -- flag)
 // flag is true if and only if x1 is not bit-for-bit the same as x2.
-// void _neq(void) {
-//   cell_t x2 = dStack_pop();
-//   cell_t x1 = dStack_pop();
-//   if (x1 != x2) dStack_push(TRUE);
-//   else dStack_push(FALSE); 
-// }
+void _neq(void) {
+  cell_t x2 = dStack_pop();
+  cell_t x1 = dStack_pop();
+  if (x1 != x2) dStack_push(TRUE);
+  else dStack_push(FALSE); 
+}
 
 
 // const char case_str[] = "case";
@@ -1572,10 +1559,10 @@ void _right_bracket(void) { state = TRUE; }
 // semantics given below to the current definition.
 // Run-time: ( -- )
 // Continue execution.
-// static void _case(void) {
-//   dStack_push(CASE_SYS);
-//   dStack_push(0); // Count of of clauses
-// }
+void _case(void) {
+  dStack_push(CASE_SYS);
+  dStack_push(0); // Count of of clauses
+}
 
 // const char of_str[] = "of";
 // Contributed by Craig Lindley
@@ -1588,18 +1575,18 @@ void _right_bracket(void) { state = TRUE; }
 // If the two values on the stack are not equal, discard the top value and continue execution
 // at the location specified by the consumer of of-sys, e.g., following the next ENDOF.
 // Otherwise, discard both values and continue execution in line.
-// static void _of(void) {
-//   dStack_push(dStack_pop() + 1);      // Increment count of of clauses
-//   rStack_push(dStack_pop());         // Move to return stack
+void _of(void) {
+  dStack_push(dStack_pop() + 1);      // Increment count of of clauses
+  rStack_push(dStack_pop());         // Move to return stack
 
-//   dStack_push(OF_SYS);
-//   *pHere++ = OVER_IDX;  // Postpone over
-//   *pHere++ = EQUAL_IDX; // Postpone =
-//   *pHere++ = ZJUMP_IDX; // If
-//   *pHere = 0;           // Filled in by endof
-//   dStack_push((size_t) pHere++);// Push address of jump address onto control stack
-//   dStack_push(rStack_pop());         // Bring of count back
-// }
+  dStack_push(OF_SYS);
+  *pHere++ = OVER_IDX;  // Postpone over
+  *pHere++ = EQUAL_IDX; // Postpone =
+  *pHere++ = ZJUMP_IDX; // If
+  *pHere = 0;           // Filled in by endof
+  dStack_push((size_t) pHere++);// Push address of jump address onto control stack
+  dStack_push(rStack_pop());         // Bring of count back
+}
 
 // const char endof_str[] = "endof";
 // Contributed by Craig Lindley
@@ -1611,28 +1598,29 @@ void _right_bracket(void) { state = TRUE; }
 // control-flow stack, to be resolved by ENDCASE.
 // Run-time: ( -- )
 // Continue execution at the location specified by the consumer of case-sys2.
-// static void _endof(void) {
-//   cell_t *back, *forward;
+void _endof(void) {
+  cell_t *back, *forward;
 
-//   rStack_push(dStack_pop());         // Move of count to return stack
+  rStack_push(dStack_pop());         // Move of count to return stack
 
   // Prepare jump to endcase
-//   *pHere++ = JUMP_IDX;
-//   *pHere = 0;
-//   forward = pHere++;
+  *pHere++ = JUMP_IDX;
+  *pHere = 0;
+  forward = pHere++;
 
-//   back = (cell_t*) dStack_pop(); // Resolve If from of
-//   *back = (size_t) pHere - (size_t) back;
+  back = (cell_t*) dStack_pop(); // Resolve If from of
+//*back = (size_t) pHere - (size_t) back;
+  *back = (size_t) pHere;
 
-//   if (dStack_pop() != OF_SYS) { // Make sure control structure is consistent
-//     dStack_push(-22);
-//     _throw();
-//     return;
-//   }
+  if (dStack_pop() != OF_SYS) { // Make sure control structure is consistent
+    dStack_push(-22);
+    _throw();
+    return;
+  }
   // Place forward jump address onto control stack
-//   dStack_push((cell_t) forward);
-//   dStack_push(rStack_pop());          // Bring of count back
-// }
+  dStack_push((cell_t) forward);
+  dStack_push(rStack_pop());          // Bring of count back
+}
 
 // const char endcase_str[] = "endcase";
 // Contributed by Craig Lindley
@@ -1642,23 +1630,23 @@ void _right_bracket(void) { state = TRUE; }
 // the entire structure. Append the run-time semantics given below to the current definition.
 // Run-time: ( x -- )
 // Discard the case selector x and continue execution.
-// static void _endcase(void) {
-//   cell_t *orig;
+void _endcase(void) {
+  cell_t *orig;
 
   // Resolve all of the jumps from of statements to here
-//   int count = dStack_pop();
-//   for (int i = 0; i < count; i++) {
-//     orig = (cell_t *) dStack_pop();
-//     *orig = (size_t) pHere - (size_t) orig;
-//   }
+  int count = dStack_pop();
+  for (int i = 0; i < count; i++) {
+    orig = (cell_t *) dStack_pop();
+    *orig = (size_t) pHere;
+  }
 
-//   *pHere++ = DROP_IDX;      // Postpone drop of case selector
+  *pHere++ = DROP_IDX;      // Postpone drop of case selector
 
-//   if (dStack_pop() != CASE_SYS) {  // Make sure control structure is consistent
-//     dStack_push(-22);
-//     _throw();
-//   }
-// }
+  if (dStack_pop() != CASE_SYS) {  // Make sure control structure is consistent
+    dStack_push(-22);
+    _throw();
+  }
+}
 
 #endif
 
@@ -1738,8 +1726,8 @@ void _showWordType(cell_t xt) { // samsuanchen@gmail.com
 	cell_t* entry = wordEntry(xt);
 	int flags = *((char*)(entry+2));
     if (flags & SMUDGE   ) Serial.print("SMUDGE "   );
-    if (flags & COMP_ONLY) Serial.print("COMP_ONLY ");
-    if (flags & IMMEDIATE) Serial.print("IMMEDIATE ");
+    if (flags & COMP_ONLY) _bgBlue(),Serial.print("COMP_ONLY"),_bgBlack(),Serial.print(" ");
+    if (flags & IMMEDIATE) _fgRed(),Serial.print("IMMEDIATE "),_fgWhite();
 }
 // const char psee_str[] = "(see)";
 // ( xt -- ) need to fix con-sys and var-sys samsuanchen@gmail.com 20190508
@@ -1769,21 +1757,21 @@ void _psee(void) { // samsuanchen@gmail.com
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" cfa" ); addr++;
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" name, flag"); addr++;
 		while (addr<(cell_t*)xt) { Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); addr++; }
-		Serial.print("\r\n BODY");
+		Serial.print("\r\n CODE");
         do {
             cell_t n = *addr;
             done = isLiteral = false;
             Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
             xtToName(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); xtToName(*(++addr)); Serial.print(")");
+            	Serial.print("(does> "); xtToName(*(++addr)); Serial.print(")\r\n BODY");
             	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             	break;
             }
         	switch (n) {
                 case VARIABLE_IDX:
                 case CONST_IDX:
-            		Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            		Serial.print("\r\n BODY\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             		done = true;
             		break;
                 case LITERAL_IDX:

@@ -11,6 +11,43 @@
 
 #ifdef EXT_KERN_SIGN_ON
 #include "signon.h"
+void setEscPrint(char* str){ Serial.print("\033["); Serial.print(str); Serial.print("m"); }
+void _setEscPrint(){
+	if(! getToken()) { dStack_push(-16); _throw(); }
+	setEscPrint(cTokenBuffer);
+}
+void _fgBlack(){ setEscPrint("30"); }
+void _fgRed(){ setEscPrint("31"); }
+void _fgGreen(){ setEscPrint("32"); }
+void _fgYellow(){ setEscPrint("33"); }
+void _fgBlue(){ setEscPrint("34"); }
+void _fgMagenta(){ setEscPrint("35"); }
+void _fgCyan(){ setEscPrint("36"); }
+void _fgWhite(){ setEscPrint("37"); }
+void _fgBrightBlack(){ setEscPrint("30;1"); }
+void _fgBrightRed(){ setEscPrint("31;1"); }
+void _fgBrightGreen(){ setEscPrint("32;1"); }
+void _fgBrightYellow(){ setEscPrint("33;1"); }
+void _fgBrightBlue(){ setEscPrint("34;1"); }
+void _fgBrightMagenta(){ setEscPrint("35;1"); }
+void _fgBrightCyan(){ setEscPrint("36;1"); }
+void _fgBrightWhite(){ setEscPrint("37;1"); }
+void _bgBlack(){ setEscPrint("40"); }
+void _bgRed(){ setEscPrint("41"); }
+void _bgGreen(){ setEscPrint("42"); }
+void _bgYellow(){ setEscPrint("43"); }
+void _bgBlue(){ setEscPrint("44"); }
+void _bgMagenta(){ setEscPrint("45"); }
+void _bgCyan(){ setEscPrint("46"); }
+void _bgWhite(){ setEscPrint("47"); }
+void _bgBrightBlack(){ setEscPrint("100"); }
+void _bgBrightRed(){ setEscPrint("101"); }
+void _bgBrightGreen(){ setEscPrint("102"); }
+void _bgBrightYellow(){ setEscPrint("103"); }
+void _bgBrightBlue(){ setEscPrint("104"); }
+void _bgBrightMagenta(){ setEscPrint("105"); }
+void _bgBrightCyan(){ setEscPrint("106"); }
+void _bgBrightWhite(){ setEscPrint("107"); }
 /******************************************************************************/
 /** signOn - say Hello to the user interface via USB serial port             **/
 /******************************************************************************/
@@ -22,23 +59,6 @@ void signOn(void) {
   // delay(9 * 100);
 
   // colours - entirely optional
-  Serial.print("\033\133"); // ESC [
-  Serial.print("\063\063"); // 33 - yellow fg
-  Serial.print("m");        // for the stanza
-
-  Serial.print("\033\133"); // ESC [
-  Serial.print("\064\064"); // 44 - blue bg
-  Serial.print("m");        // for the stanza
-
-// 203   Serial.print("\033\133"); // ESC [
-// 204 
-// 205   Serial.print("\063\063"); // 33 - yellow fg
-// 206   Serial.print("m");        // for the stanza
-// 207 
-// 208   Serial.print("\033\133"); // ESC [
-// 209 
-// 210   Serial.print("\064\064"); // 44 - blue bg
-// 211   Serial.print("m");        // for the stanza
 
   // Serial.print("\n YAFFA - Yet Another Forth For Arduino, ");
 
@@ -46,15 +66,17 @@ void signOn(void) {
 //  Serial.print(YAFFA_MAJOR,DEC);
 //  Serial.print(".");
 //  Serial.println(YAFFA_MINOR,DEC);
-    Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza
-    Serial.print("\r\n\r\n ");  // leading black space on the wa1tnr line
-    Serial.print("\033\133\064\064m"); // ESC [44m - black bg // for the stanza
+//  Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza
+    Serial.print("\r\n\r\n "); // leading black space on the wa1tnr line
+    _bgBlue();
+//  Serial.print("\033\133\064\064m"); // ESC [44m - blue bg // for the stanza
     Serial.print(" YAFFA samd51Forth (");
     w = 0; while (flashDict[w++].name); Serial.print(w);
-    Serial.print(" flashWords) - 201905 - samsuanchen@gmail.com ");
-    Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza
+    Serial.print(" romWords) - 201905 - samsuanchen@gmail.com ");
+	_bgBlack(); _fgWhite();
+//  Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza
     Serial.print(" \r\n ok\r\n");  // leading black space on the wa1tnr line
-//  Serial.print("  \r\n         YAFFA - Yet Another Forth For Arduino, \r\n");
+//  Serial.print("  \r\n  YAFFA - Yet Another Forth For Arduino, \r\n");
 //  Serial.print("         Copyright (C) 2012 Stuart Wood\r\n");
 
 //  Serial.print(" This program comes with ABSOLUTELY NO WARRANTY.\r\n");

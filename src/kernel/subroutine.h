@@ -5,6 +5,5 @@
 extern void _subroutine(void);
 
 extern void _exit(void);
-extern cell_t* pNewDoes;
 extern userEntry_t* pLastUserEntry;
 extern cell_t rStack_peek(int n);

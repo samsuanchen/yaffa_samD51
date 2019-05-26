@@ -9,7 +9,6 @@
 #include "subroutine.h"
 const char subroutine_str[] = "subroutine";
 void _subroutine(void) {
-  extern userEntry_t* pDefining;
   extern cell_t* ip;
   extern cell_t* ip_begin;
   *pLastUserEntry->cfa = (cell_t) ip;

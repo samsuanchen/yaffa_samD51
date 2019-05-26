@@ -246,29 +246,36 @@ void _nextRamEntry(){ // ( entry -- entry' | 0 )
 	userEntry_t* adr = nextRamEntry(entry);
 	dStack_push( (cell_t) adr );
 }
+
 #define OUTLMT 70
 uint8_t outLen;
 void println(){ Serial.println(); outLen = 0; }
-void queryPrintName(char*name, uint8_t n, char*sub, uint8_t outLmt){
+void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLmt){
 	if (outLen > outLmt) println();
 	if(n==0 || strstr(name, sub)) {
-	  outLen += Serial.print(name); outLen += Serial.print(" ");
+	  if(flags & COMP_ONLY) _bgBlue();
+	  if(flags & IMMEDIATE) _fgRed();
+	  outLen += Serial.print(name);
+	  if(flags & IMMEDIATE) _fgWhite();
+	  if(flags & COMP_ONLY) _bgBlack();
+	  outLen += Serial.print(" ");
     }
 }
 //const char words_str[] = "words";
 void _words(void) { // ( <substr> -- )
   println();
-  uint8_t n=getToken(); char *name;
+  uint8_t n=getToken();
   // search flash rom entry
-  uint8_t index = 0;  
-  while ( flashDict[index].name ) { // entry name != 0
-  	queryPrintName( (char*) flashDict[index].name, n, cTokenBuffer, OUTLMT );
-    index++;
+  uint8_t index = 0, flags;
+  char* name = (char*) flashDict[index].name;
+  while ( name ) { // entry name != 0
+  	queryPrintName( name, flashDict[index].flags, n, cTokenBuffer, OUTLMT );
+  	name = (char*) flashDict[++index].name;
   }
   // search user ram entry
   pUserEntry = (userEntry_t*) pFirstUserEntry;
   while ( pUserEntry ) {
-  	queryPrintName( pUserEntry->name, n, cTokenBuffer, OUTLMT );
+  	queryPrintName( pUserEntry->name, pUserEntry->flags, n, cTokenBuffer, OUTLMT );
   	pUserEntry = nextRamEntry(pUserEntry); // ascending order samsuanchen@gmail.com 20190516
   }
   println();

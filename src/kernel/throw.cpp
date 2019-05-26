@@ -22,25 +22,23 @@ void _throw(void) {
   errorCode = dStack_pop();
   uint8_t index = 0;
   int tableCode;
-  //_cr();
+  _cr();
   Serial.print(cTokenBuffer);
-  Serial.print(F(" EXCEPTION("));
+  Serial.print(F(" EXCEPTION "));
   do {
     tableCode = pgm_read_dword(&(exception[index].code));
-  //Serial.print((int)tableCode);
-  //Serial.print(",");
     if (errorCode == tableCode) {
       Serial.print((int)errorCode);
-      Serial.print("): ");
+      Serial.print(" ");
       Serial.print(exception[index].name);
-      _cr();
+      break;
     }
     index++;
   } while (tableCode);
-//  dStack.tos = -1;                       // Clear the stack.
-  dStack_clear();                        // Clear the stack.
-  _quit();
-  state = FALSE;
+  dStack_clear(), state = FALSE;
+  extern void waitEsc(void);
+  waitEsc();
+  _quit(); // clear rStack too
 }  
 #endif
 #endif

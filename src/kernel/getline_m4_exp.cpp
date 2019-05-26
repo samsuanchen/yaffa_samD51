@@ -174,11 +174,20 @@ void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
 File thisFile;
         #endif // 15 Jan 2018
         // #directive
-
+extern void _fgRed(void);
+extern void _fgWhite(void);
+extern void _fgGreen(void);
+void waitEsc(){
+  _fgRed();
+  Serial.print( "\r\nESC and CR to resume" );
+  _fgWhite();
+  while( Serial.read() != 0x1b );
+}
+char lastChar = 0;
 uint8_t getLine(char* ptr, uint8_t buffSize) {
   char inChar;
   uint8_t count = 0;
-
+  _fgGreen();
   // if (fileClosed) { Serial.println("Indeed, fileClosed is TRUE"); }
 
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
@@ -241,7 +250,7 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
         #endif // 15 Jan 2018
 
     // inChar is now populated; either by keypress or by byte stored in SPI flash.
-
+    if (inChar == ASCII_NL && lastChar == ASCII_CR) continue;
     if (inChar == ASCII_BS || inChar == ASCII_DEL) {  // new: was only ASCII_BS
        if (count) {
          *--ptr = 0;
@@ -347,6 +356,8 @@ if (silentReading) {
       count++;
     }
   } while (count < buffSize);
+  _fgWhite();
+  lastChar = inChar;
   return (count);
 }
 

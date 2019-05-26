@@ -15,6 +15,10 @@ extern cell_t* pDoes;
 extern cell_t dStack_top(void);
 extern void dStack_top(cell_t);
 extern char cInputBuffer[BUFFER_SIZE]; // Input Buffer that gets parsed
+extern void _bgBlue();
+extern void _bgBlack();
+extern void _fgRed();
+extern void _fgWhite();
 // extern char cTokenBuffer[WORD_SIZE];  // Stores Single Parsed token to be acted on
 
 #if defined(INCL_NOP_WORD) || defined(XDICT)
@@ -127,3 +131,14 @@ extern void _plus_loop(void);		//samsuanchen@gmail.com 20190521
 extern void _slash_mod(void);		//samsuanchen@gmail.com 20190521
 extern void _zero_less(void);		//samsuanchen@gmail.com 20190521
 extern void _to_body(void);			//samsuanchen@gmail.com 20190521
+
+extern void _zero_not_equal(void);	//samsuanchen@gmail.com 20190525
+extern void _zero_greater(void);	//samsuanchen@gmail.com 20190525
+extern void _two_to_r(void);		//samsuanchen@gmail.com 20190525
+extern void _two_r_from(void);		//samsuanchen@gmail.com 20190525
+extern void _two_r_fetch(void);		//samsuanchen@gmail.com 20190525
+extern void _neq(void);				//samsuanchen@gmail.com 20190525
+extern void _case(void);			//samsuanchen@gmail.com 20190525
+extern void _of(void);				//samsuanchen@gmail.com 20190525
+extern void _endof(void);			//samsuanchen@gmail.com 20190525
+extern void _endcase(void);			//samsuanchen@gmail.com 20190525
