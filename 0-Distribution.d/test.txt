@@ -1,0 +1,146 @@
+\ samsuanchen@gmail.com 20190523 13:50
+\
+\ A. save this script to flash
+\ A.1. connect samD51 to PC
+\ A.1.1. open Arduino IDE
+\ A.1.2. select Tools/Board/Adafruit ItsyBitsy M4 (samD51)
+\ A.1.3. select Tools/Port
+\ A.1.4. select Sketch/Upload
+\ A.2. open Tera Term VT
+\ A.2.1. select Setup/Serial Port/ Port:
+\ A.2.2. select Setup/Serial Port/ Baud rate:
+\ A.2.3. select Setup/Serial Port/ OK
+\ A.3. enter ": x eflmkdir ; x"
+\ A.4. enter "download"
+\ A.5. paste this script
+\ A.6. enter "\end."
+\
+\ B. append another script to flash
+\ B.1. enter "download"
+\ B.2. paste another script
+\ B.3. enter "\end."
+\
+\ C. erase this script in flash
+\ C.1. enter "remove"
+xxx
+decimal
+: .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if spaces
+  else drop
+  then type ;
+: .0r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if 0
+    do 48 emit
+    loop
+  else drop
+  then type ;
+: t \ ( -- ) show 9 * 9 table
+  10 1 do cr 10 1 do i j * 3 .r loop loop ;
+ 13 constant led
+ 14 constant buzzer
+  9 constant BR \ red button right
+ 10 constant BD \ yellow button down
+ 11 constant BL \ green button left
+ 12 constant BU \ blue button up
+: O \ ( pin -- ) set pinMode as OUTPUT
+  1 swap pinMode ;
+ led O buzzer O
+: I \ ( pin -- ) set pinMode as INPUT
+  2 swap pinMode ;
+ BR I BD I BL I BU I
+: H \ ( pin -- ) set pinLevel as HIGH
+  1 swap pinWrite ;
+: L \ ( pin -- ) set pinLevel as LOW
+  0 swap pinWrite ;
+: T \ ( pin -- ) toggle pinLevel
+  1 over pinRead - swap pinWrite ;
+: X \ ( n pin -- ) n times toggle pinLevel
+  swap over O 0 do dup T 500 delay loop drop ;
+ 4 led X
+: y \ ( n -- ) check if n is zero
+  if ." non-zero" else ." zero" then ;
+: z \ ( n -- ) check if n is zero
+  if ." non-" then ." zero" ;
+: countRomWords ( -- n ) 0
+  begin 1+ dup romEntry @ 0=
+  until ;
+: romWords \ ( -- ) show all words defined in rom
+  countRomWords
+  begin dup
+  while dup .name space 1-
+  repeat drop ;
+: immediate? ( flag -- ) $80 and ;
+: compile-only? ( flag -- ) $40 and ;
+: smudge? ( flag -- ) $20 and ;
+: entry>link ( ramWordEntry -- lfa ) ;
+: entry>cfa ( ramWordEntry -- cfa ) cell+ @ ;
+: countRamWords ( -- n ) 0 ramLast
+  begin dup
+  while swap 1+ swap entry>link @
+  repeat drop ;
+: ramWords \ ( -- ) show all ram wordnames (in decreasing order)
+  ramLast
+  begin dup
+  while dup entry>cfa .name space entry>link @
+  repeat drop ;
+: allWords \ ( -- ) show all wordnames (in decreasing order)
+  cr ramWords romWords ; \ words
+: w. ( i -- ) base @ >r decimal ." W" 3 .0r space r> base ! ;
+: seeRamWords \ ( -- ) see all ram words (in decreasing order)
+  countRomWords countRamWords + ramLast
+  begin dup
+  while swap dup w. 1- swap dup entry>cfa (see) entry>link @
+  repeat 2drop ;
+: seeRomWords \ ( -- ) see all rom words (in decreasing order)
+  countRomWords
+  begin dup
+  while dup w. dup (see) 1-
+  repeat drop ;
+: seeAll \ ( -- ) see all words (in decreasing order)
+  cr seeRamWords seeRomWords ; \ seeAllremove
+: ww \ ( -- ) show all wordnames (in ascending order)
+  cr
+  \ for each rom words
+  0
+  begin 1+ ( iRomWord+1 ) dup romEntry @
+  while ( iRomWord+1 ) dup w. dup .name space
+  repeat ( nRomWords )
+  \ for each ram words
+  ramFirst
+  begin ( iWord ramEntry ) ?dup
+  while over w. dup entry>cfa .name space
+    swap 1+ swap nextRamEntry
+  repeat ( nWords ) drop ; \ www
+: ss \ ( -- ) see all words (in ascending order)
+  cr
+  \ for each rom words
+  0
+  begin 1+ ( iRomWord+1 ) dup romEntry @
+  while ( iRomWord+1 ) dup w. dup (see)
+  repeat ( nRomWords )
+  \ for each ram words
+  ramFirst
+  begin ( iWord ramEntry ) ?dup
+  while over w. dup entry>cfa (see)
+    swap 1+ swap nextRamEntry
+  repeat ( nWords ) drop ; \ ss
+: tst 48 0
+  do i 12 mod 0=
+   if cr
+   then 250 i cells freq + @ dup 4 .0r space
+   14 tone 275 delay
+  loop ; \ tst
+: printableChars base @ hex $7f $21 cr
+  do i 2 .0r space i emit space i $f and 0=
+    if cr
+	then
+  loop base ! ; printableChars
+variable keyNote
+: keyNote: create 1 allot , does> r> r> drop cell+ @ keyNote ! ;
+220 keyNote: A
+see keyNote
+see keyNote:
+see A
+A
+see keyNote
+\end.
