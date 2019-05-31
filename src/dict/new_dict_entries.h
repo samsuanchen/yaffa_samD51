@@ -65,6 +65,7 @@ extern void _psee(void);			//samsuanchen@gmail.com 20190502
 extern void _see(void);				//samsuanchen@gmail.com 20190502
 
 extern char* pPNO;					//samsuanchen@gmail.com 20190510
+extern void _comma();				//samsuanchen@gmail.com 20190510
 extern void _two_drop();			//samsuanchen@gmail.com 20190510
 extern void _base(void);			//samsuanchen@gmail.com 20190510
 extern void _hold(void);			//samsuanchen@gmail.com 20190510

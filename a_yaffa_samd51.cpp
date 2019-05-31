@@ -1,114 +1,18 @@
+// a_yaffa_samd51.cpp samsuanchen@gmail.com 20190601
+// "a_" is good for loading first
+
 // Sun Nov  4 01:50:28 UTC 2018
 // 4737-a3c-00d- // ainsuForth-gen-exp-m4
 // On branch testing-gg-
 
-// previous:
-// Tue Aug 28 18:10:58 UTC 2018
-// 4737-a3c-00c- // ainsuForth-gen-exp-m4
-// On branch testing-ff-
-
-// Tue Aug 28 17:11:45 UTC 2018
-// On branch testing-ee
-
-// Wed Aug 22 03:12:41 UTC 2018
-// 4737-a3c-00a- // ainsuForth-gen-exp-m4
-
-// Thu 12 Jul 06:31:01 UTC 2018
-// 4737-a3b-019- // ainsuForth-gen-exp-m4
-
-// Fri 22 Jun 21:16:52 UTC 2018
-// 4737-a3b-007-
-
-// Fri 22 Jun 18:03:52 UTC 2018
-// 4737-a3b-005-
-
-// Thu 21 Jun 22:17:21 UTC 2018
-// 4737-a3b-001-  +dict_comments_only.cpp file
-
-// Mon 18 Jun 21:39:23 UTC 2018
-// 4737-a3a-0f5-
-
-// Mon 18 Jun 06:10:28 UTC 2018
-// 4737-a3a-0f2-
-
-// Sun 17 Jun 22:09:15 UTC 2018
-// 4737-a3a-0e0-
-
-//  notice updated +eflmkdir
-
-// Tue 12 Jun 23:47:23 UTC 2018
-// 4737-a3a-09b-
-
-// Tue 12 Jun 20:55:50 UTC 2018
-// 4737-a3a-09a-
-
-// previous timestamps:
-// Wed 23 May 19:37:12 UTC 2018
-// 4737-a3a-05s-
-
-// Mon 14 May 22:46:36 UTC 2018
-// 4737-a3a-05e-
-
-// Sun 13 May 06:53:54 UTC 2018
-// 4737-a3a-03f-
-
-// Wed Jan 31 00:27:18 UTC 2018
-// 4737-a0e-01a-
-
-// Tue Jan 16 02:30:09 UTC 2018
-// 4737-a0d-05j-
-
-// Mon Jan 15 19:19:47 UTC 2018
-// 4737-a0d-05d-
-
-// Large reorg of conditional compilation.  No comment is reliable at the moment. - 15 Jan 2018
-
-// SPI_FLASH_DEMO defines verified.  Can run the program with uninitialized SPI flashROM.
-// _count() fix  (was earlier: _dot_paren() fix that wasn't broken, after all).
-
-// Sat Dec 16 01:24:37 UTC 2017
-// 4737-a0a-00a-
-
-// Sun Dec 10 22:48:03 UTC 2017
-// 4735-b0d-00b-   the -00x- is new Dec 10, 2017.
-
-// Fri Nov 24 04:49:08 UTC 2017
-// 4735-b0c-07z-   the -07x- is new Nov 19, 2017.
-
-// Sun Aug  6 20:09:53 UTC 2017
-// 4735-b0f-03-
-
-// compatibility.h now controls this toggle for HAS_DOTSTAR_LIB:
-// poor practice -- hard coded the answer:
-// #ifdef HAS_DOTSTAR_LIB
-// #ifndef HAS_DOTSTAR_LIB
-// #define HAS_DOTSTAR_LIB
-// #undef HAS_DOTSTAR_LIB
-// #endif
-
-
-// 2017 FAT filesystem for M0 Express series boards.
-// Found commented-out in May 2018.
-// FAT fileystem:
-// #include "src/periph/fatfs.h"
-// #include "src/kernel/getkey.h"
-
-
 #include "src/kernel/getline.h"
-
-
-//#ifdef HAS_DOTSTAR_LIB
-//#include "src/periph/dotstar.h"
-//#endif
-
 #include <Arduino.h>
 #include "yaffa.h"
-#include "ainsuForthsketch.h"
+#include "yaffa_samd51.h"
 //#include "src/periph/neo_pixel.h"
 #include "src/dict/cblink.h"
-#include "Error_Codes.h"
+#include "error_codes.h"
 
-// #ifdef HAS_FOUR_H
 #ifdef HAS_QSPI_FLASHROM_LIB
   #include "src/periph/qspi/flashrom.h"
 #endif // #ifdef HAS_QSPI_FLASHROM_LIB
@@ -133,10 +37,8 @@ asm(" .section .version\n"
 /** Common Strings & Terminal Constants                                      **/
 /******************************************************************************/
 const char prompt_str[] = "";                // const char prompt_str[] = ">> ";
-const char compile_prompt_str[] = " compiled\r\n"; // ainsu: gforthism.
+const char compile_prompt_str[] = "\r\n"; // ainsu: gforthism.
                                              // const char compile_prompt_str[] = "|  ";
-const char ok_str[] = " ok"; //  = " OK";
-
 // const char sp_str[] = " ";
 // const char tab_str[] = "\t";
 // const char hexidecimal_str[] = "$";
@@ -288,7 +190,7 @@ void setup(void) {
     blink_m();
   }
   tone(A0, 440, 1000), delay(250), tone(A0, 330, 1000); //noTone(A0);
-  extern void _fgYellow(void), _bgBlack(void);
+  extern void _fgYellow(void), _bgBlack(void), _bgBrightYellow(void);
   _fgYellow(), _bgBlack();
   Serial.print("\r\n Serial.begin(115200) buzzer pin A0 = "), Serial.println(A0);
 
@@ -370,7 +272,7 @@ void compilePrompt(void) {
     int waiting = 0;
     waiting = Serial.available();
     if (waiting < 3) { // light traffic - there is slack enough to allow verbose output
-	Serial.print(compile_prompt_str);
+      Serial.print(compile_prompt_str);
     } else {
         if (waiting < 20) { // moderate traffic
 	    Serial.print("ul \r\n"); // let user know that player-piano code upload speeds were noticed
@@ -385,6 +287,9 @@ void compilePrompt(void) {
 /******************************************************************************/
 /** Outer interpreter                                                        **/
 /******************************************************************************/
+void _ok() {
+  Serial.print(" "); _fgBrightYellow(); Serial.print("OK"); _fgBlack(); Serial.println();
+}
 void loop(void) { blink();
     cpSource = cpToIn = cInputBuffer;
 // -------------------------------------------------------------
@@ -409,7 +314,7 @@ void loop(void) { blink();
                 if (noInterpreter) int fake_intptrTwo = 0;
                 else {
 // was good but not quite enough to suppress CR/LF echo during a 'load' op:
-                  if (!silentReading) Serial.print(ok_str);
+                  if (!silentReading) _ok();
                 }
                 // This shows a DOT for each item on the data stack
                 char n = dStack_size(); while(n--) Serial.print(".");
@@ -423,7 +328,7 @@ void loop(void) { blink();
                 Serial.print("\r\n"); // just echo the CR/LF here
         } else {
 	        if (silentReading) int fake_SRT = 0;
-	        else if (! state) Serial.println(ok_str); // Leo Brodie 'Starting Forth' expects an ok here
+	        else if (! state) _ok(); // Leo Brodie 'Starting Forth' expects an ok here
         }
     } // replace these four lines with a single closing curly brace
       // to restore YAFFA behavior.
@@ -432,7 +337,7 @@ void loop(void) { blink();
         if (silentReading && spiFlashReading) {
             int siRea = 0;
         } else {
-        // compilePrompt();
+          compilePrompt();
         }
     } else { // check what was here an hour ago -- don't remember if any flags were here.
         // if (silentReading && spiFlashReading) {

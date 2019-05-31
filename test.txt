@@ -1,4 +1,5 @@
-\ samsuanchen@gmail.com 20190523 13:50
+\ yaffa on adafruit samd51 itsybitsy m4 -- samsuanchen@gmail.com 201906201
+\ https://learn.adafruit.com/introducing-adafruit-itsybitsy-m4/setup
 \
 \ A. save this script to flash
 \ A.1. connect samD51 to PC

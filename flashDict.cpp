@@ -47,30 +47,14 @@
 #include <Arduino.h>
 #include "yaffa.h"
 #include "flashDict.h"
-#include "Dictionary.h"
-#include "Error_Codes.h"
+#include "dictionary.h"
+#include "error_codes.h"
 #include "src/dict/new_dict_entries.h" // #include "src/dict/dict_entries.h" // 21 June 2018
 
 
 /*********************************************************************************/
 /**   'static void _foo(void)'  -- conflicts with 'extern void'                 **/
 /*********************************************************************************/
-const char comma_str[] = ",";
-// ( x --  )
-// Reserve one cell of data space and store x in the cell. If the data-space
-// pointer is aligned when , begins execution, it will remain aligned when ,
-// finishes execution. An ambiguous condition exists if the data-space pointer
-// is not aligned prior to execution of ,.
-static void _comma(void) {
-  *pHere++ = dStack_pop();
-}
-
-const char two_drop_str[] = "2drop";
-// ( x1 x2 -- )
-void _two_drop(void) { // samsuanchen@gmail.com 20190510
-  dStack_pop();
-  dStack_pop();
-}
 
 
 /*********************************************************************************/

@@ -1,0 +1,623 @@
+"C:\Program Files (x86)\Arduino\arduino-builder.exe" -dump-prefs -logger=machine -hardware C:\Program Files (x86)\Arduino\hardware -hardware "C:\Users\samsuanchen\AppData\Local\Arduino15\packages" -hardware "C:\Users\samsuanchen\Documents\Arduino\hardware" -tools "C:\Program Files (x86)\Arduino\tools-builder" -tools "C:\Program Files (x86)\Arduino\hardware\tools\avr" -tools "C:\Users\samsuanchen\AppData\Local\Arduino15\packages" -built-in-libraries "C:\Program Files (x86)\Arduino\libraries" -libraries "C:\Users\samsuanchen\Documents\Arduino\libraries" -fqbn=adafruit:samd:adafruit_itsybitsy_m4:cache=on -ide-version=10805 -build-path "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404" -warnings=none -build-cache "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_cache_259640" -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.openocd.path="C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino" -prefs=runtime.tools.CMSIS-Atmel.path="C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0" -prefs=runtime.tools.CMSIS.path="C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0" -prefs=runtime.tools.arm-none-eabi-gcc.path="C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1" -prefs=runtime.tools.bossac.path="C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -verbose" "C:\Users\samsuanchen\Documents\Arduino\yaffa_samD51\ainsuForthsketch.cpp"
+
+"C:\Program Files (x86)\Arduino\arduino-builder.exe"
+-compile -logger=machine -hardware "C:\Program Files (x86)\Arduino\hardware" -hardware "C:\Users\samsuanchen\AppData\Local\Arduino15\packages" -hardware "C:\Users\samsuanchen\Documents\Arduino\hardware" -tools "C:\Program Files (x86)\Arduino\tools-builder" -tools "C:\Program Files (x86)\Arduino\hardware\tools\avr" -tools "C:\Users\samsuanchen\AppData\Local\Arduino15\packages" -built-in-libraries "C:\Program Files (x86)\Arduino\libraries" -libraries "C:\Users\samsuanchen\Documents\Arduino\libraries" -fqbn=adafruit:samd:adafruit_itsybitsy_m4:cache=on -ide-version=10805 -build-path "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404" -warnings=none -build-cache "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_cache_259640" -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.openocd.path=C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino -prefs=runtime.tools.CMSIS-Atmel.path=C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0 -prefs=runtime.tools.CMSIS.path=C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0 -prefs=runtime.tools.arm-none-eabi-gcc.path=C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1 -prefs=runtime.tools.bossac.path=C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -verbose "C:\Users\samsuanchen\Documents\Arduino\yaffa_samD51\ainsuForthsketch.cpp"
+
+Using board 'adafruit_itsybitsy_m4' from platform in folder: C:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0
+Using core 'arduino' from platform in folder: C:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0
+Detecting libraries used...
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1/bin/arm-none-eabi-g++.exe" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions  -w -x c++ -E -CC -DF_CPU=120000000L -DARDUINO=10805 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD  -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON ¡B"-DUSB_MANUFACTURER=Adafruit LLC ¡B"-DUSB_PRODUCT=Adafruit ItsyBitsy M4 -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0/CMSIS/Include/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0/CMSIS/Device/ATMEL/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\cores\arduino" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\ainsuForthsketch.cpp.cpp" -o "nul"
+
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\flashDict.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\accept.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\allot.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\cblink.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\char.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\colon_semi.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\constant.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dict_comments_only.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\do_loop.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dump.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\help.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\iasmd.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\if_else_then.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\max_min.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\new_dict_entries.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\stack_ops.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\store_fetch.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\xttoname.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dl_interpreter.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\do_sys.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dot_quote.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\download.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\drop.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\entry.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\eq.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\execute_word.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\exit.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m0_exp.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m4_exp.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\gettoken.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\interpreter.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_dl_word_number.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_word_number.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\jump.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\leave_sys.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\literal.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\load.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\loop_sys.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\over.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\plus_loop_sys.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\quit.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\remove.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\s_quote.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\signon.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\stacks.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\strings.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\subroutine.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\target_sensed.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\throw.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\type.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\variable.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\warm.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\zjump.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\dotstar.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\neo_pixel.cpp
+Using cached library dependencies for file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\qspi\flashrom.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash_FatFs.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\ccsbcs.c
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\ff.c
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\flashdisk.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\libraries\SPI\SPI.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_GD25Q.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_Generic.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_S25FL1.cpp
+Using cached library dependencies for file: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp
+Generating function prototypes...
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1/bin/arm-none-eabi-g++.exe" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions  -w -x c++ -E -CC -DF_CPU=120000000L -DARDUINO=10805 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD  -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON "-DUSB_MANUFACTURER=Adafruit LLC" "-DUSB_PRODUCT=Adafruit ItsyBitsy M4" -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0/CMSIS/Include/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0/CMSIS/Device/ATMEL/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\cores\arduino" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\libraries\SPI" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_DotStar"  "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\ainsuForthsketch.cpp.cpp" -o "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\preproc\ctags_target_for_gcc_minus_e.cpp"
+
+"C:\Program Files (x86)\Arduino\tools-builder\ctags\5.8-arduino11/ctags,exe" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns --line-directives "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\preproc\ctags_target_for_gcc_minus_e.cpp"
+
+Compiling sketch...
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1/bin/arm-none-eabi-g++.exe" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD -DF_CPU=120000000L -DARDUINO=10805 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD  -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON "-DUSB_MANUFACTURER=Adafruit LLC" "-DUSB_PRODUCT=Adafruit ItsyBitsy M4" -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0/CMSIS/Include/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0/CMSIS/Device/ATMEL/" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\cores\arduino" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash" "-IC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\libraries\SPI" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI" "-IC:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_DotStar"  "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\ainsuForthsketch.cpp.cpp" -o "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\ainsuForthsketch.cpp.cpp.o"
+
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\flashDict.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\accept.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\allot.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\cblink.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\char.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\colon_semi.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\constant.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dict_comments_only.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\do_loop.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dump.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\help.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\iasmd.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\if_else_then.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\max_min.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\new_dict_entries.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\stack_ops.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\store_fetch.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\xttoname.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dl_interpreter.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\do_sys.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dot_quote.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\download.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\drop.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\entry.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\eq.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\execute_word.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\exit.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m0_exp.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m4_exp.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\gettoken.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\interpreter.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_dl_word_number.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_word_number.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\jump.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\leave_sys.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\literal.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\load.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\loop_sys.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\over.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\plus_loop_sys.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\quit.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\remove.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\s_quote.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\signon.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\stacks.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\strings.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\subroutine.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\target_sensed.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\throw.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\type.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\variable.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\warm.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\zjump.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\dotstar.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\neo_pixel.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\qspi\flashrom.cpp.o
+
+Compiling libraries...
+Compiling library "Adafruit_SPIFlash"
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash_FatFs.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\ccsbcs.c.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\ff.c.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\flashdisk.cpp.o
+Compiling library "SPI"
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\SPI\SPI.cpp.o
+Compiling library "Adafruit_QSPI"
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_GD25Q.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_Generic.cpp.o
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_S25FL1.cpp.o
+Compiling library "Adafruit_DotStar"
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp.o
+Compiling core...
+Using previously compiled file: C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\core\variant.cpp.o
+Using precompiled core
+Linking everything together...
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1/bin/arm-none-eabi-gcc.exe"  "-LC:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404" -Os -Wl,--gc-sections -save-temps  "-TC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4/linker_scripts/gcc/flash_with_bootloader.ld" "-Wl,-Map,C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/ainsuForthsketch.cpp.map" --specs=nano.specs --specs=nosys.specs -mcpu=cortex-m4 -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -o "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/ainsuForthsketch.cpp.elf" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\ainsuForthsketch.cpp.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\flashDict.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\accept.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\allot.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\cblink.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\char.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\colon_semi.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\constant.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dict_comments_only.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\do_loop.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\dump.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\help.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\iasmd.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\if_else_then.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\max_min.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\new_dict_entries.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\stack_ops.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\store_fetch.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\dict\xttoname.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dl_interpreter.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\do_sys.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\dot_quote.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\download.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\drop.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\entry.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\eq.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\execute_word.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\exit.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m0_exp.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\getline_m4_exp.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\gettoken.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\interpreter.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_dl_word_number.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\is_word_number.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\jump.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\leave_sys.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\literal.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\load.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\loop_sys.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\over.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\plus_loop_sys.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\quit.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\remove.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\s_quote.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\signon.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\stacks.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\strings.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\subroutine.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\target_sensed.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\throw.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\type.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\variable.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\warm.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\kernel\zjump.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\dotstar.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\neo_pixel.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\sketch\src\periph\qspi\flashrom.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash_FatFs.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\ccsbcs.c.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\ff.c.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_SPIFlash\utility\flashdisk.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\SPI\SPI.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_GD25Q.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_Generic.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_QSPI\Adafruit_QSPI_S25FL1.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp.o" "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404\core\variant.cpp.o" -Wl,--start-group "-LC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4" -larm_cortexM4lf_math -mfloat-abi=hard -mfpu=fpv4-sp-d16 "-LC:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\variants\itsybitsy_m4" -lm "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/..\arduino_cache_259640\core\core_adafruit_samd_adafruit_itsybitsy_m4_cache_on_939e8da9218fd46e81eaaf2ac80d5725.a" -Wl,--end-group
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1/bin/arm-none-eabi-objcopy.exe" -O binary  "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/ainsuForthsketch.cpp.elf"  "C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/ainsuForthsketch.cpp.bin"
+
+Using library Adafruit_SPIFlash at version 1.2.0 in folder: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_SPIFlash 
+Using library SPI at version 1.0 in folder: C:\Users\samsuanchen\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.3.0\libraries\SPI 
+Using library Adafruit_QSPI at version 1.0.6 in folder: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_QSPI 
+Using library Adafruit_DotStar at version 1.0.4 in folder: C:\Users\samsuanchen\Documents\Arduino\libraries\Adafruit_DotStar 
+
+Sketch uses 48940 bytes (9%) of program storage space. Maximum is 507904 bytes.
+Forcing reset using 1200bps open/close on port COM10
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+PORTS {COM10, } / {COM10, } => {}
+Uploading using selected port: COM10
+
+"C:\Users\samsuanchen\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee/bossac.exe" -i -d --port=COM10 -U -i --offset=0x4000 -w -v C:\Users\SAMSUA~1\AppData\Local\Temp\arduino_build_880404/ainsuForthsketch.cpp.bin -R
+
+Set binary mode
+version()=v1.1 [Arduino:XYZ] May 10 2019 21:13:37
+Connected at 921600 baud
+readWord(addr=0)=0x20012ab0
+readWord(addr=0xe000ed00)=0x410fc241
+readWord(addr=0x4)=0x58d
+readWord(addr=0x41002018)=0x60060007
+write(addr=0x20004000,size=0x34)
+writeWord(addr=0x20004030,value=0x80)
+writeWord(addr=0x20004020,value=0x20008000)
+version()=v1.1 [Arduino:XYZ] May 10 2019 21:13:37
+readByte(addr=0x804000)=0x39
+readByte(addr=0x804001)=0x92
+readByte(addr=0x804008)=0xff
+readByte(addr=0x804009)=0xff
+readByte(addr=0x80400a)=0xff
+readByte(addr=0x80400b)=0xff
+Device       : ATSAMD51x19
+Version      : v1.1 [Arduino:XYZ] May 10 2019 21:13:37
+Address      : 0x0
+Pages        : 1024
+Page Size    : 512 bytes
+Total Size   : 512KB
+Planes       : 1
+Lock Regions : 32
+Locked       : none
+Security     : false
+BOD          : false
+BOR          : true
+Write 49524 bytes to flash (97 pages)
+
+[                              ] 0% (0/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0x4000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0x4000, size=0x1000)
+
+[==                            ] 8% (8/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0x5000, size=0x1000)
+
+[====                          ] 16% (16/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0x6000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0x6000, size=0x1000)
+
+[=======                       ] 24% (24/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0x7000, size=0x1000)
+
+[=========                     ] 32% (32/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0x8000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0x8000, size=0x1000)
+
+[============                  ] 41% (40/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0x9000, size=0x1000)
+
+[==============                ] 49% (48/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0xa000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0xa000, size=0x1000)
+
+[=================             ] 57% (56/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0xb000, size=0x1000)
+
+[===================           ] 65% (64/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0xc000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0xc000, size=0x1000)
+
+[======================        ] 74% (72/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0xd000, size=0x1000)
+
+[========================      ] 82% (80/97 pages)write(addr=0x20004034,size=0x1000)
+writeWord(addr=0x41004014,value=0xe000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0xe000, size=0x1000)
+
+[===========================   ] 90% (88/97 pages)write(addr=0x20004034,size=0x1000)
+writeBuffer(scr_addr=0x20004034, dst_addr=0xf000, size=0x1000)
+
+[============================= ] 98% (96/97 pages)write(addr=0x20004034,size=0x200)
+writeWord(addr=0x41004014,value=0x10000)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+writeWord(addr=0x41004004,value=0xa501)
+readByte(addr=0x41004012)=0x11
+readByte(addr=0x41004013)=0xd
+readByte(addr=0x41004010)=0x1
+readByte(addr=0x41004011)=0
+writeBuffer(scr_addr=0x20004034, dst_addr=0x10000, size=0x200)
+
+[==============================] 100% (97/97 pages)
+Done in 0.610 seconds
+Verify 49524 bytes of flash
+checksumBuffer(start_addr=0x4000, size=0x200) = 9662
+checksumBuffer(start_addr=0x4200, size=0x200) = c4e4
+read(addr=0x4200,size=0x200)
+checksumBuffer(start_addr=0x4400, size=0x200) = 26d3
+read(addr=0x4400,size=0x200)
+checksumBuffer(start_addr=0x4600, size=0x200) = ddfb
+read(addr=0x4600,size=0x200)
+
+[=                             ] 4% (4/97 pages)checksumBuffer(start_addr=0x4800, size=0x200) = 199e
+read(addr=0x4800,size=0x200)
+
+[=                             ] 5% (5/97 pages)checksumBuffer(start_addr=0x4a00, size=0x200) = 9719
+read(addr=0x4a00,size=0x200)
+
+[=                             ] 6% (6/97 pages)checksumBuffer(start_addr=0x4c00, size=0x200) = 43e9
+read(addr=0x4c00,size=0x200)
+
+[==                            ] 7% (7/97 pages)checksumBuffer(start_addr=0x4e00, size=0x200) = 30b
+read(addr=0x4e00,size=0x200)
+
+[==                            ] 8% (8/97 pages)checksumBuffer(start_addr=0x5000, size=0x200) = e670
+read(addr=0x5000,size=0x200)
+
+[==                            ] 9% (9/97 pages)checksumBuffer(start_addr=0x5200, size=0x200) = 416c
+read(addr=0x5200,size=0x200)
+
+[===                           ] 10% (10/97 pages)checksumBuffer(start_addr=0x5400, size=0x200) = 82c7
+read(addr=0x5400,size=0x200)
+
+[===                           ] 11% (11/97 pages)checksumBuffer(start_addr=0x5600, size=0x200) = 5b62
+read(addr=0x5600,size=0x200)
+
+[===                           ] 12% (12/97 pages)checksumBuffer(start_addr=0x5800, size=0x200) = f6fa
+read(addr=0x5800,size=0x200)
+
+[====                          ] 13% (13/97 pages)checksumBuffer(start_addr=0x5a00, size=0x200) = 4790
+read(addr=0x5a00,size=0x200)
+
+[====                          ] 14% (14/97 pages)checksumBuffer(start_addr=0x5c00, size=0x200) = a78
+read(addr=0x5c00,size=0x200)
+
+[====                          ] 15% (15/97 pages)checksumBuffer(start_addr=0x5e00, size=0x200) = c8b8
+read(addr=0x5e00,size=0x200)
+
+[====                          ] 16% (16/97 pages)checksumBuffer(start_addr=0x6000, size=0x200) = 5045
+read(addr=0x6000,size=0x200)
+
+[=====                         ] 17% (17/97 pages)checksumBuffer(start_addr=0x6200, size=0x200) = 13d6
+read(addr=0x6200,size=0x200)
+
+[=====                         ] 18% (18/97 pages)checksumBuffer(start_addr=0x6400, size=0x200) = a21e
+read(addr=0x6400,size=0x200)
+
+[=====                         ] 19% (19/97 pages)checksumBuffer(start_addr=0x6600, size=0x200) = 69a5
+read(addr=0x6600,size=0x200)
+
+[======                        ] 20% (20/97 pages)checksumBuffer(start_addr=0x6800, size=0x200) = 5170
+read(addr=0x6800,size=0x200)
+
+[======                        ] 21% (21/97 pages)checksumBuffer(start_addr=0x6a00, size=0x200) = c1d6
+read(addr=0x6a00,size=0x200)
+
+[======                        ] 22% (22/97 pages)checksumBuffer(start_addr=0x6c00, size=0x200) = d2fe
+read(addr=0x6c00,size=0x200)
+
+[=======                       ] 23% (23/97 pages)checksumBuffer(start_addr=0x6e00, size=0x200) = d25f
+read(addr=0x6e00,size=0x200)
+
+[=======                       ] 24% (24/97 pages)checksumBuffer(start_addr=0x7000, size=0x200) = fd87
+read(addr=0x7000,size=0x200)
+
+[=======                       ] 25% (25/97 pages)checksumBuffer(start_addr=0x7200, size=0x200) = 4516
+read(addr=0x7200,size=0x200)
+
+[========                      ] 26% (26/97 pages)checksumBuffer(start_addr=0x7400, size=0x200) = 8442
+read(addr=0x7400,size=0x200)
+
+[========                      ] 27% (27/97 pages)checksumBuffer(start_addr=0x7600, size=0x200) = 7356
+read(addr=0x7600,size=0x200)
+
+[========                      ] 28% (28/97 pages)checksumBuffer(start_addr=0x7800, size=0x200) = 3752
+read(addr=0x7800,size=0x200)
+
+[========                      ] 29% (29/97 pages)checksumBuffer(start_addr=0x7a00, size=0x200) = 5439
+read(addr=0x7a00,size=0x200)
+
+[=========                     ] 30% (30/97 pages)checksumBuffer(start_addr=0x7c00, size=0x200) = 80f3
+read(addr=0x7c00,size=0x200)
+
+[=========                     ] 31% (31/97 pages)checksumBuffer(start_addr=0x7e00, size=0x200) = b27f
+read(addr=0x7e00,size=0x200)
+
+[=========                     ] 32% (32/97 pages)checksumBuffer(start_addr=0x8000, size=0x200) = bba7
+read(addr=0x8000,size=0x200)
+
+[==========                    ] 34% (33/97 pages)checksumBuffer(start_addr=0x8200, size=0x200) = 47ff
+read(addr=0x8200,size=0x200)
+
+[==========                    ] 35% (34/97 pages)checksumBuffer(start_addr=0x8400, size=0x200) = b73a
+read(addr=0x8400,size=0x200)
+
+[==========                    ] 36% (35/97 pages)checksumBuffer(start_addr=0x8600, size=0x200) = b120
+read(addr=0x8600,size=0x200)
+
+[===========                   ] 37% (36/97 pages)checksumBuffer(start_addr=0x8800, size=0x200) = 95c1
+read(addr=0x8800,size=0x200)
+
+[===========                   ] 38% (37/97 pages)checksumBuffer(start_addr=0x8a00, size=0x200) = 8613
+read(addr=0x8a00,size=0x200)
+
+[===========                   ] 39% (38/97 pages)checksumBuffer(start_addr=0x8c00, size=0x200) = d99
+read(addr=0x8c00,size=0x200)
+
+[============                  ] 40% (39/97 pages)checksumBuffer(start_addr=0x8e00, size=0x200) = d875
+read(addr=0x8e00,size=0x200)
+
+[============                  ] 41% (40/97 pages)checksumBuffer(start_addr=0x9000, size=0x200) = daaa
+read(addr=0x9000,size=0x200)
+
+[============                  ] 42% (41/97 pages)checksumBuffer(start_addr=0x9200, size=0x200) = 703b
+read(addr=0x9200,size=0x200)
+
+[============                  ] 43% (42/97 pages)checksumBuffer(start_addr=0x9400, size=0x200) = 3f1a
+read(addr=0x9400,size=0x200)
+
+[=============                 ] 44% (43/97 pages)checksumBuffer(start_addr=0x9600, size=0x200) = bf72
+read(addr=0x9600,size=0x200)
+
+[=============                 ] 45% (44/97 pages)checksumBuffer(start_addr=0x9800, size=0x200) = 1f95
+read(addr=0x9800,size=0x200)
+
+[=============                 ] 46% (45/97 pages)checksumBuffer(start_addr=0x9a00, size=0x200) = 765
+read(addr=0x9a00,size=0x200)
+
+[==============                ] 47% (46/97 pages)checksumBuffer(start_addr=0x9c00, size=0x200) = bef
+read(addr=0x9c00,size=0x200)
+
+[==============                ] 48% (47/97 pages)checksumBuffer(start_addr=0x9e00, size=0x200) = 9bb1
+read(addr=0x9e00,size=0x200)
+
+[==============                ] 49% (48/97 pages)checksumBuffer(start_addr=0xa000, size=0x200) = e730
+read(addr=0xa000,size=0x200)
+
+[===============               ] 50% (49/97 pages)checksumBuffer(start_addr=0xa200, size=0x200) = 7f4c
+read(addr=0xa200,size=0x200)
+
+[===============               ] 51% (50/97 pages)checksumBuffer(start_addr=0xa400, size=0x200) = 2a22
+read(addr=0xa400,size=0x200)
+
+[===============               ] 52% (51/97 pages)checksumBuffer(start_addr=0xa600, size=0x200) = f0ef
+read(addr=0xa600,size=0x200)
+
+[================              ] 53% (52/97 pages)checksumBuffer(start_addr=0xa800, size=0x200) = c082
+read(addr=0xa800,size=0x200)
+
+[================              ] 54% (53/97 pages)checksumBuffer(start_addr=0xaa00, size=0x200) = 20b6
+read(addr=0xaa00,size=0x200)
+
+[================              ] 55% (54/97 pages)checksumBuffer(start_addr=0xac00, size=0x200) = 1c57
+read(addr=0xac00,size=0x200)
+
+[=================             ] 56% (55/97 pages)checksumBuffer(start_addr=0xae00, size=0x200) = 4cc8
+read(addr=0xae00,size=0x200)
+
+[=================             ] 57% (56/97 pages)checksumBuffer(start_addr=0xb000, size=0x200) = 10d
+read(addr=0xb000,size=0x200)
+
+[=================             ] 58% (57/97 pages)checksumBuffer(start_addr=0xb200, size=0x200) = 105f
+read(addr=0xb200,size=0x200)
+
+[=================             ] 59% (58/97 pages)checksumBuffer(start_addr=0xb400, size=0x200) = ec44
+read(addr=0xb400,size=0x200)
+
+[==================            ] 60% (59/97 pages)checksumBuffer(start_addr=0xb600, size=0x200) = f55e
+read(addr=0xb600,size=0x200)
+
+[==================            ] 61% (60/97 pages)checksumBuffer(start_addr=0xb800, size=0x200) = b58
+read(addr=0xb800,size=0x200)
+
+[==================            ] 62% (61/97 pages)checksumBuffer(start_addr=0xba00, size=0x200) = 498b
+read(addr=0xba00,size=0x200)
+
+[===================           ] 63% (62/97 pages)checksumBuffer(start_addr=0xbc00, size=0x200) = dfa1
+read(addr=0xbc00,size=0x200)
+
+[===================           ] 64% (63/97 pages)checksumBuffer(start_addr=0xbe00, size=0x200) = be7a
+read(addr=0xbe00,size=0x200)
+
+[===================           ] 65% (64/97 pages)checksumBuffer(start_addr=0xc000, size=0x200) = a3b4
+read(addr=0xc000,size=0x200)
+
+[====================          ] 67% (65/97 pages)checksumBuffer(start_addr=0xc200, size=0x200) = 2cb7
+read(addr=0xc200,size=0x200)
+
+[====================          ] 68% (66/97 pages)checksumBuffer(start_addr=0xc400, size=0x200) = adad
+read(addr=0xc400,size=0x200)
+
+[====================          ] 69% (67/97 pages)checksumBuffer(start_addr=0xc600, size=0x200) = f285
+read(addr=0xc600,size=0x200)
+
+[=====================         ] 70% (68/97 pages)checksumBuffer(start_addr=0xc800, size=0x200) = 630b
+read(addr=0xc800,size=0x200)
+
+[=====================         ] 71% (69/97 pages)checksumBuffer(start_addr=0xca00, size=0x200) = fb14
+read(addr=0xca00,size=0x200)
+
+[=====================         ] 72% (70/97 pages)checksumBuffer(start_addr=0xcc00, size=0x200) = 48da
+read(addr=0xcc00,size=0x200)
+
+[=====================         ] 73% (71/97 pages)checksumBuffer(start_addr=0xce00, size=0x200) = f893
+read(addr=0xce00,size=0x200)
+
+[======================        ] 74% (72/97 pages)checksumBuffer(start_addr=0xd000, size=0x200) = 9f40
+read(addr=0xd000,size=0x200)
+
+[======================        ] 75% (73/97 pages)checksumBuffer(start_addr=0xd200, size=0x200) = 7dd4
+read(addr=0xd200,size=0x200)
+
+[======================        ] 76% (74/97 pages)checksumBuffer(start_addr=0xd400, size=0x200) = 3715
+read(addr=0xd400,size=0x200)
+
+[=======================       ] 77% (75/97 pages)checksumBuffer(start_addr=0xd600, size=0x200) = 6fab
+read(addr=0xd600,size=0x200)
+
+[=======================       ] 78% (76/97 pages)checksumBuffer(start_addr=0xd800, size=0x200) = d8aa
+read(addr=0xd800,size=0x200)
+
+[=======================       ] 79% (77/97 pages)checksumBuffer(start_addr=0xda00, size=0x200) = 5111
+read(addr=0xda00,size=0x200)
+
+[========================      ] 80% (78/97 pages)checksumBuffer(start_addr=0xdc00, size=0x200) = 8f7
+read(addr=0xdc00,size=0x200)
+
+[========================      ] 81% (79/97 pages)checksumBuffer(start_addr=0xde00, size=0x200) = 736
+read(addr=0xde00,size=0x200)
+
+[========================      ] 82% (80/97 pages)checksumBuffer(start_addr=0xe000, size=0x200) = 46fb
+read(addr=0xe000,size=0x200)
+
+[=========================     ] 83% (81/97 pages)checksumBuffer(start_addr=0xe200, size=0x200) = b42c
+read(addr=0xe200,size=0x200)
+
+[=========================     ] 84% (82/97 pages)checksumBuffer(start_addr=0xe400, size=0x200) = e447
+read(addr=0xe400,size=0x200)
+
+[=========================     ] 85% (83/97 pages)checksumBuffer(start_addr=0xe600, size=0x200) = b1b8
+read(addr=0xe600,size=0x200)
+
+[=========================     ] 86% (84/97 pages)checksumBuffer(start_addr=0xe800, size=0x200) = f3df
+read(addr=0xe800,size=0x200)
+
+[==========================    ] 87% (85/97 pages)checksumBuffer(start_addr=0xea00, size=0x200) = 1949
+read(addr=0xea00,size=0x200)
+
+[==========================    ] 88% (86/97 pages)checksumBuffer(start_addr=0xec00, size=0x200) = 99de
+read(addr=0xec00,size=0x200)
+
+[==========================    ] 89% (87/97 pages)checksumBuffer(start_addr=0xee00, size=0x200) = cee1
+read(addr=0xee00,size=0x200)
+
+[===========================   ] 90% (88/97 pages)checksumBuffer(start_addr=0xf000, size=0x200) = 5706
+read(addr=0xf000,size=0x200)
+
+[===========================   ] 91% (89/97 pages)checksumBuffer(start_addr=0xf200, size=0x200) = 9e6e
+read(addr=0xf200,size=0x200)
+
+[===========================   ] 92% (90/97 pages)checksumBuffer(start_addr=0xf400, size=0x200) = 88d
+read(addr=0xf400,size=0x200)
+
+[============================  ] 93% (91/97 pages)checksumBuffer(start_addr=0xf600, size=0x200) = 22d3
+read(addr=0xf600,size=0x200)
+
+[============================  ] 94% (92/97 pages)checksumBuffer(start_addr=0xf800, size=0x200) = fad7
+read(addr=0xf800,size=0x200)
+
+[============================  ] 95% (93/97 pages)checksumBuffer(start_addr=0xfa00, size=0x200) = 3547
+read(addr=0xfa00,size=0x200)
+
+[============================= ] 96% (94/97 pages)checksumBuffer(start_addr=0xfc00, size=0x200) = 62e6
+read(addr=0xfc00,size=0x200)
+
+[============================= ] 97% (95/97 pages)checksumBuffer(start_addr=0xfe00, size=0x200) = a7ee
+read(addr=0xfe00,size=0x200)
+
+[============================= ] 98% (96/97 pages)checksumBuffer(start_addr=0x10000, size=0x174) = 4e14
+read(addr=0x10000,size=0x200)
+
+[==============================] 100% (97/97 pages)
+Verify successful
+Done in 0.263 seconds
+writeWord(addr=0xe000ed0c,value=0x5fa0004)

@@ -470,23 +470,22 @@ void _two_star(void) {
   dStack_push(dStack_pop() << 1);
 }
 
-
-// const char two_slash_str[] = "2/";
-// ( x1 -- x2 ) // x2 is the result of shifting x1 one bit to toward the LSB
-void _two_slash(void) {
+void _comma(void) { // , ( n --  ) // compile n to wordBody
+  *pHere++ = dStack_pop();
+}
+void _two_slash(void) { // 2/ ( n -- n/2 )
   dStack_push(dStack_pop() >> 1);
 }
-
-// const char two_dup_str[] = "2dup";
-// ( x1 x2 -- x1 x2 x1 x2 )
-void _two_dup(void) {
-  dStack_push(dStack_peek(1));
-  dStack_push(dStack_peek(1));
+void _two_drop(void) { // 2drop ( n1 n0 -- )
+  dStack_pop(), dStack_pop();
+}
+void _two_dup(void) { // 2dup ( x1 x2 -- x1 x2 x1 x2 )
+  dStack_push(dStack_peek(1)), dStack_push(dStack_peek(1));
 }
 
 // const char two_over_str[] = "2over";
-// ( x1 x2 x3 x4 -- x1 x2 x3 x4 x1 x2 )
-void _two_over(void) {
+
+void _two_over(void) { // ( x1 x2 x3 x4 -- x1 x2 x3 x4 x1 x2 )
   if (dStack_size() >= 4)
     dStack_push(dStack_peek(3));
     dStack_push(dStack_peek(3));
