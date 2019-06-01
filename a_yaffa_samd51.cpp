@@ -33,6 +33,8 @@ asm(" .section .version\n"
     "yaffa_version: .word " MAKEVER(YAFFA_MAJOR, YAFFA_MINOR) "\n"
     " .section .text\n");
 
+#define MAXVOC 8
+
 /******************************************************************************/
 /** Common Strings & Terminal Constants                                      **/
 /******************************************************************************/
@@ -77,6 +79,9 @@ char cTokenBuffer[WORD_SIZE];  // Stores Single Parsed token to be acted on
 /**  Flash Dictionary Structure                                              **/
 /******************************************************************************/
 const flashEntry_t* pFlashEntry = flashDict;   // Pointer into the flash Dictionary
+uint16_t nFlashEntry;
+flashEntry_t* pLimitFlashEntry;
+
 const flashEntry_t* pDLFlashEntry = DLflashDict; // Pointer into the DL vocab flash Dictionary
 
 /******************************************************************************/
@@ -86,6 +91,10 @@ userEntry_t* pFirstUserEntry = NULL;
 userEntry_t* pLastUserEntry = NULL;
 userEntry_t* pUserEntry = NULL;
 userEntry_t* pNewUserEntry = NULL;
+
+userEntry_t* pLastVoc = NULL;
+userEntry_t* context[MAXVOC] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
+userEntry_t* current = NULL;
 
 /******************************************************************************/
 /**  Flags - Internal State and Word                                         **/
@@ -127,7 +136,7 @@ cell_t* pDoes;               // Used by CREATE and DOES>
 uint8_t state; // Holds the text interpreters compile/interpreter state
 cell_t* ip;   // Instruction Pointer
 cell_t* ip_begin;   // Instruction Pointer begin colon definition
-cell_t	w;     // Working Register
+cell_t  w;     // Working Register
 uint8_t base;  // stores the number conversion radix
 
 /******************************************************************************/
@@ -275,7 +284,7 @@ void compilePrompt(void) {
       Serial.print(compile_prompt_str);
     } else {
         if (waiting < 20) { // moderate traffic
-	    Serial.print("ul \r\n"); // let user know that player-piano code upload speeds were noticed
+      Serial.print("ul \r\n"); // let user know that player-piano code upload speeds were noticed
         } else {
           if (waiting < 50) { // heavy traffic -- just the line endings are echo'd back to the user
             Serial.print("\r\n");
@@ -327,8 +336,8 @@ void loop(void) { blink();
             // if (!silentReading)
                 Serial.print("\r\n"); // just echo the CR/LF here
         } else {
-	        if (silentReading) int fake_SRT = 0;
-	        else if (! state) _ok(); // Leo Brodie 'Starting Forth' expects an ok here
+          if (silentReading) int fake_SRT = 0;
+          else if (! state) _ok(); // Leo Brodie 'Starting Forth' expects an ok here
         }
     } // replace these four lines with a single closing curly brace
       // to restore YAFFA behavior.

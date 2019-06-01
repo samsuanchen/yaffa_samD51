@@ -13,7 +13,7 @@
 /******************************************************************************/
 char* xtToNFA(cell_t xt) {
   // Second Search through the flash Dictionary
-  if (xt < 256) return (char*) flashDict[xt-1].name;
+  if (xt <= nFlashEntry) return (char*) flashDict[xt-1].name;
   else {
     pUserEntry = pLastUserEntry;
     while (pUserEntry) {
@@ -27,7 +27,7 @@ char* xtToNFA(cell_t xt) {
 }
 char* xtToName(cell_t xt) {
   // Second Search through the flash Dictionary
-  if (xt < 256) {
+  if (xt <= nFlashEntry) {
     Serial.print(flashDict[xt-1].name);
   } else {
     pUserEntry = pLastUserEntry;

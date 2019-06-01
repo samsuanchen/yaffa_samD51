@@ -28,7 +28,7 @@ void dl_interpreter(void) { // download interpreter
                     _throw();
                     return;
                 }
-                if (w > 255) { // w of DLWord could not be greater than 255
+                if (w > nFlashEntry) { // w of DLWord could not be greater than 255
                 //  Serial.printf("\r\ndebug: Error w=$%X line 32 dl_interpreter.cpp.\r\n", w);
                 }
                 else { // execute the DLWord

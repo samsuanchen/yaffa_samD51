@@ -28,7 +28,7 @@
 
 #ifdef NEVER_DEFINED_ANY_WHERE
 void myword_underscore_seps(void) {
-    if (w > 255) {
+    if (w > nFlashEntry) {
         rStack_push((cell_t) ip);
         ip = (cell_t *)w;
 
@@ -199,15 +199,16 @@ void _evaluate(void) { /* samsuanchen@gmail.com 20190502
 void _execute(void) {
     func function;
     w = dStack_pop();
-    if (w > 255) {
+	if (w <= 0 || (w > nFlashEntry && w < (cell_t) (pFirstUserEntry->cfa)) || w > (cell_t) (pLastUserEntry->cfa)) {
+		dStack_push(-13); _throw(); return; }
+    if (w <= nFlashEntry) {
+        function = flashDict[w - 1].function;
+        function();
+    } else {
         // comment: see original source for extra commented-out 1 line of code here
         rStack_push((cell_t) ip);        // CAL - Push our return address
         ip = (cell_t *)w;          // set the ip to the XT (memory location)
         executeWord();
-    } else {
-        function = flashDict[w - 1].function;
-        function();
-    //  if (errorCode) return;
     }
 }
 
@@ -1145,11 +1146,11 @@ void _mod(void) {
 //   func function;
 //   if (!getToken()) {
 //     dStack_push(-16);
-//     _throw();
+//     _throw(); return;
 //   }
 //   if (isWord(cTokenBuffer)) {
 //     if (wordFlags & COMP_ONLY) {
-//       if (w > 255) {
+//       if (w > nFlashEntry) {
 //         rStack_push(0);            // Push 0 as our return address
 //         ip = (cell_t *)w;          // set the ip to the XT (memory location)
 //         executeWord();
@@ -1717,7 +1718,7 @@ cell_t* cfaToEntry(cell_t cfa) {
 }
 cell_t* wordEntry(cell_t xt) {
 	cell_t* entry;
-    if (xt < 255) entry = (cell_t*) &flashDict[xt-1];
+    if (xt <= nFlashEntry) entry = (cell_t*) &flashDict[xt-1];
     else		  entry = cfaToEntry(xt);
     return entry;
 }
@@ -1738,7 +1739,7 @@ void _psee(void) { // samsuanchen@gmail.com
     cell_t xt = dStack_pop();
 	Serial.print("\r\n ");
     _showWordType(xt);
-    if (xt < 255) {
+    if (xt <= nFlashEntry) {
     	Serial.print("LowLevel Rom Word "); xtToName(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addr = (cell_t*) &flashDict[xt-1];
@@ -1944,7 +1945,24 @@ int freq[]={ // 48 keys piano frequency table
 void _freq(void) {
 	dStack_push( (cell_t) &freq );
 }
-
+userEntry_t* nextVoc(userEntry_t* pUserEntry){
+	return pUserEntry; // need to update
+}
+void _dotVocs(void) { _cr(); pUserEntry = pLastVoc;
+	while(pUserEntry) { Serial.print(pUserEntry->name); _space(); pUserEntry = nextVoc(pUserEntry); }
+}
+void _context(void) {
+}
+void _current(void) {
+}
+void _doVoc(void) {
+}
+void _vocabulary(void) {
+}
+void _also(void) {
+}
+void _previous(void) {
+}
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/
 /**                                                                          **/

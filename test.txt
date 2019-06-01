@@ -134,7 +134,7 @@ decimal
 : printableChars base @ hex $7f $21 cr
   do i 2 .0r space i emit space i $f and 0=
     if cr
-	then
+    then
   loop base ! ; printableChars
 variable keyNote
 : keyNote: create 1 allot , does> r> r> drop cell+ @ keyNote ! ;

@@ -82,7 +82,7 @@ extern void _delay(void);
 extern cell_t dStack_pop();
 extern void dStack_top(cell_t);
 extern cell_t dStack_top(void);
-extern cell_t pFirstUserEntry;
+extern userEntry_t* pFirstUserEntry;
 
 extern void _bgBlue(void);
 extern void _fgRed(void);

@@ -1,6 +1,8 @@
 // Thu Aug  3 01:46:56 UTC 2017
 // 4735-b0d-00-
 
+extern uint16_t nFlashEntry;
+
 extern void dl_interpreter(void);
 
 extern char* cpSource;      // Pointer to the string location that we will

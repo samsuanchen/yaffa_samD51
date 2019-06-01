@@ -38,7 +38,7 @@ void _throw(void) {
   dStack_clear(), state = FALSE;
   extern void waitEsc(void);
   waitEsc();
-  _quit(); // clear rStack too
+  _warm(); // clear rStack too
 }  
 #endif
 #endif

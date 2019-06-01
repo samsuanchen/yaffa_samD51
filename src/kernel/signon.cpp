@@ -71,7 +71,8 @@ void signOn(void) {
     _bgBlue();
 //  Serial.print("\033\133\064\064m"); // ESC [44m - blue bg // for the stanza
     Serial.print(" YAFFA samd51Forth (");
-    w = 0; while (flashDict[w++].name); Serial.print(w);
+    nFlashEntry = 0; while (flashDict[nFlashEntry++].name); Serial.print(nFlashEntry);
+    pLimitFlashEntry = (flashEntry_t*) &flashDict[nFlashEntry];
     Serial.print(" romWords) - 201905 - samsuanchen@gmail.com ");
 	_bgBlack(); _fgWhite();
 //  Serial.print("\033\133\064\060m"); // ESC [40m - black bg // for the stanza

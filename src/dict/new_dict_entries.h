@@ -9,6 +9,12 @@
 
 // count word evaluate : ; c, here 
 
+extern uint16_t nFlashEntry;
+extern flashEntry_t* pLimitFlashEntry;
+extern userEntry_t* pUserEntry;
+extern userEntry_t* pLastUserEntry;
+extern userEntry_t* pLastVoc;
+
 extern uint32_t isWord(char* addr, uint8_t n);
 extern void endEntry(void);
 extern cell_t* pDoes;
@@ -143,3 +149,11 @@ extern void _case(void);			//samsuanchen@gmail.com 20190525
 extern void _of(void);				//samsuanchen@gmail.com 20190525
 extern void _endof(void);			//samsuanchen@gmail.com 20190525
 extern void _endcase(void);			//samsuanchen@gmail.com 20190525
+
+extern void _dotVocs(void);			//samsuanchen@gmail.com 20190601
+extern void _context(void);			//samsuanchen@gmail.com 20190601
+extern void _current(void);			//samsuanchen@gmail.com 20190601
+extern void _doVoc(void);			//samsuanchen@gmail.com 20190601
+extern void _vocabulary(void);		//samsuanchen@gmail.com 20190601
+extern void _also(void);			//samsuanchen@gmail.com 20190601
+extern void _previous(void);		//samsuanchen@gmail.com 20190601

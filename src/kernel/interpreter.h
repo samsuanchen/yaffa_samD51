@@ -11,6 +11,7 @@ extern void interpreter(void);
 extern const flashEntry_t flashDict[];
 
 // prototypes - variables
+extern uint16_t nFlashEntry;
 extern char* cpSource;      // Pointer to the string location that we will
                             // evaluate. This could be the input buffer or
                             // some other location in memory

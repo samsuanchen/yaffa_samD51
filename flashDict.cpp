@@ -385,6 +385,15 @@ const flashEntry_t flashDict[] = {
   { "bgBrightMagenta",   _bgBrightMagenta,      NORMAL },
   { "bgBrightCyan",   _bgBrightCyan,      NORMAL },
   { "bgBrightWhite",   _bgBrightWhite,      NORMAL },
+
+  { ".vocs",      _dotVocs,     NORMAL },
+  { "context",    _context,     NORMAL },
+  { "current",    _current,     NORMAL },
+  { "(voc)",      _doVoc,       NORMAL },
+  { "vocabulary", _vocabulary,  NORMAL },
+  { "also",       _also,        NORMAL },
+  { "previous",   _previous,    NORMAL },
+
 #endif // #ifdef HAS_QSPI_FLASH_DEMO
 
 #endif // #ifdef SPI_FLASH_SRC
@@ -424,3 +433,4 @@ const flashEntry_t flashDict[] = {
 /**  along with YAFFA.  If not, see <http://www.gnu.org/licenses/>.          **/
 /**                                                                          **/
 /******************************************************************************/
+

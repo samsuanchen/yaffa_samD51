@@ -1,13 +1,16 @@
 // Tue Jun 20 21:33:06 UTC 2017
 // 4735-a0p-02-
 
-// external const
+// external variables
+extern uint16_t nFlashEntry;
+extern flashEntry_t* pLimitFlashEntry;
+// external constants
 extern const flashEntry_t* pFlashEntry; // = flashDict;   // Pointer into the flash Dictionary
 extern char cTokenBuffer[WORD_SIZE];
-uint8_t getToken(void);
+// prototypes - this word
+extern uint8_t getToken(void);
 extern void dStack_push(cell_t); 
 extern void _throw(void);
-// prototypes - this word
 extern void signOn(void);
 extern void _setEscPrint(void);
 extern void _fgBlack(void);

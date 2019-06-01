@@ -15,7 +15,7 @@ void executeWord(void) {
    flags |= EXECUTE;
    while (ip != NULL) {
      w = *ip++;
-     if (w > 255) {
+     if (w > nFlashEntry) {
       // ip is an address in code space
        rStack_push((size_t)ip_begin);
        rStack_push((size_t)ip); // push the address to return to

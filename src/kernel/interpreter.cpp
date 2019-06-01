@@ -23,7 +23,7 @@ void interpreter(void) {
       /*************************/
       if (isWord(cTokenBuffer)) {
         if (wordFlags & IMMEDIATE) {
-          if (w > 255) {
+          if (w > nFlashEntry) {
             rStack_push(0);           // Push ip_begin=0 as our return address
             rStack_push(0);        // Push ip=0 as our return address
             ip = ip_begin = (cell_t *)w;    // set the ip to the XT (memory location)
@@ -56,7 +56,7 @@ void interpreter(void) {
           _throw();
           return;
         }
-        if (w > 255) {
+        if (w > nFlashEntry) {
           rStack_push(0);           // Push ip_begin=0 as our return address
           rStack_push(0);           // Push ip=0 as our return address
           ip = ip_begin = (cell_t *)w;         // set the ip to the XT (memory location)

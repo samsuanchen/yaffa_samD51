@@ -13,4 +13,5 @@ extern cell_t w;     // Working Register
 
 // prototypes - external functions
 extern void rStack_push(cell_t value);
+extern uint16_t nFlashEntry;
 
