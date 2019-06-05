@@ -15,6 +15,7 @@ extern cell_t* pHere;               // HERE, points to the next free position in
                                     // Forth Space
 extern cell_t* pOldHere;            // Used by "colon-sys"
 extern cell_t* pCodeStart;          // used by "colon-sys" and RECURSE
+extern cell_t* current;
 
 // prototypes - external functions
 extern uint8_t getToken(void);

@@ -23,7 +23,6 @@
 \
 \ C. erase this script in flash
 \ C.1. enter "remove"
-xxx
 decimal
 : .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
   if spaces
@@ -35,8 +34,9 @@ decimal
     loop
   else drop
   then type ;
+cr .( 9 * 9 table )
 : t \ ( -- ) show 9 * 9 table
-  10 1 do cr 10 1 do i j * 3 .r loop loop ;
+  10 1 do cr 10 1 do i j * 3 .r loop loop ; t
  13 constant led
  14 constant buzzer
   9 constant BR \ red button right
@@ -55,6 +55,7 @@ decimal
   0 swap pinWrite ;
 : T \ ( pin -- ) toggle pinLevel
   1 over pinRead - swap pinWrite ;
+cr .( 4 led toggles each 500 ms )
 : X \ ( n pin -- ) n times toggle pinLevel
   swap over O 0 do dup T 500 delay loop drop ;
  4 led X
@@ -125,12 +126,25 @@ decimal
   while over w. dup entry>cfa (see)
     swap 1+ swap nextRamEntry
   repeat ( nWords ) drop ; \ ss
+cr .( hanoi tower )
+: h ( a b c n -- )
+  dup 1 =
+  if ( a b c 1 ) drop nip swap emit emit exit
+  then 1- ( a b c n-1 ) 3 pick 2 pick 4 pick 3 pick
+  ( a b c n-1 a c b n-1 ) recurse
+  ( a b c n-1 ) space 3 pick emit 1 pick emit space
+  ( a b c n-1 ) 2swap swap 2swap
+  ( b a c n-1 ) recurse ;
+65 66 67 1 h
+65 66 67 2 h
+65 66 67 3 h
 : tst 48 0
   do i 12 mod 0=
    if cr
    then 250 i cells freq + @ dup 4 .0r space
    14 tone 275 delay
   loop ; \ tst
+cr .( printableChars )
 : printableChars base @ hex $7f $21 cr
   do i 2 .0r space i emit space i $f and 0=
     if cr
@@ -145,3 +159,5 @@ see A
 A
 see keyNote
 \end.
+
+: vocabulary ( <vocName> -- ) create 0 , does> r> r> drop cell+ @ context !

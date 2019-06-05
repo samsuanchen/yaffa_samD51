@@ -10,13 +10,13 @@
 /******************************************************************************/
 /**                                                                          **/
 /******************************************************************************/
-const char con_sys_str[] = "con-sys";
+//const char con_sys_str[] = "(con)";
 // ( -- n )
 void _con_sys(void) {
 	dStack_push(*ip);
 	_exit();
 }
-const char constant_str[] = "constant";
+//const char constant_str[] = "constant";
 // ( x"<spaces>name" --  )
 void _constant(void) {
   openEntry();

@@ -228,13 +228,18 @@ void _execute(void) {
 // not depend on the existence of the space.
 void _word(void) {
     uint8_t *start, *ptr;
+    cell_t n;
 
     cDelimiter = (char)dStack_pop();
     start = (uint8_t *)pHere++;
     ptr = (uint8_t *)pHere;
     while (cpToIn <= cpSourceEnd) {
         if (*cpToIn == cDelimiter || *cpToIn == 0) {
-            *((cell_t *)start) = (ptr - start) - sizeof(cell_t); // write the length byte
+        	n = (ptr - start) - sizeof(cell_t);
+        	Serial.print("\r\n 0x"); Serial.print(n, 16);
+        	Serial.print(" \""); Serial.print((char*) (start+1));
+        	Serial.print("\" at 0x"); Serial.print((cell_t) (start+1));
+            *((cell_t *)start) = n; // write the length byte
             pHere = (cell_t *)start;                     // reset pHere (transient memory)
             dStack_push((size_t)start);                // push the c-addr onto the stack
             cpToIn++;
@@ -788,8 +793,8 @@ void _chars(void) {
 // a-addr is the address of name's data field. The execution semantics of name may
 // be extended by using DOES>.
 void _create(void) {
-  extern userEntry_t* pNewUserEntry;
-  extern cell_t* ip_begin;;
+//extern userEntry_t* pNewUserEntry;
+//extern cell_t* ip_begin;;
   openEntry();
   *pHere++ = VARIABLE_IDX; /* samsuanchen@gmail 20190521
 //   *pHere++ = LITERAL_IDX; */
@@ -1012,24 +1017,12 @@ void _hold(void) {
 //   *pHere = 0;
 //   dStack_push((size_t)pHere++);
 // }
-
-
-// const char immediate_str[] = "immediate";
-// ( -- )
-// make the most recent definition an immediate word.
-// void _immediate(void) {
-//   if (pLastUserEntry) {
-//     pLastUserEntry->flags |= IMMEDIATE;
-//   }
-// }
-
-
-// const char invert_str[] = "invert";
-// ( x1 -- x2 )
-// invert all bits in x1, giving its logical inverse x2
-// void _invert(void)   {
-//   dStack_push(~dStack_pop());
-// }
+void _immediate(void) { // immediate ( -- ) // make most recent defined word as an immediate word.
+	if (pLastUserEntry) pLastUserEntry->flags |= IMMEDIATE;
+}
+void _invert(void) { // invert ( n -- ~n ) // for example: make 0x1 as 0xfffffffe
+	dStack_push(~dStack_pop());
+}
 
 
 
@@ -1740,7 +1733,7 @@ void _psee(void) { // samsuanchen@gmail.com
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt < 255) {
-    	Serial.print("LowLevel Rom Word "); xtToName(xt);
+    	Serial.print("LowLevel Rom Word "); printXtName(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addr = (cell_t*) &flashDict[xt-1];
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" nfa" ); addr++;
@@ -1748,7 +1741,7 @@ void _psee(void) { // samsuanchen@gmail.com
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" flag");
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("HighLevel Ram Word "); xtToName(xt);
+    	Serial.print("HighLevel Ram Word "); printXtName(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	cell_t* addr =  (cell_t*)xt; addr--;
     	while (*(--addr) != xt); addr--;
@@ -1762,9 +1755,9 @@ void _psee(void) { // samsuanchen@gmail.com
             cell_t n = *addr;
             done = isLiteral = false;
             Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
-            xtToName(n);
+            printXtName(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); xtToName(*(++addr)); Serial.print(")\r\n BODY");
+            	Serial.print("(does> "); printXtName(*(++addr)); Serial.print(")\r\n BODY");
             	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             	break;
             }

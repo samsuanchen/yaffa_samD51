@@ -20,4 +20,5 @@ extern uint8_t base;  // stores the number conversion radix
 // prototypes - external functions
 extern void dStack_push(cell_t);
 extern cell_t dStack_pop(void);
+extern cell_t find(char* ptr, cell_t length);
 

@@ -3,7 +3,7 @@
 
 extern uint16_t nFlashEntry;
 
-extern char* xtToName(cell_t xt);
+extern char* printXtName(cell_t xt);
 extern const char dot_name_str[];
 extern void _dot_name();
 

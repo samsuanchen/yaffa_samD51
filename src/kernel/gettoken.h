@@ -17,6 +17,8 @@ extern uint8_t alreadyParsed; // = FALSE ;
 
 extern char* cpSource;                 // Pointer to the string location that we will
 extern void write_a_capture_file(void);
+extern void fgWhite(void);
+extern void fgRed(void);
 
 /*
 

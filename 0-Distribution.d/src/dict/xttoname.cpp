@@ -27,7 +27,7 @@ char* xtToNFA(cell_t xt) {
 }
 extern void _fgYellow();
 extern void _fgWhite();
-char* xtToName(cell_t xt) {
+char* printXtName(cell_t xt) {
   _fgYellow();
   if (xt < 256) {
     Serial.print(flashDict[xt-1].name);
@@ -46,7 +46,7 @@ char* xtToName(cell_t xt) {
 }
 const char dot_name_str[] = ".name";
 void _dot_name(){
-	xtToName( dStack_pop() );
+	printXtName( dStack_pop() );
 }
 #endif
 

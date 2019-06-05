@@ -25,66 +25,12 @@ if ( iWord == nWord ) { len = strlen( name ); nameLEN[nWord++] = len; }
   return len;
 }
 
-uint32_t isWord( char* str, uint8_t n ) { // samsuanchen@gmail.com 20190521
-  Serial.print( "\r\ncalling isWord(\"" ), Serial.print( str ); // debug //
-  Serial.print( "\", " ), Serial.print( n ); // debug //
-  Serial.print( ") nWord=" ), Serial.print( nWord ); // debug //
-  char* name;  iWord = w = 0;
-  // First Search flash Dictionary
-  while ( name = (char*) flashDict[iWord].name ) {
-    if ( n == nameLen( name ) && strncmp( str, name, n ) == 0 ) {
-      w = iWord + 1, wordFlags = flashDict[iWord].flags;
-      break;
-    }
-    iWord++;
-  }
-  // Second search user dictionary
-  if( ! w ) {
-    pUserEntry = pLastUserEntry;
-    while ( pUserEntry ) {
-      name = pUserEntry->name;
-      if ( n == nameLen( name ) && strncmp( name, str, n ) == 0 ) {
-        w = (size_t) pUserEntry->cfa, wordFlags = pUserEntry->flags;
-        break;
-      }
-      pUserEntry = (userEntry_t*) pUserEntry->prevEntry, iWord++;
-    }
-  }
-  Serial.print(" return w = $"), Serial.print(w, 16); // debug //
-  Serial.print(" iWord = $"), Serial.print(iWord, 16); // debug //
-  Serial.print(" wordFlags = 0x"), Serial.print(wordFlags, 16), Serial.print("  "); // debug //
-  return w;
+uint32_t isWord( char* str, uint8_t n ) { // samsuanchen@gmail.com 20190605
+	return find(str, n);
 }
 
-uint32_t isWord( char* addr ) { // samsuanchen@gmail.com 20190522
-//	return isWord( addr, strlen(addr) ); /*
-  // debug // Serial.print( "\r\nisWord(\"" ), Serial.print( addr );
-  // debug // Serial.print( "\") is calling " );
-  char* name; iWord = w = 0;
-  // First Search through the flash Dictionary
-  while ( name = (char*) flashDict[iWord].name ) {
-    if ( strcmp( addr, name ) == 0 ) {
-      w = iWord + 1;
-      wordFlags = flashDict[iWord].flags;
-      break; // samsuanchen@gmail.com 20190502
-    }
-    iWord++;
-  }
-  // Second search through the user dictionary
-  if ( ! w ) {
-    pUserEntry = pLastUserEntry;
-    while ( pUserEntry ) {
-    	name = pUserEntry->name;
-      if ( strcmp( name, addr ) == 0 ) {
-        wordFlags = pUserEntry->flags;
-        w = (size_t) pUserEntry->cfa; // samsuanchen@gmail.com 20190502
-        break; // samsuanchen@gmail.com 20190502
-      }
-      pUserEntry = (userEntry_t*)pUserEntry->prevEntry;
-    }
-  }
-  // debug // Serial.print(" return w = 0x" ), Serial.print( w, 16 ), Serial.print( "  " );
-  return w; //*/
+uint32_t isWord( char* addr ) { // samsuanchen@gmail.com 20190605
+	return find( addr, strlen(addr) );
 }
 void _isWord(void){
 	dStack_push( isWord( (char*) dStack_pop(), dStack_pop() ) );

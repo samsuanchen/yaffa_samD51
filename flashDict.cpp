@@ -73,26 +73,28 @@ const flashEntry_t flashDict[] = {
   /* they always have the same index. They get called  */
   /* referenced when compiling code                    */
   /*****************************************************/
-  { "exit",           _exit,            NORMAL },
-  { "literal",        _literal,         IMMEDIATE },
-  { "type",           _type,            NORMAL },
-  { "bran",           _jump,            SMUDGE },
-  { "zbran",          _zjump,           SMUDGE },
-  { "(does>)",        _subroutine,      SMUDGE },
-  { "throw",          _throw,           NORMAL },
-  { "(do)",           _do_sys,          SMUDGE },
-  { "(loop)",         _loop_sys,        SMUDGE },
-  { "(leave)",        _leave_sys,       SMUDGE },
-  { "(+loop)",        _plus_loop_sys,   SMUDGE },
-  { "evaluate",       _evaluate,        NORMAL },
-  { "s\"",            _s_quote,         IMMEDIATE + COMP_ONLY },
-  { ".\"",            _dot_quote,       IMMEDIATE + COMP_ONLY },
-  { "(var)",          _var_sys,         NORMAL }, // samsuanchen@gmail.com 20190508
-  { "over",           _over,            NORMAL }, // CAL
-  { "=",              _eq,              NORMAL }, // CAL
-  { "drop",           _drop,            NORMAL }, // CAL
-  { "(con)",          _con_sys,         NORMAL }, // samsuanchen@gmail.com 20190508
-  { "variable",       _variable,        NORMAL }, // moved to here samsuanchen@gmail.com 20190508
+  { "exit",           _exit,            NORMAL }, // 1
+  { "literal",        _literal,         IMMEDIATE }, // 2
+  { "type",           _type,            NORMAL }, // 3
+  { "bran",           _jump,            SMUDGE }, // 4
+  { "zbran",          _zjump,           SMUDGE }, // 5
+  { "(does>)",        _subroutine,      SMUDGE }, // 6
+  { "throw",          _throw,           NORMAL }, // 7
+  { "(do)",           _do_sys,          SMUDGE }, // 8
+  { "(loop)",         _loop_sys,        SMUDGE }, // 9
+  { "(leave)",        _leave_sys,       SMUDGE }, // 10
+  { "(+loop)",        _plus_loop_sys,   SMUDGE }, // 11
+  { "evaluate",       _evaluate,        NORMAL }, // 112
+  { "s\"",            _s_quote,         IMMEDIATE + COMP_ONLY }, // 113
+  { ".\"",            _dot_quote,       IMMEDIATE + COMP_ONLY }, // 114
+  { "(var)",          _var_sys,         NORMAL }, // 15 // samsuanchen@gmail.com 20190508
+  { "over",           _over,            NORMAL }, // 16 // CAL
+  { "=",              _eq,              NORMAL }, // 17 // CAL
+  { "drop",           _drop,            NORMAL }, // 18 // CAL
+  { "(con)",          _con_sys,         NORMAL }, // 19 // samsuanchen@gmail.com 20190508
+  { "variable",       _variable,        NORMAL }, // 20 // moved to here samsuanchen@gmail.com 20190508
+  { "(voc)",          _voc_sys,         NORMAL }, // 21 // samsuanchen@gmail.com 20190603
+  { "vocabulary",     _vocabulary,      NORMAL }, // 22 // samsuanchen@gmail.com 20190603
 
   /*****************************************************/
   /* Order does not matter after here                  */
@@ -192,35 +194,36 @@ const flashEntry_t flashDict[] = {
   { "execute",        _execute,         NORMAL },
   { "fill",           _fill,            NORMAL },
   { "find",           _find,            NORMAL },
-//   { "fm/mod",   _fm_slash_mod,    NORMAL },
+  { "fm/mod",   _fm_slash_mod,    NORMAL },
   { "here",           _here,            NORMAL },
   { "hold",           _hold,            NORMAL },
   { "i",           _i,        NORMAL }, // added samsuanchen@gmail.com 20190502
   { "if",         _if,        IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
-//   { "immediate",      _immediate,       NORMAL },
-//   { "invert",         _invert,          NORMAL },
+  { "immediate",      _immediate,       NORMAL },
+  { "compile-only",      _compileOnly,       NORMAL },
+  { "invert",         _invert,          NORMAL },
   { "j",           _j,        NORMAL }, // added samsuanchen@gmail.com 20190502
 //   { "key",            _key,             NORMAL },
   { "leave",          _leave,           IMMEDIATE + COMP_ONLY },
   { "loop",           _loop,            IMMEDIATE + COMP_ONLY },
-//   { "lshift",         _lshift,          NORMAL },
-//   { "m*",         _m_star,          NORMAL },
+  { "lshift",         _lshift,          NORMAL },
+  { "m*",         _m_star,          NORMAL },
   { "max",            _max,             NORMAL },
   { "min",            _min,             NORMAL },
   { "mod",            _mod,             NORMAL },
-//   { "move",           _move,            NORMAL },
+  { "move",           _move,            NORMAL },
   { "negate",         _negate,          NORMAL },
   { "nip",            _nip,           NORMAL }, // added samsuanchen@gmail.com 20190515
   { "or",             _or,              NORMAL },
   { "pick",           _pick,            NORMAL }, // added samsuanchen@gmail.com 20190511
-//   { "postpone"r,       _postpone,        IMMEDIATE + COMP_ONLY },
+  { "postpone",       _postpone,        IMMEDIATE + COMP_ONLY },
   { "quit",           _quit,            NORMAL },
   { "r>",         _r_from,          NORMAL },
   { "r@",        _r_fetch,         NORMAL },
-//   { "recurse",        _recurse,         IMMEDIATE + COMP_ONLY },
+  { "recurse",        _recurse,         IMMEDIATE + COMP_ONLY },
   { "repeat",         _repeat,        IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
   { "rot",            _rot,             NORMAL },
-//   { "rshift",         _rshift,          NORMAL },
+  { "rshift",         _rshift,          NORMAL },
 //   { "s>d",         _s_to_d,          NORMAL },
 //   { "sign",           _sign,            NORMAL },
 //   { "sm/rem",   _sm_slash_rem,    NORMAL },
@@ -386,13 +389,15 @@ const flashEntry_t flashDict[] = {
   { "bgBrightCyan",   _bgBrightCyan,      NORMAL },
   { "bgBrightWhite",   _bgBrightWhite,      NORMAL },
 
-  { ".vocs",      _dotVocs,     NORMAL },
   { "context",    _context,     NORMAL },
   { "current",    _current,     NORMAL },
-  { "(voc)",      _doVoc,       NORMAL },
-  { "vocabulary", _vocabulary,  NORMAL },
+  { "definitions",   _definitions,    NORMAL },
+  { "vocs",      _vocs,     NORMAL },
+  { "lastVoc",      _lastVoc,     NORMAL },
   { "also",       _also,        NORMAL },
   { "previous",   _previous,    NORMAL },
+  { "order",   _order,    NORMAL },
+  { "primitive",   _primitive,    NORMAL },
 
 #endif // #ifdef HAS_QSPI_FLASH_DEMO
 

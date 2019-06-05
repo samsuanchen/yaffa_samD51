@@ -199,6 +199,8 @@ static const unsigned long SRAM_SIZE = 32;
   #define STACK_SIZE    32
   #define BUFFER_SIZE   255
   #define WORD_SIZE     32
+  #define MAXVOC    8
+
 
 #endif // #if defined(__SAMD21G18A__) | (__SAMD21E18A__)
 
@@ -357,7 +359,7 @@ typedef struct {
 #define EQUAL_IDX          17
 #define DROP_IDX           18
 #define CONST_IDX          19
-
+#define VOC_SYS_IDX      21 // samsuanchen@gmai.com 20190603
 #endif
 
 

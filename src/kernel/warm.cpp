@@ -11,6 +11,7 @@ const char warm_str[] = "warm";
 void _warm(void) {
   dStack_clear();                        // Clear the data stack.
   rStack_clear();                        // Clear the return stack.
+  cpToIn = cpSourceEnd+1;
   pLastUserEntry = 0;
   pHere = forthSpace;
   state = FALSE;

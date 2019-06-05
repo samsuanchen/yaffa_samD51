@@ -13,8 +13,13 @@ extern uint16_t nFlashEntry;
 extern flashEntry_t* pLimitFlashEntry;
 extern userEntry_t* pUserEntry;
 extern userEntry_t* pLastUserEntry;
-extern userEntry_t* pLastVoc;
-
+extern char* xtToNFA(cell_t);
+extern cell_t* context[];
+extern cell_t* current;
+extern uint8_t nContext;
+extern int8_t iContext;
+extern cell_t* pLastVoc;
+extern cell_t* pCodeStart;
 extern uint32_t isWord(char* addr, uint8_t n);
 extern void endEntry(void);
 extern cell_t* pDoes;
@@ -150,10 +155,26 @@ extern void _of(void);				//samsuanchen@gmail.com 20190525
 extern void _endof(void);			//samsuanchen@gmail.com 20190525
 extern void _endcase(void);			//samsuanchen@gmail.com 20190525
 
-extern void _dotVocs(void);			//samsuanchen@gmail.com 20190601
-extern void _context(void);			//samsuanchen@gmail.com 20190601
-extern void _current(void);			//samsuanchen@gmail.com 20190601
-extern void _doVoc(void);			//samsuanchen@gmail.com 20190601
-extern void _vocabulary(void);		//samsuanchen@gmail.com 20190601
-extern void _also(void);			//samsuanchen@gmail.com 20190601
-extern void _previous(void);		//samsuanchen@gmail.com 20190601
+extern void _fm_slash_mod(void);	//samsuanchen@gmail.com 20190601
+extern void _immediate(void);		//samsuanchen@gmail.com 20190601
+extern void _compileOnly(void);		//samsuanchen@gmail.com 20190601
+extern void _invert(void);			//samsuanchen@gmail.com 20190601
+extern void _fm_slash_mod(void);	//samsuanchen@gmail.com 20190601
+extern void _lshift(void);			//samsuanchen@gmail.com 20190601
+extern void _m_star(void);			//samsuanchen@gmail.com 20190601
+extern void _move(void);			//samsuanchen@gmail.com 20190601
+extern void _postpone(void);		//samsuanchen@gmail.com 20190601
+extern void _recurse(void);			//samsuanchen@gmail.com 20190601
+extern void _rshift(void);			//samsuanchen@gmail.com 20190601
+
+extern void _lastVoc(void);			//samsuanchen@gmail.com 20190604
+extern void _vocs(void);			//samsuanchen@gmail.com 20190604
+extern void _context(void);			//samsuanchen@gmail.com 20190604
+extern void _current(void);			//samsuanchen@gmail.com 20190604
+extern void _definitions(void);		//samsuanchen@gmail.com 20190604
+extern void _voc_sys(void);			//samsuanchen@gmail.com 20190604
+extern void _vocabulary(void);		//samsuanchen@gmail.com 20190604
+extern void _also(void);			//samsuanchen@gmail.com 20190604
+extern void _previous(void);		//samsuanchen@gmail.com 20190604
+extern void _order(void);			//samsuanchen@gmail.com 20190604
+extern void _primitive(void);		//samsuanchen@gmail.com 20190604

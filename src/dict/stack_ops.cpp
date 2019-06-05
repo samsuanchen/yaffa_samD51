@@ -265,20 +265,20 @@ void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLm
 void _words(void) { // ( <substr> -- )
   println();
   uint8_t n=getToken();
-  // search flash rom entry
-  uint8_t index = 0, flags;
-  char* name = (char*) flashDict[index].name;
-  while ( name ) { // entry name != 0
-  	queryPrintName( name, flashDict[index].flags, n, cTokenBuffer, OUTLMT );
-  	name = (char*) flashDict[++index].name;
+  cell_t* voc = context[nContext-1];
+  if(voc) {
+  	  pUserEntry = (userEntry_t*) *voc;
+  	  while ( pUserEntry ) {
+  	  	  queryPrintName( pUserEntry->name, pUserEntry->flags, n, cTokenBuffer, OUTLMT );
+  	  	  pUserEntry =  * (userEntry_t**) pUserEntry;
+  	  }
+  } else {
+  	  int index = nFlashEntry;
+  	  while (index--) {
+  	  	  flashEntry_t flashEntry = flashDict[index];
+  	  	  queryPrintName( (char*) flashEntry.name, flashEntry.flags, n, cTokenBuffer, OUTLMT );
+  	  }
   }
-  // search user ram entry
-  pUserEntry = (userEntry_t*) pFirstUserEntry;
-  while ( pUserEntry ) {
-  	queryPrintName( pUserEntry->name, pUserEntry->flags, n, cTokenBuffer, OUTLMT );
-  	pUserEntry = nextRamEntry(pUserEntry); // ascending order samsuanchen@gmail.com 20190516
-  }
-  println();
 }
 //const char zero_equal_str[] = "0=";
 // ( n -- flag )

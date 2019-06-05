@@ -12,38 +12,23 @@
 /**   Used by _see and _toName                                               **/
 /******************************************************************************/
 char* xtToNFA(cell_t xt) {
-  // Second Search through the flash Dictionary
-  if (xt <= nFlashEntry) return (char*) flashDict[xt-1].name;
+  char* name = 0;
+  if (xt <= nFlashEntry) name = (char*) flashDict[xt-1].name;
   else {
-    pUserEntry = pLastUserEntry;
-    while (pUserEntry) {
-      if (pUserEntry->cfa == (cell_t*)xt) {
-        return (char*) pUserEntry->name;
-      }
-      pUserEntry = (userEntry_t*)pUserEntry->prevEntry;
-    }
+  	cell_t* p = (cell_t*) xt - 1;
+  	int n=8; while( n-- ) if(*(--p)==xt ) break;
+  	if(*p == xt) name = (char*) p + 5;
   }
-  return 0;
+  return name;
 }
-char* xtToName(cell_t xt) {
-  // Second Search through the flash Dictionary
-  if (xt <= nFlashEntry) {
-    Serial.print(flashDict[xt-1].name);
-  } else {
-    pUserEntry = pLastUserEntry;
-    while (pUserEntry) {
-      if (pUserEntry->cfa == (cell_t*)xt) {
-        Serial.print(pUserEntry->name);
-        break;
-      }
-      pUserEntry = (userEntry_t*)pUserEntry->prevEntry;
-    }
-  }
-  return 0;
+char* printXtName(cell_t xt) {
+  char* name = xtToNFA(xt);
+  if(name) Serial.print(name);
+  return name;
 }
 const char dot_name_str[] = ".name";
 void _dot_name(){
-	xtToName( dStack_pop() );
+	printXtName( dStack_pop() );
 }
 #endif
 

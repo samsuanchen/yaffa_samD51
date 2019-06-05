@@ -33,7 +33,6 @@ asm(" .section .version\n"
     "yaffa_version: .word " MAKEVER(YAFFA_MAJOR, YAFFA_MINOR) "\n"
     " .section .text\n");
 
-#define MAXVOC 8
 
 /******************************************************************************/
 /** Common Strings & Terminal Constants                                      **/
@@ -87,14 +86,16 @@ const flashEntry_t* pDLFlashEntry = DLflashDict; // Pointer into the DL vocab fl
 /******************************************************************************/
 /**  User Dictionary is stored in name space.                                **/
 /******************************************************************************/
-userEntry_t* pFirstUserEntry = NULL;
-userEntry_t* pLastUserEntry = NULL;
-userEntry_t* pUserEntry = NULL;
-userEntry_t* pNewUserEntry = NULL;
+userEntry_t* pFirstUserEntry;
+userEntry_t* pLastUserEntry;
+userEntry_t* pUserEntry;
+userEntry_t* pNewUserEntry;
 
-userEntry_t* pLastVoc = NULL;
-userEntry_t* context[MAXVOC] = {NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL};
-userEntry_t* current = NULL;
+cell_t* pLastVoc;
+cell_t* context[] = {0, 0, 0, 0, 0, 0, 0, 0};
+uint8_t nContext;
+int8_t iContext;
+cell_t* current;
 
 /******************************************************************************/
 /**  Flags - Internal State and Word                                         **/
@@ -229,10 +230,21 @@ void setup(void) {
 
   flags = ECHO_ON;
   base = DECIMAL;
-
-  pHere = &forthSpace[0];
+  pNewUserEntry = (userEntry_t*)&forthSpace[0];
+  pLastUserEntry = pFirstUserEntry = pNewUserEntry;
+  forthSpace[0] = 0; // link to prevWord
+  forthSpace[1] = (cell_t) &forthSpace[4]; // cfa
+  forthSpace[2] = 0x77656e00; // flag and name
+  forthSpace[3] = 0; // end of string
+  forthSpace[4] = 0x15; // VOC_SYS_IDX
+  forthSpace[5] = (cell_t) pLastUserEntry; // this vocWord in vocabulary new
+  forthSpace[6] = 0; // link to prevVoc
+  pLastVoc = &forthSpace[6];
+  pHere = &forthSpace[7];
   pOldHere = pHere;
-  
+  current = &forthSpace[5];
+  context[1] = current;
+  nContext = 2;
   // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
   // Serial.print("\n warm boot message - "    );
   // Serial.print("early bird.               " );
@@ -297,7 +309,9 @@ void compilePrompt(void) {
 /** Outer interpreter                                                        **/
 /******************************************************************************/
 void _ok() {
-  Serial.print(" "); _fgBrightYellow(); Serial.print("OK"); _fgBlack(); Serial.println();
+  Serial.print(" "); _fgBrightYellow(); Serial.print("OK");
+  int n=dStack_size(); while(n--) Serial.print(".");
+  _fgBlack(); Serial.println();
 }
 void loop(void) { blink();
     cpSource = cpToIn = cInputBuffer;

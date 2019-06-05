@@ -178,9 +178,10 @@ extern void _fgRed(void);
 extern void _fgWhite(void);
 extern void _fgGreen(void);
 void waitEsc(){
-  _fgRed();
-  Serial.print( "\r\nESC and CR to resume" );
-  _fgWhite();
+  Serial.print( "\r\nPress " );
+  _fgRed(); Serial.print( "ESC and CR" ); _fgWhite();
+  Serial.print( " to resume" );
+  if (spiFlashReading) spiFlashReading = 0;
   while( Serial.read() != 0x1b );
 }
 char lastChar = 0;

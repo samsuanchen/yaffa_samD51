@@ -11,6 +11,7 @@ extern const flashEntry_t* pFlashEntry; // = flashDict;      the main forth voca
 extern const flashEntry_t* pDLFlashEntry; // = DLflashDict;  the download vocabulary
 extern cell_t* pHere;
 extern void signOn(void);
+extern cell_t* lastVoc;
 
 extern void _dot_s(void);
 extern void _isWord(void);
@@ -60,3 +61,21 @@ extern void _endof(void);
 extern void _endcase(void);
 extern void _to_in(void);
 extern void _to_number(void);
+extern void _immediate(void);
+extern void _compileOnly(void);
+extern void _invert(void);
+extern void _lshift(void);
+extern void _m_star(void);
+extern void _postpone(void);
+extern void _recurse(void);
+extern void _rshift(void);
+extern void _context(void);
+extern void _current(void);
+extern void _defitions(void);
+extern void _voc_sys(void);
+extern void _vocabulary(void);
+extern void _lastVoc(void);
+extern void _vocs(void);
+extern void _also(void);
+extern void _previous(void);
+extern void _order(void);

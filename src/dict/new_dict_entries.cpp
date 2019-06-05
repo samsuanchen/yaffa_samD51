@@ -131,13 +131,13 @@ void _here(void) {
 }
 
 // const char count_str[] = "count";
-// ( c-addr -- c-addr+1 u ) // samsuanchen@gmail.com 20190502
+// ( c-addr -- c-addr+4 u )
 // Return the character string specification for the counted string stored a
 // c-addr. c-addr+1 is the address of the first character after c-addr1. u is the 
 // contents of the charater at c-addr, which is the length in characters of the
 // string at c-addr+1.
 void _count(void) {
-    uint8_t* addr = (uint8_t*)dStack_pop();
+    cell_t* addr = (cell_t*)dStack_pop();
     cell_t value = *addr++;
     dStack_push((size_t)addr);
     dStack_push(value);
@@ -229,13 +229,18 @@ void _execute(void) {
 // not depend on the existence of the space.
 void _word(void) {
     uint8_t *start, *ptr;
+    cell_t n;
 
     cDelimiter = (char)dStack_pop();
     start = (uint8_t *)pHere++;
     ptr = (uint8_t *)pHere;
     while (cpToIn <= cpSourceEnd) {
         if (*cpToIn == cDelimiter || *cpToIn == 0) {
-            *((cell_t *)start) = (ptr - start) - sizeof(cell_t); // write the length byte
+        	n = (ptr - start) - sizeof(cell_t);
+            *((cell_t *)start) = n; // write the length byte
+        //	Serial.print("\r\n 0x"); Serial.print(*start, 16);
+        //	Serial.print(" \""); Serial.print((char*) (start+4));
+        //	Serial.print("\" at 0x"); Serial.print((cell_t) (start+4), 16);
             pHere = (cell_t *)start;                     // reset pHere (transient memory)
             dStack_push((size_t)start);                // push the c-addr onto the stack
             cpToIn++;
@@ -940,49 +945,63 @@ void _does(void) {
 // is not found, return c-addr and zero. If the definition is found, return its
 // execution token xt. If the definition is immediate, also return one (1),
 // otherwise also return minus-one (-1).
+cell_t find(char* ptr, cell_t length) {
+  char* name;
+  // Search through user dictionaries
+  for(iContext = nContext-1; iContext >= 0; iContext--){
+  	  cell_t* p = (cell_t*) context[iContext];
+  	  int i;
+  	  for(i = iContext+1; i < nContext; i++) if( p == context[i] ) break; // check if the voc p has already been searched
+  	  if( i == nContext ) { // the voc p has not been searched yet
+  	  	  //Serial.print(iContext); _space();
+	  	  if(p){
+	  	  	  //printXtName((cell_t) (p-1)); _space();
+	  	  	  pUserEntry = (userEntry_t*) *p;
+			  while (pUserEntry) {
+			  	name = pUserEntry->name;
+		  		if ( (strlen(name) == length) && (strncmp(name, ptr, length) == 0) ) {
+					wordFlags = pUserEntry->flags;
+		  			return w = (cell_t) pUserEntry->cfa;
+		  		}
+			    pUserEntry = (userEntry_t*) pUserEntry->prevEntry;
+			  }
+	  	  } else {
+	  	  	  //Serial.print("primitive ");
+			  uint8_t index = 0;
+			  while (name = (char*) flashDict[index].name) {
+		  		if ( (strlen(name) == length) && (strncmp(name, ptr, length) == 0) ) {
+		  			wordFlags = flashDict[index].flags;
+		  			return w = index + 1;
+		  		}
+			    index++;
+			  }
+	  	  }
+  	  }
+  }
+  return w = wordFlags = 0;
+}
 void _find(void) {
-  cell_t *addr = (cell_t *) dStack_pop(); cell_t length = *addr++;
-  char *ptr = (char*) addr;
-  if (length = 0) { dStack_push(-16); _throw(); return; }
-  else if (length > BUFFER_SIZE) { dStack_push(-18); _throw(); return; }
-  // First search through the user dictionary
-  pUserEntry = pLastUserEntry;
-  while (pUserEntry) {
-    if (strncmp(pUserEntry->name, ptr, length) == 0) { // ssamsuanchen@gmail.com 20190521
-      length = strlen(pUserEntry->name);
-      dStack_push((size_t)pUserEntry->cfa);
-      wordFlags = pUserEntry->flags;
-      if (wordFlags & IMMEDIATE) dStack_push(1);
-      else dStack_push(-1);
-      return;
-    }
-    pUserEntry = (userEntry_t*)pUserEntry->prevEntry;
+  cell_t *addr = (cell_t *) dStack_pop();
+  cell_t length = *addr;
+  if (length <= 0) { dStack_push(-16); _throw(); return; }
+  if (length > BUFFER_SIZE) { dStack_push(-18); _throw(); return; }
+  cell_t xt = find( (char*) (addr+1), length );
+  if(xt) {
+  	  dStack_push( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
+  } else {
+  	  dStack_push( (cell_t) addr ); dStack_push( 0 );
   }
-  // Second Search through the flash Dictionary
-  uint8_t index = 0;
-  while (flashDict[index].name) {
-    if (!strcasecmp(ptr, flashDict[index].name)) {
-      dStack_push(index + 1);
-      wordFlags = flashDict[index].flags;
-      if (wordFlags & IMMEDIATE) dStack_push(1);
-      else dStack_push(-1);
-      return;
-    }
-    index++;
-  }
-  dStack_push((size_t)ptr);
-  dStack_push(0);
 }
 
 // const char fm_slash_mod_str[] = "fm/mod";
 // ( d1 n1 -- n2 n3 )
 // Divide d1 by n1, giving the floored quotient n3 and remainder n2.
-// void _fm_slash_mod(void) {
-//   cell_t n1 = dStack_pop();
-//   cell_t d1 = dStack_pop();
-//   dStack_push(d1 /  n1);
-//   dStack_push(d1 %  n1);
-// }
+void _fm_slash_mod(void) {
+  cell_t n1 = dStack_pop();
+  cell_t d1 = dStack_pop();
+  dStack_push(d1 /  n1);
+  dStack_push(d1 %  n1);
+}
 
 const char hold_str[] = "hold";
 // ( char -- )
@@ -1013,24 +1032,16 @@ void _hold(void) {
 //   dStack_push((size_t)pHere++);
 // }
 
+void _immediate(void) { // immediate ( -- ) // make most recent defined word as an immediate word.
+	if (pLastUserEntry) pLastUserEntry->flags |= IMMEDIATE;
+}
+void _compileOnly(void) { // immediate ( -- ) // make most recent defined word as an immediate word.
+	if (pLastUserEntry) pLastUserEntry->flags |= COMP_ONLY;
+}
 
-// const char immediate_str[] = "immediate";
-// ( -- )
-// make the most recent definition an immediate word.
-// void _immediate(void) {
-//   if (pLastUserEntry) {
-//     pLastUserEntry->flags |= IMMEDIATE;
-//   }
-// }
-
-
-// const char invert_str[] = "invert";
-// ( x1 -- x2 )
-// invert all bits in x1, giving its logical inverse x2
-// void _invert(void)   {
-//   dStack_push(~dStack_pop());
-// }
-
+void _invert(void) { // invert ( n -- ~n ) // for example: make 0x1 as 0xfffffffe
+	dStack_push(~dStack_pop());
+}
 
 
 // const char j_str[] = "j";
@@ -1077,18 +1088,18 @@ void _leave(void) {
 // const char lshift_str[] = "lshift";
 // ( x1 u -- x2 )
 // x2 is x1 shifted to left by u positions.
-// void _lshift(void) {
-//   cell_t u = dStack_pop();
-//   cell_t x1 = dStack_pop();
-//   dStack_push(x1 << u);
-// }
+void _lshift(void) {
+  cell_t u = dStack_pop();
+  cell_t x1 = dStack_pop();
+  dStack_push(x1 << u);
+}
 
 // const char m_star_str[] = "m*";
 // ( n1 n2 -- d )
 // d is the signed product of n1 times n2.
-// void _m_star(void) {
-//   dStack_push(dStack_pop() * dStack_pop());
-// }
+void _m_star(void) {
+  dStack_push(dStack_pop() * dStack_pop());
+}
 
 // const char max_str[] = "max";
 // ( n1 n2 -- n3 )
@@ -1122,14 +1133,14 @@ void _mod(void) {
 // ( addr1 addr2 u -- )
 // if u is greater than zero, copy the contents of u consecutive address
 // starting at addr1 to u consecutive address starting at addr2.
-// void _move(void) {
-//   cell_t u = dStack_pop();
-//   cell_t* to = (cell_t*)dStack_pop();
-//   cell_t* from = (cell_t*)dStack_pop();
-//   for (cell_t i = 0; i < u; i++) {
-//     *to++ = *from++;
-//   }
-// }
+void _move(void) {
+  cell_t u = dStack_pop();
+  cell_t* to = (cell_t*)dStack_pop();
+  cell_t* from = (cell_t*)dStack_pop();
+  for (cell_t i = 0; i < u; i++) {
+    *to++ = *from++;
+  }
+}
 
 // const char over_str[] = "over";
 // ( x1 x2 -- x1 x2 x1 )
@@ -1142,32 +1153,32 @@ void _mod(void) {
 // Skip leading space delimiters. Parse name delimited by a space. Find name.
 // Append the compilation semantics of name to the current definition. An
 // ambiguous condition exists if name is not found.
-// void _postpone(void) {
-//   func function;
-//   if (!getToken()) {
-//     dStack_push(-16);
-//     _throw(); return;
-//   }
-//   if (isWord(cTokenBuffer)) {
-//     if (wordFlags & COMP_ONLY) {
-//       if (w > nFlashEntry) {
-//         rStack_push(0);            // Push 0 as our return address
-//         ip = (cell_t *)w;          // set the ip to the XT (memory location)
-//         executeWord();
-//       } else {
-//         function = flashDict[w - 1].function;
-//         function();
-//         if (errorCode) return;
-//       }
-//     } else {
-//       *pHere++ = (cell_t)w;
-//     }
-//   } else {
-//     dStack_push(-13);
-//     _throw();
-//     return;
-//   }
-// }
+void _postpone(void) {
+  func function;
+  if (!getToken()) {
+    dStack_push(-16);
+    _throw(); return;
+  }
+  if (isWord(cTokenBuffer)) {
+    if (wordFlags & COMP_ONLY) {
+      if (w > nFlashEntry) {
+        rStack_push(0);            // Push 0 as our return address
+        ip = (cell_t *)w;          // set the ip to the XT (memory location)
+        executeWord();
+      } else {
+        function = flashDict[w - 1].function;
+        function();
+        if (errorCode) return;
+      }
+    } else {
+      *pHere++ = (cell_t)w;
+    }
+  } else {
+    dStack_push(-13);
+    _throw();
+    return;
+  }
+}
 
 
 
@@ -1209,9 +1220,9 @@ void _mod(void) {
 // Append the execution semantics of the current definition to the current
 // definition. An ambiguous condition exists if RECURSE appends in a definition
 // after DOES>.
-// void _recurse(void) {
-//   *pHere++ = (size_t)pCodeStart;
-// }
+void _recurse(void) {
+  *pHere++ = (size_t)pCodeStart;
+}
 
 
 // const char repeat_str[] = "repeat";
@@ -1233,11 +1244,11 @@ void _mod(void) {
 // const char rshift_str[] = "rshift";
 // ( x1 u -- x2 )
 // x2 is x1 shifted to right by u positions.
-// void _rshift(void) {
-//   cell_t u = dStack_pop();
-//   cell_t x1 = dStack_pop();
-//   dStack_push((ucell_t)x1 >> u);
-// }
+void _rshift(void) {
+  cell_t u = dStack_pop();
+  cell_t x1 = dStack_pop();
+  dStack_push((ucell_t)x1 >> u);
+}
 
 
 
@@ -1740,7 +1751,7 @@ void _psee(void) { // samsuanchen@gmail.com
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt <= nFlashEntry) {
-    	Serial.print("LowLevel Rom Word "); xtToName(xt);
+    	Serial.print("LowLevel Rom Word "); printXtName(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addr = (cell_t*) &flashDict[xt-1];
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" nfa" ); addr++;
@@ -1748,7 +1759,7 @@ void _psee(void) { // samsuanchen@gmail.com
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" flag");
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("HighLevel Ram Word "); xtToName(xt);
+    	Serial.print("HighLevel Ram Word "); printXtName(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	cell_t* addr =  (cell_t*)xt; addr--;
     	while (*(--addr) != xt); addr--;
@@ -1762,16 +1773,20 @@ void _psee(void) { // samsuanchen@gmail.com
             cell_t n = *addr;
             done = isLiteral = false;
             Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
-            xtToName(n);
+            printXtName(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); xtToName(*(++addr)); Serial.print(")\r\n BODY");
+            	Serial.print("(does> "); printXtName(*(++addr)); Serial.print(")\r\n BODY");
             	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             	break;
             }
         	switch (n) {
                 case VARIABLE_IDX:
                 case CONST_IDX:
+                case VOC_SYS_IDX:
             		Serial.print("\r\n BODY\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            		if(n == VOC_SYS_IDX){
+            			Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            		}
             		done = true;
             		break;
                 case LITERAL_IDX:
@@ -1945,23 +1960,58 @@ int freq[]={ // 48 keys piano frequency table
 void _freq(void) {
 	dStack_push( (cell_t) &freq );
 }
-userEntry_t* nextVoc(userEntry_t* pUserEntry){
-	return pUserEntry; // need to update
+
+void _voc_sys(void) {
+	if(nContext) context[nContext-1] = ip; // pfa of vocWord
+	_exit();
 }
-void _dotVocs(void) { _cr(); pUserEntry = pLastVoc;
-	while(pUserEntry) { Serial.print(pUserEntry->name); _space(); pUserEntry = nextVoc(pUserEntry); }
-}
-void _context(void) {
-}
-void _current(void) {
-}
-void _doVoc(void) {
+void _primitive(void) {
+	context[nContext-1] = 0;
 }
 void _vocabulary(void) {
+  openEntry(); // create a new vocWord
+  *pHere++ = VOC_SYS_IDX;
+  *pHere++ = 0; // emoty vocabulary
+  *pHere++ = (cell_t) pLastVoc;
+  pLastVoc = pHere-1; // pfa of this new vocWord
+  closeEntry();
+}
+void _lastVoc(void) {
+	dStack_push((cell_t) pLastVoc);
+}
+void _vocs(void) { _cr(); cell_t* p = pLastVoc;
+	while(p) {
+		Serial.print(" 0x"); Serial.print((cell_t) p, 16); _space();
+		char* name = xtToNFA((cell_t)(p-2)); Serial.print(name); _space();
+		p = (cell_t*) *p;
+	}
+}
+void _context(void) {
+	dStack_push((cell_t) context);
+}
+void _current(void) {
+	dStack_push((cell_t) current);
+}
+void _definitions(void) {
+	current = context[nContext-1];
 }
 void _also(void) {
+	if( nContext< 8 ) context[nContext] = context[nContext-1], nContext++;
+	else Serial.print("\r\ncontext full (max 8 vocs)");
 }
 void _previous(void) {
+	if(nContext) nContext--;
+	else Serial.print("\r\ncontext empty");
+}
+void _order(void) {
+	Serial.print("\r\ncurrent:");
+	if(current) printXtName((cell_t)(current-1));
+	else Serial.print("premitive");
+	Serial.print(" context:");
+	for(int i=nContext-1; i>=0; i--){
+		if(context[i]) printXtName((cell_t)(context[i]-1));
+		else Serial.print("premitive"); _space();
+	}
 }
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/

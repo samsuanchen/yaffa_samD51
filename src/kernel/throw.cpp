@@ -23,7 +23,9 @@ void _throw(void) {
   uint8_t index = 0;
   int tableCode;
   _cr();
+  _fgRed();
   Serial.print(cTokenBuffer);
+  _fgWhite();
   Serial.print(F(" EXCEPTION "));
   do {
     tableCode = pgm_read_dword(&(exception[index].code));

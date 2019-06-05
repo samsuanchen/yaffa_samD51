@@ -15,9 +15,8 @@ void openEntry(void) {
   pOldHere = pHere;            // Save the old location of HERE so we can
                                // abort out of the new definition
   pNewUserEntry = (userEntry_t*)pHere;
-  if (pLastUserEntry == NULL)
-	  pNewUserEntry->prevEntry = 0;              // Initialize User Dictionary
-  else pNewUserEntry->prevEntry = pLastUserEntry;
+  pLastUserEntry = (userEntry_t*) *current;
+  pNewUserEntry->prevEntry = pLastUserEntry;
   if (!getToken()) { dStack_push(-16); _throw(); }
   char* ptr = pNewUserEntry->name;
   do {
@@ -39,10 +38,12 @@ void closeEntry(void) { // samsuanchen@gmail.com.tw 20190509
     pNewUserEntry->flags = 0; // clear the word's flags
     if (pLastUserEntry == NULL){
     	extern void printHex(cell_t);
-    	pFirstUserEntry = pNewUserEntry; Serial.print("\r\nfirstUserEntry "); printHex((cell_t)pFirstUserEntry);
+    	pFirstUserEntry = pNewUserEntry;
+    	//Serial.print("\r\nfirstUserEntry "); printHex((cell_t)pFirstUserEntry);
     }
 //  Serial.printf("\r\nnewUserEntry %X cfa %X %s (last %X)",pNewUserEntry, pNewUserEntry->cfa, pNewUserEntry->name, pLastUserEntry);
-    pLastUserEntry = pNewUserEntry;
+	pLastUserEntry = pNewUserEntry;
+    *current = (cell_t) pLastUserEntry;
   } else pHere = pOldHere;   // Revert pHere to what it was before the start
                              // of the new word definition
 }

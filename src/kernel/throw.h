@@ -15,4 +15,6 @@ extern cell_t dStack_pop(void);
 extern void dStack_clear(void);
 extern void _cr(void);
 extern void _warm(void);
+extern void _fgRed();
+extern void _fgWhite();
 
