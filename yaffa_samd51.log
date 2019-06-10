@@ -1,1754 +1,406 @@
-Serial.begin(115200) buzzer pin A0 = 14
-Hello from setup_qspi m4 getline stuff.   Found QSPI Flash.
-NOV 2018: Mounted filesystem!
-SPI_FlashROM_FILENAME: /forth/ascii_xfer_a001.txt
+ Serial.begin(115200) buzzer pin A0 = 14
+ Hello from setup_qspi m4 getline stuff.    Found QSPI Flash.
+ NOV 2018: Mounted filesystem!
+ SPI_FlashROM_FILENAME: /forth/ascii_xfer_a001.txt
 
- warm boot message - early bird.               c: 8c8141d2866
- SIWNA +trm4x +fm4x +crickitCPX  c4e DEVPR - gen-exp-m4  04 Nov 2018
-          type 'warm' to reboot, but not
- Sun Nov 4 02:32:24 2018       testing-gg-
- 4737-a3c-00d- Trellis M4 Express sand birds
-forthSpace begin at 0x20000388 size 0x8000
+ GIT 8c8141d2866
+ SIWNA feature +trm4x +fm4x +crickitCPX
+ time Sun Nov 4 02:32:24 2018 branch testing-gg-
+ shred 4737-a3c-00d- target Trellis M4 Express
+ forthSpace $200003DC size 0x8000
 
-     ainsuForth - 2018 - wa1tnr    words: 168
-         YAFFA - Yet Another Forth For Arduino,
-         Copyright (C) 2012 Stuart Wood
-load  ok
-   ok
-  ok
-\ samsuanchen@gmail.com 20190515 13:50  ok
-  ok
-decimal  ok
-  ok
-: .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <    if spaces    else drop    then type ;
-firstUserEntry 20000388 ok
-  ok
-: .0r ( n m -- ) >r 0 <# #s #> r> over - 0 over <    if 0      do 48 emit      loop    else drop    then type ;  ok
-  ok
- 13 constant led  ok
-  ok
-  0 constant buzzer  ok
-  ok
-  9 constant BR \ red button right  ok
-  ok
- 10 constant BD \ yellow button down  ok
-  ok
- 11 constant BL \ green button left  ok
-  ok
- 12 constant BU \ blue button up  ok
-  ok
-: O \ ( pin -- ) set pinMode as OUTPUT    1 swap pinMode ;  ok
-  ok
- led O buzzer O  ok
-  ok
-: I \ ( pin -- ) set pinMode as INPUT    2 swap pinMode ;  ok
-  ok
- BR I BD I BL I BU I  ok
-  ok
-: H \ ( pin -- ) set pinLevel as HIGH    1 swap pinWrite ;  ok
-  ok
-: L \ ( pin -- ) set pinLevel as LOW    0 swap pinWrite ;  ok
-  ok
-: T \ ( pin -- ) toggle pinLevel    1 over pinRead - swap pinWrite ;  ok
-  ok
-: X \ ( n pin -- ) n times toggle pinLevel    swap over O 0 do dup T 500 delay loop drop ;  ok
-  ok
- 4 led X  ok
-  ok
-: t \ ( -- ) show 9 * 9 table    10 1 do cr 10 1 do i j * 3 .r loop loop ;  ok
-  ok
-: y \ ( n -- ) check if n is zero    if ." non-zero" else ." zero" then ;  ok
-  ok
-: z \ ( n -- ) check if n is zero    if ." non-" then ." zero" ;  ok
-  ok
-: countRomWords ( -- n ) 0    begin 1+ dup romEntry @ 0=    until ;  ok
-  ok
-: romWords \ ( -- ) show all words defined in rom    countRomWords    begin dup    while dup .name space 1-    repeat drop ;  ok
-  ok
-: immediate? ( flag -- ) $80 and ;  ok
-  ok
-: compile-only? ( flag -- ) $40 and ;  ok
-  ok
-: smudge? ( flag -- ) $20 and ;  ok
-  ok
-: entry>link ( ramWordEntry -- lfa ) ;  ok
-  ok
-: entry>cfa ( ramWordEntry -- cfa ) cell+ @ ;  ok
-  ok
-: countRamWords ( -- n ) 0 ramLast    begin dup    while swap 1+ swap entry>link @    repeat drop ;  ok
-  ok
-: ramWords \ ( -- ) show all ram wordnames (in decreasing order)    ramLast    begin dup    while dup entry>cfa .name space entry>link @    repeat drop ;  ok
-  ok
-: allWords \ ( -- ) show all wordnames (in decreasing order)    cr ramWords romWords ; \ words  ok
-  ok
-: w. ( i -- ) base @ >r decimal ." W" 3 .0r space r> base ! ;  ok
-  ok
-: seeRamWords \ ( -- ) see all ram words (in decreasing order)    countRomWords countRamWords + ramLast    begin dup    while swap dup w. 1- swap dup entry>cfa (see) entry>link @    repeat 2drop ;  ok
-  ok
-: seeRomWords \ ( -- ) see all rom words (in decreasing order)    countRomWords    begin dup    while dup w. dup (see) 1-    repeat drop ;  ok
-  ok
-: seeAll \ ( -- ) see all words (in decreasing order)    cr seeRamWords seeRomWords ; \ seeAllremove  ok
-  ok
-: ww \ ( -- ) show all wordnames (in ascending order)    cr 0    begin 1+ dup romEntry @    while dup w. dup .name space    repeat ramFirst    begin swap dup w. 1+ swap dup entry>cfa .name space nextRamEntry 0=    until drop ; \ ww  ok
-  ok
-: ss \ ( -- ) see all words (in ascending order)    cr 0    begin 1+ dup romEntry @    while dup w. dup (see)    repeat ramFirst    begin swap 1+ swap over w. dup entry>cfa (see) nextRamEntry 0=    until drop ; \ ss  ok
-  ok
-: tst 48 0    do i 12 mod 0=     if cr     then 250 i cells freq + @ dup 4 .0r space     14 tone 275 delay    loop ; \ tst  ok
-  ok
-ww
-W001 exit W002 literal W003 type W004 bran W005 zbran W006 (does) W007 throw W008 (do) W009 (loop) W010 (leave) W011 (+loop) W012 evaluate W013 s" W014 ." W015 (var) W016 over W017 = W018 drop W019 (con) W020 variable W021 warm W022 print W023 . W024 - W025 + W026 * W027 0= W028 abort W029 ! W030 # W031 #> W032 #s W033 ' W034 ( W035 */ W036 */mod W037 +! W038 +loop W039 , W040 / W041 /mod W042 0< W043 true W044 false W045 0 W046 1 W047 2 W048 3 W049 4 W050 1+ W051 1- W052 2+ W053 2- W054 2* W055 2! W056 2/ W057 2@ W058 2drop W059 2dup W060 2over W061 2swap W062 : W063 ; W064 < W065 <# W066 > W067 >body W068 >r W069 ?dup W070 @ W071 abort" W072 abs W073 accept W074 allot W075 and W076 base W077 begin W078 bl W079 c! W080 c, W081 c@ W082 cell+ W083 cell- W084 cells W085 cell/ W086 char W087 char+ W088 chars W089 constant W090 strlen W091 again W092 count W093 cr W094 create W095 decimal W096 depth W097 do W098 does> W099 dup W100 else W101 emit W102 execute W103 fill W104 find W105 here W106 hold W107 i W108 if W109 j W110 leave W111 loop W112 max W113 min W114 mod W115 negate W116 nip W117 or W118 pick W119 quit W120 r> W121 r@ W122 repeat W123 rot W124 source W125 space W126 spaces W127 swap W128 then W129 u. W130 until W131 while W132 word W133 \ W134 xor W135 [ W136 ['] W137 [char] W138 ] W139 .( W140 hex W141 help W142 who W143 .s W144 dump W145 (see) W146 see W147 words W148 romEntry W149 ramFirst W150 ramLast W151 isRamEntry W152 nextRamEntry W153 .name W154 delay W155 pinWrite W156 pinMode W157 pinRead W158 analogRead W159 analogWrite W160 >name W161 eflmkdir W162 load W163 echo! W164 remove W165 download W166 tone W167 noTone W168 freq W169 .r W170 .0r W171 led W172 buzzer W173 BR W174 BD W175 BL W176 BU W177 O W178 I W179 H W180 L W181 T W182 X W183 t W184 y W185 z W186 countRomWords W187 romWords W188 immediate? W189 compile-only? W190 smudge? W191 entry>link W192 entry>cfa W193 countRamWords W194 ramWords W195 allWords W196 w. W197 seeRamWords W198 seeRomWords W199 seeAll W200 ww W201 ss W202 tst  ok
-ss
-W001
- LowLevel Rom Word exit (xt $1)
- HEAD
- d818 0000d515 nfa
- d81c 00006005 code
- d820 00000000 flag
-W002
- IMMEDIATE LowLevel Rom Word literal (xt $2)
- HEAD
- d824 0000d51a nfa
- d828 00006b4d code
- d82c 00000080 flag
-W003
- LowLevel Rom Word type (xt $3)
- HEAD
- d830 0000d522 nfa
- d834 000070d9 code
- d838 00000000 flag
-W004
- SMUDGE LowLevel Rom Word bran (xt $4)
- HEAD
- d83c 0000d528 nfa
- d840 00006b0d code
- d844 00000020 flag
-W005
- SMUDGE LowLevel Rom Word zbran (xt $5)
- HEAD
- d848 0000d527 nfa
- d84c 00007171 code
- d850 00000020 flag
-W006
- SMUDGE LowLevel Rom Word (does) (xt $6)
- HEAD
- d854 0000d52d nfa
- d858 00006fe5 code
- d85c 00000020 flag
-W007
- LowLevel Rom Word throw (xt $7)
- HEAD
- d860 0000d534 nfa
- d864 00007039 code
- d868 00000000 flag
-W008
- SMUDGE LowLevel Rom Word (do) (xt $8)
- HEAD
- d86c 0000d53a nfa
- d870 00005d99 code
- d874 00000020 flag
-W009
- SMUDGE LowLevel Rom Word (loop) (xt $9)
- HEAD
- d878 0000d53f nfa
- d87c 00006bb1 code
- d880 00000020 flag
-W010
- SMUDGE LowLevel Rom Word (leave) (xt $a)
- HEAD
- d884 0000d546 nfa
- d888 00006b1d code
- d88c 00000020 flag
-W011
- SMUDGE LowLevel Rom Word (+loop) (xt $b)
- HEAD
- d890 0000d54e nfa
- d894 00006c0d code
- d898 00000020 flag
-W012
- LowLevel Rom Word evaluate (xt $c)
- HEAD
- d89c 0000d556 nfa
- d8a0 00004a55 code
- d8a4 00000000 flag
-W013
- COMP_ONLY IMMEDIATE LowLevel Rom Word s" (xt $d)
- HEAD
- d8a8 0000d55f nfa
- d8ac 00006c99 code
- d8b0 000000c0 flag
-W014
- COMP_ONLY IMMEDIATE LowLevel Rom Word ." (xt $e)
- HEAD
- d8b4 0000d562 nfa
- d8b8 00005db9 code
- d8bc 000000c0 flag
-W015
- LowLevel Rom Word (var) (xt $f)
- HEAD
- d8c0 0000d565 nfa
- d8c4 00007101 code
- d8c8 00000000 flag
-W016
- LowLevel Rom Word over (xt $10)
- HEAD
- d8cc 0000d5de nfa
- d8d0 00006bfd code
- d8d4 00000000 flag
-W017
- LowLevel Rom Word = (xt $11)
- HEAD
- d8d8 0000d586 nfa
- d8dc 00005f81 code
- d8e0 00000000 flag
-W018
- LowLevel Rom Word drop (xt $12)
- HEAD
- d8e4 0000d5d3 nfa
- d8e8 00005e8d code
- d8ec 00000000 flag
-W019
- LowLevel Rom Word (con) (xt $13)
- HEAD
- d8f0 0000d56b nfa
- d8f4 00004685 code
- d8f8 00000000 flag
-W020
- LowLevel Rom Word variable (xt $14)
- HEAD
- d8fc 0000d571 nfa
- d900 00007119 code
- d904 00000000 flag
-W021
- LowLevel Rom Word warm (xt $15)
- HEAD
- d908 0000d57a nfa
- d90c 0000713d code
- d910 00000000 flag
-W022
- LowLevel Rom Word print (xt $16)
- HEAD
- d914 0000d57f nfa
- d918 000070c1 code
- d91c 00000000 flag
-W023
- LowLevel Rom Word . (xt $17)
- HEAD
- d920 0000e2fa nfa
- d924 00005835 code
- d928 00000000 flag
-W024
- LowLevel Rom Word - (xt $18)
- HEAD
- d92c 0000d5be nfa
- d930 0000484f code
- d934 00000000 flag
-W025
- LowLevel Rom Word + (xt $19)
- HEAD
- d938 0000d5bb nfa
- d93c 00004839 code
- d940 00000000 flag
-W026
- LowLevel Rom Word * (xt $1a)
- HEAD
- d944 0000d5c7 nfa
- d948 00004865 code
- d94c 00000000 flag
-W027
- LowLevel Rom Word 0= (xt $1b)
- HEAD
- d950 0000d585 nfa
- d954 00005b25 code
- d958 00000000 flag
-W028
- LowLevel Rom Word abort (xt $1c)
- HEAD
- d95c 0000d588 nfa
- d960 00004f87 code
- d964 00000000 flag
-W029
- LowLevel Rom Word ! (xt $1d)
- HEAD
- d968 0000d5a0 nfa
- d96c 00005b4b code
- d970 00000000 flag
-W030
- LowLevel Rom Word # (xt $1e)
- HEAD
- d974 0000d5ec nfa
- d978 00004bb5 code
- d97c 00000000 flag
-W031
- LowLevel Rom Word #> (xt $1f)
- HEAD
- d980 0000d58e nfa
- d984 00004c15 code
- d988 00000000 flag
-W032
- LowLevel Rom Word #s (xt $20)
- HEAD
- d98c 0000d591 nfa
- d990 00004c41 code
- d994 00000000 flag
-W033
- LowLevel Rom Word ' (xt $21)
- HEAD
- d998 0000d594 nfa
- d99c 00004ca9 code
- d9a0 00000000 flag
-W034
- IMMEDIATE LowLevel Rom Word ( (xt $22)
- HEAD
- d9a4 0000e0de nfa
- d9a8 000058d9 code
- d9ac 00000080 flag
-W035
- LowLevel Rom Word */ (xt $23)
- HEAD
- d9b0 0000d596 nfa
- d9b4 00004ce1 code
- d9b8 00000000 flag
-W036
- LowLevel Rom Word */mod (xt $24)
- HEAD
- d9bc 0000d599 nfa
- d9c0 00004d07 code
- d9c4 00000000 flag
-W037
- LowLevel Rom Word +! (xt $25)
- HEAD
- d9c8 0000d59f nfa
- d9cc 00005b85 code
- d9d0 00000000 flag
-W038
- COMP_ONLY IMMEDIATE LowLevel Rom Word +loop (xt $26)
- HEAD
- d9d4 0000d5a2 nfa
- d9d8 00004d45 code
- d9dc 000000c0 flag
-W039
- LowLevel Rom Word , (xt $27)
- HEAD
- d9e0 0000d62a nfa
- d9e4 000045a5 code
- d9e8 00000000 flag
-W040
- LowLevel Rom Word / (xt $28)
- HEAD
- d9ec 0000d597 nfa
- d9f0 0000487b code
- d9f4 00000000 flag
-W041
- LowLevel Rom Word /mod (xt $29)
- HEAD
- d9f8 0000d59a nfa
- d9fc 00004d91 code
- da00 00000000 flag
-W042
- LowLevel Rom Word 0< (xt $2a)
- HEAD
- da04 0000d5a8 nfa
- da08 00004dc5 code
- da0c 00000000 flag
-W043
- LowLevel Rom Word true (xt $2b)
- HEAD
- da10 0000d5ab nfa
- da14 00004dd5 code
- da18 00000000 flag
-W044
- LowLevel Rom Word false (xt $2c)
- HEAD
- da1c 0000d5b0 nfa
- da20 00004ddd code
- da24 00000000 flag
-W045
- LowLevel Rom Word 0 (xt $2d)
- HEAD
- da28 0000eee8 nfa
- da2c 00004de3 code
- da30 00000000 flag
-W046
- LowLevel Rom Word 1 (xt $2e)
- HEAD
- da34 0000d5b6 nfa
- da38 00004de9 code
- da3c 00000000 flag
-W047
- LowLevel Rom Word 2 (xt $2f)
- HEAD
- da40 0000d5b8 nfa
- da44 00004def code
- da48 00000000 flag
-W048
- LowLevel Rom Word 3 (xt $30)
- HEAD
- da4c 0000e75f nfa
- da50 00004df5 code
- da54 00000000 flag
-W049
- LowLevel Rom Word 4 (xt $31)
- HEAD
- da58 0000e762 nfa
- da5c 00004dfb code
- da60 00000000 flag
-W050
- LowLevel Rom Word 1+ (xt $32)
- HEAD
- da64 0000d5ba nfa
- da68 00004e21 code
- da6c 00000000 flag
-W051
- LowLevel Rom Word 1- (xt $33)
- HEAD
- da70 0000d5bd nfa
- da74 00004e31 code
- da78 00000000 flag
-W052
- LowLevel Rom Word 2+ (xt $34)
- HEAD
- da7c 0000d5c0 nfa
- da80 00004e01 code
- da84 00000000 flag
-W053
- LowLevel Rom Word 2- (xt $35)
- HEAD
- da88 0000d5c3 nfa
- da8c 00004e11 code
- da90 00000000 flag
-W054
- LowLevel Rom Word 2* (xt $36)
- HEAD
- da94 0000d5c6 nfa
- da98 00004e41 code
- da9c 00000000 flag
-W055
- LowLevel Rom Word 2! (xt $37)
- HEAD
- daa0 0000d5c9 nfa
- daa4 00005bbd code
- daa8 00000000 flag
-W056
- LowLevel Rom Word 2/ (xt $38)
- HEAD
- daac 0000d5cc nfa
- dab0 00004e51 code
- dab4 00000000 flag
-W057
- LowLevel Rom Word 2@ (xt $39)
- HEAD
- dab8 0000d5cf nfa
- dabc 00005c2d code
- dac0 00000000 flag
-W058
- LowLevel Rom Word 2drop (xt $3a)
- HEAD
- dac4 0000d5d2 nfa
- dac8 00004595 code
- dacc 00000000 flag
-W059
- LowLevel Rom Word 2dup (xt $3b)
- HEAD
- dad0 0000d5d8 nfa
- dad4 00004e61 code
- dad8 00000000 flag
-W060
- LowLevel Rom Word 2over (xt $3c)
- HEAD
- dadc 0000d5dd nfa
- dae0 00004e7b code
- dae4 00000000 flag
-W061
- LowLevel Rom Word 2swap (xt $3d)
- HEAD
- dae8 0000d5e3 nfa
- daec 00004e9d code
- daf0 00000000 flag
-W062
- LowLevel Rom Word : (xt $3e)
- HEAD
- daf4 0000e524 nfa
- daf8 0000463d code
- dafc 00000000 flag
-W063
- IMMEDIATE LowLevel Rom Word ; (xt $3f)
- HEAD
- db00 0000d5e9 nfa
- db04 00004659 code
- db08 00000080 flag
-W064
- LowLevel Rom Word < (xt $40)
- HEAD
- db0c 0000d5a9 nfa
- db10 00004ed3 code
- db14 00000000 flag
-W065
- LowLevel Rom Word <# (xt $41)
- HEAD
- db18 0000d5eb nfa
- db1c 00004ef1 code
- db20 00000000 flag
-W066
- LowLevel Rom Word > (xt $42)
- HEAD
- db24 0000d58f nfa
- db28 00004f1d code
- db2c 00000000 flag
-W067
- LowLevel Rom Word >body (xt $43)
- HEAD
- db30 0000d5ee nfa
- db34 00004f3b code
- db38 00000000 flag
-W068
- LowLevel Rom Word >r (xt $44)
- HEAD
- db3c 0000d5f4 nfa
- db40 00005c73 code
- db44 00000000 flag
-W069
- LowLevel Rom Word ?dup (xt $45)
- HEAD
- db48 0000d5f7 nfa
- db4c 00004f65 code
- db50 00000000 flag
-W070
- LowLevel Rom Word @ (xt $46)
- HEAD
- db54 0000d5d0 nfa
- db58 00005c1d code
- db5c 00000000 flag
-W071
- COMP_ONLY IMMEDIATE LowLevel Rom Word abort" (xt $47)
- HEAD
- db60 0000d5fc nfa
- db64 00004f99 code
- db68 000000c0 flag
-W072
- LowLevel Rom Word abs (xt $48)
- HEAD
- db6c 0000d603 nfa
- db70 000048b5 code
- db74 00000000 flag
-W073
- LowLevel Rom Word accept (xt $49)
- HEAD
- db78 0000d607 nfa
- db7c 000045bd code
- db80 00000000 flag
-W074
- LowLevel Rom Word allot (xt $4a)
- HEAD
- db84 0000d60e nfa
- db88 000045d9 code
- db8c 00000000 flag
-W075
- LowLevel Rom Word and (xt $4b)
- HEAD
- db90 0000d614 nfa
- db94 000057f3 code
- db98 00000000 flag
-W076
- LowLevel Rom Word base (xt $4c)
- HEAD
- db9c 0000d618 nfa
- dba0 000050e1 code
- dba4 00000000 flag
-W077
- COMP_ONLY IMMEDIATE LowLevel Rom Word begin (xt $4d)
- HEAD
- dba8 0000d61d nfa
- dbac 00004fe1 code
- dbb0 000000c0 flag
-W078
- LowLevel Rom Word bl (xt $4e)
- HEAD
- dbb4 0000d623 nfa
- dbb8 000050ed code
- dbbc 00000000 flag
-W079
- LowLevel Rom Word c! (xt $4f)
- HEAD
- dbc0 0000d626 nfa
- dbc4 00005b5b code
- dbc8 00000000 flag
-W080
- LowLevel Rom Word c, (xt $50)
- HEAD
- dbcc 0000d629 nfa
- dbd0 00005b6d code
- dbd4 00000000 flag
-W081
- LowLevel Rom Word c@ (xt $51)
- HEAD
- dbd8 0000d62c nfa
- dbdc 00005c45 code
- dbe0 00000000 flag
-W082
- LowLevel Rom Word cell+ (xt $52)
- HEAD
- dbe4 0000d62f nfa
- dbe8 000050f3 code
- dbec 00000000 flag
-W083
- LowLevel Rom Word cell- (xt $53)
- HEAD
- dbf0 0000d635 nfa
- dbf4 00005103 code
- dbf8 00000000 flag
-W084
- LowLevel Rom Word cells (xt $54)
- HEAD
- dbfc 0000d63b nfa
- dc00 00005113 code
- dc04 00000000 flag
-W085
- LowLevel Rom Word cell/ (xt $55)
- HEAD
- dc08 0000d641 nfa
- dc0c 00005123 code
- dc10 00000000 flag
-W086
- LowLevel Rom Word char (xt $56)
- HEAD
- dc14 0000d647 nfa
- dc18 00004615 code
- dc1c 00000000 flag
-W087
- LowLevel Rom Word char+ (xt $57)
- HEAD
- dc20 0000d64c nfa
- dc24 00005133 code
- dc28 00000000 flag
-W088
- LowLevel Rom Word chars (xt $58)
- HEAD
- dc2c 0000d652 nfa
- dc30 00005143 code
- dc34 00000000 flag
-W089
- LowLevel Rom Word constant (xt $59)
- HEAD
- dc38 0000d658 nfa
- dc3c 0000469d code
- dc40 00000000 flag
-W090
- LowLevel Rom Word strlen (xt $5a)
- HEAD
- dc44 0000d661 nfa
- dc48 00004a21 code
- dc4c 00000000 flag
-W091
- COMP_ONLY IMMEDIATE LowLevel Rom Word again (xt $5b)
- HEAD
- dc50 0000d668 nfa
- dc54 00004ffd code
- dc58 000000c0 flag
-W092
- LowLevel Rom Word count (xt $5c)
- HEAD
- dc5c 0000d66e nfa
- dc60 00004a09 code
- dc64 00000000 flag
-W093
- LowLevel Rom Word cr (xt $5d)
- HEAD
- dc68 0000d674 nfa
- dc6c 00005905 code
- dc70 00000000 flag
-W094
- LowLevel Rom Word create (xt $5e)
- HEAD
- dc74 0000d677 nfa
- dc78 00005145 code
- dc7c 00000000 flag
-W095
- LowLevel Rom Word decimal (xt $5f)
- HEAD
- dc80 0000d67e nfa
- dc84 00005951 code
- dc88 00000000 flag
-W096
- LowLevel Rom Word depth (xt $60)
- HEAD
- dc8c 0000d686 nfa
- dc90 00005179 code
- dc94 00000000 flag
-W097
- COMP_ONLY IMMEDIATE LowLevel Rom Word do (xt $61)
- HEAD
- dc98 0000d68c nfa
- dc9c 000046c5 code
- dca0 000000c0 flag
-W098
- COMP_ONLY IMMEDIATE LowLevel Rom Word does> (xt $62)
- HEAD
- dca4 0000d68f nfa
- dca8 0000519d code
- dcac 000000c0 flag
-W099
- LowLevel Rom Word dup (xt $63)
- HEAD
- dcb0 0000d5d9 nfa
- dcb4 00005789 code
- dcb8 00000000 flag
-W100
- COMP_ONLY IMMEDIATE LowLevel Rom Word else (xt $64)
- HEAD
- dcbc 0000d695 nfa
- dcc0 000048f5 code
- dcc4 000000c0 flag
-W101
- LowLevel Rom Word emit (xt $65)
- HEAD
- dcc8 0000d69a nfa
- dccc 000058c1 code
- dcd0 00000000 flag
-W102
- LowLevel Rom Word execute (xt $66)
- HEAD
- dcd4 0000d69f nfa
- dcd8 00004aa9 code
- dcdc 00000000 flag
-W103
- LowLevel Rom Word fill (xt $67)
- HEAD
- dce0 0000d6a7 nfa
- dce4 00005bf9 code
- dce8 00000000 flag
-W104
- LowLevel Rom Word find (xt $68)
- HEAD
- dcec 0000d6ac nfa
- dcf0 000051b9 code
- dcf4 00000000 flag
-W105
- LowLevel Rom Word here (xt $69)
- HEAD
- dcf8 0000d6b1 nfa
- dcfc 000049fd code
- dd00 00000000 flag
-W106
- LowLevel Rom Word hold (xt $6a)
- HEAD
- dd04 0000d6b6 nfa
- dd08 00005235 code
- dd0c 00000000 flag
-W107
- LowLevel Rom Word i (xt $6b)
- HEAD
- dd10 0000d6bb nfa
- dd14 00004a33 code
- dd18 00000000 flag
-W108
- COMP_ONLY IMMEDIATE LowLevel Rom Word if (xt $6c)
- HEAD
- dd1c 0000d6bd nfa
- dd20 000048c9 code
- dd24 000000c0 flag
-W109
- LowLevel Rom Word j (xt $6d)
- HEAD
- dd28 0000d6c0 nfa
- dd2c 00004a43 code
- dd30 00000000 flag
-W110
- COMP_ONLY IMMEDIATE LowLevel Rom Word leave (xt $6e)
- HEAD
- dd34 0000d6c2 nfa
- dd38 00005259 code
- dd3c 000000c0 flag
-W111
- COMP_ONLY IMMEDIATE LowLevel Rom Word loop (xt $6f)
- HEAD
- dd40 0000d5a3 nfa
- dd44 000046e9 code
- dd48 000000c0 flag
-W112
- LowLevel Rom Word max (xt $70)
- HEAD
- dd4c 0000d6c8 nfa
- dd50 00004969 code
- dd54 00000000 flag
-W113
- LowLevel Rom Word min (xt $71)
- HEAD
- dd58 0000d6cc nfa
- dd5c 00004983 code
- dd60 00000000 flag
-W114
- LowLevel Rom Word mod (xt $72)
- HEAD
- dd64 0000d59b nfa
- dd68 00005271 code
- dd6c 00000000 flag
-W115
- LowLevel Rom Word negate (xt $73)
- HEAD
- dd70 0000d6d0 nfa
- dd74 000048a5 code
- dd78 00000000 flag
-W116
- LowLevel Rom Word nip (xt $74)
- HEAD
- dd7c 0000d6d7 nfa
- dd80 00005187 code
- dd84 00000000 flag
-W117
- LowLevel Rom Word or (xt $75)
- HEAD
- dd88 0000d726 nfa
- dd8c 00005809 code
- dd90 00000000 flag
-W118
- LowLevel Rom Word pick (xt $76)
- HEAD
- dd94 0000d6db nfa
- dd98 00005799 code
- dd9c 00000000 flag
-W119
- LowLevel Rom Word quit (xt $77)
- HEAD
- dda0 0000d6e0 nfa
- dda4 00006c5d code
- dda8 00000000 flag
-W120
- LowLevel Rom Word r> (xt $78)
- HEAD
- ddac 0000d6e5 nfa
- ddb0 00005c65 code
- ddb4 00000000 flag
-W121
- LowLevel Rom Word r@ (xt $79)
- HEAD
- ddb8 0000d6e8 nfa
- ddbc 00005c55 code
- ddc0 00000000 flag
-W122
- COMP_ONLY IMMEDIATE LowLevel Rom Word repeat (xt $7a)
- HEAD
- ddc4 0000d6eb nfa
- ddc8 000050a5 code
- ddcc 000000c0 flag
-W123
- LowLevel Rom Word rot (xt $7b)
- HEAD
- ddd0 0000d6f2 nfa
- ddd4 000057c9 code
- ddd8 00000000 flag
-W124
- LowLevel Rom Word source (xt $7c)
- HEAD
- dddc 0000d6f6 nfa
- dde0 0000528d code
- dde4 00000000 flag
-W125
- LowLevel Rom Word space (xt $7d)
- HEAD
- dde8 0000d6fd nfa
- ddec 00005911 code
- ddf0 00000000 flag
-W126
- LowLevel Rom Word spaces (xt $7e)
- HEAD
- ddf4 0000d703 nfa
- ddf8 00005921 code
- ddfc 00000000 flag
-W127
- LowLevel Rom Word swap (xt $7f)
- HEAD
- de00 0000d5e4 nfa
- de04 000057ab code
- de08 00000000 flag
-W128
- COMP_ONLY IMMEDIATE LowLevel Rom Word then (xt $80)
- HEAD
- de0c 0000d70a nfa
- de10 0000493d code
- de14 000000c0 flag
-W129
- LowLevel Rom Word u. (xt $81)
- HEAD
- de18 0000d70f nfa
- de1c 0000584d code
- de20 00000000 flag
-W130
- COMP_ONLY IMMEDIATE LowLevel Rom Word until (xt $82)
- HEAD
- de24 0000d712 nfa
- de28 00005031 code
- de2c 000000c0 flag
-W131
- COMP_ONLY IMMEDIATE LowLevel Rom Word while (xt $83)
- HEAD
- de30 0000d718 nfa
- de34 00005065 code
- de38 000000c0 flag
-W132
- LowLevel Rom Word word (xt $84)
- HEAD
- de3c 0000d71e nfa
- de40 00004ae9 code
- de44 00000000 flag
-W133
- IMMEDIATE LowLevel Rom Word \ (xt $85)
- HEAD
- de48 0000d723 nfa
- de4c 00004b51 code
- de50 00000080 flag
-W134
- LowLevel Rom Word xor (xt $86)
- HEAD
- de54 0000d725 nfa
- de58 0000581f code
- de5c 00000000 flag
-W135
- IMMEDIATE LowLevel Rom Word [ (xt $87)
- HEAD
- de60 0000e75c nfa
- de64 000052a9 code
- de68 00000080 flag
-W136
- IMMEDIATE LowLevel Rom Word ['] (xt $88)
- HEAD
- de6c 0000d729 nfa
- de70 000052b5 code
- de74 00000080 flag
-W137
- IMMEDIATE LowLevel Rom Word [char] (xt $89)
- HEAD
- de78 0000d72d nfa
- de7c 00005305 code
- de80 00000080 flag
-W138
- LowLevel Rom Word ] (xt $8a)
- HEAD
- de84 0000d72b nfa
- de88 0000533d code
- de8c 00000000 flag
-W139
- IMMEDIATE LowLevel Rom Word .( (xt $8b)
- HEAD
- de90 0000d734 nfa
- de94 000058ed code
- de98 00000080 flag
-W140
- LowLevel Rom Word hex (xt $8c)
- HEAD
- de9c 0000d737 nfa
- dea0 00005945 code
- dea4 00000000 flag
-W141
- LowLevel Rom Word help (xt $8d)
- HEAD
- dea8 0000d73b nfa
- deac 000047fd code
- deb0 00000000 flag
-W142
- LowLevel Rom Word who (xt $8e)
- HEAD
- deb4 0000d740 nfa
- deb8 0000481d code
- debc 00000000 flag
-W143
- LowLevel Rom Word .s (xt $8f)
- HEAD
- dec0 0000d744 nfa
- dec4 00005875 code
- dec8 00000000 flag
-W144
- LowLevel Rom Word dump (xt $90)
- HEAD
- decc 0000d747 nfa
- ded0 00004735 code
- ded4 00000000 flag
-W145
- LowLevel Rom Word (see) (xt $91)
- HEAD
- ded8 0000d74c nfa
- dedc 000053c5 code
- dee0 00000000 flag
-W146
- LowLevel Rom Word see (xt $92)
- HEAD
- dee4 0000d752 nfa
- dee8 000056a1 code
- deec 00000000 flag
-W147
- LowLevel Rom Word words (xt $93)
- HEAD
- def0 0000d756 nfa
- def4 00005a35 code
- def8 00000000 flag
-W148
- LowLevel Rom Word romEntry (xt $94)
- HEAD
- defc 0000d75c nfa
- df00 0000595d code
- df04 00000000 flag
-W149
- LowLevel Rom Word ramFirst (xt $95)
- HEAD
- df08 0000d765 nfa
- df0c 00005979 code
- df10 00000000 flag
-W150
- LowLevel Rom Word ramLast (xt $96)
- HEAD
- df14 0000d76e nfa
- df18 00005985 code
- df1c 00000000 flag
-W151
- LowLevel Rom Word isRamEntry (xt $97)
- HEAD
- df20 0000d776 nfa
- df24 000059d1 code
- df28 00000000 flag
-W152
- LowLevel Rom Word nextRamEntry (xt $98)
- HEAD
- df2c 0000d781 nfa
- df30 00005a17 code
- df34 00000000 flag
-W153
- LowLevel Rom Word .name (xt $99)
- HEAD
- df38 0000d78e nfa
- df3c 00005d0d code
- df40 00000000 flag
-W154
- LowLevel Rom Word delay (xt $9a)
- HEAD
- df44 0000d794 nfa
- df48 00005b3d code
- df4c 00000000 flag
-W155
- LowLevel Rom Word pinWrite (xt $9b)
- HEAD
- df50 0000d79a nfa
- df54 000056af code
- df58 00000000 flag
-W156
- LowLevel Rom Word pinMode (xt $9c)
- HEAD
- df5c 0000d7a3 nfa
- df60 000056c7 code
- df64 00000000 flag
-W157
- LowLevel Rom Word pinRead (xt $9d)
- HEAD
- df68 0000d7ab nfa
- df6c 000056df code
- df70 00000000 flag
-W158
- LowLevel Rom Word analogRead (xt $9e)
- HEAD
- df74 0000d7b3 nfa
- df78 000056f1 code
- df7c 00000000 flag
-W159
- LowLevel Rom Word analogWrite (xt $9f)
- HEAD
- df80 0000d7be nfa
- df84 00005703 code
- df88 00000000 flag
-W160
- LowLevel Rom Word >name (xt $a0)
- HEAD
- df8c 0000d7ca nfa
- df90 0000571b code
- df94 00000000 flag
-W161
- COMP_ONLY IMMEDIATE LowLevel Rom Word eflmkdir (xt $a1)
- HEAD
- df98 0000d7d0 nfa
- df9c 0000618d code
- dfa0 000000c0 flag
-W162
- LowLevel Rom Word load (xt $a2)
- HEAD
- dfa4 0000d7ea nfa
- dfa8 00006ba5 code
- dfac 00000000 flag
-W163
- LowLevel Rom Word echo! (xt $a3)
- HEAD
- dfb0 0000d7d9 nfa
- dfb4 00006b89 code
- dfb8 00000000 flag
-W164
- LowLevel Rom Word remove (xt $a4)
- HEAD
- dfbc 0000d7df nfa
- dfc0 00006c7d code
- dfc4 00000000 flag
-W165
- LowLevel Rom Word download (xt $a5)
- HEAD
- dfc8 0000d7e6 nfa
- dfcc 00005e55 code
- dfd0 00000000 flag
-W166
- LowLevel Rom Word tone (xt $a6)
- HEAD
- dfd4 0000d7ef nfa
- dfd8 00005735 code
- dfdc 00000000 flag
-W167
- LowLevel Rom Word noTone (xt $a7)
- HEAD
- dfe0 0000d7f4 nfa
- dfe4 00005755 code
- dfe8 00000000 flag
-W168
- LowLevel Rom Word freq (xt $a8)
- HEAD
- dfec 0000d7fb nfa
- dff0 00005765 code
- dff4 00000000 flag
-W170
- HighLevel Ram Word .r (xt $20000394)
- HEAD
- 20000388 00000000 link
- 2000038c 20000394 cfa
- 20000390 00722e00 name, flag
- BODY
- 20000394 00000044 >r
- 20000398 0000002d 0
- 2000039c 00000041 <#
- 200003a0 00000020 #s
- 200003a4 0000001f #>
- 200003a8 00000078 r>
- 200003ac 00000010 over
- 200003b0 00000018 -
- 200003b4 0000002d 0
- 200003b8 00000010 over
- 200003bc 00000040 <
- 200003c0 00000005 zbran (200003d4)
- 200003c8 0000007e spaces
- 200003cc 00000004 bran (200003d8)
- 200003d4 00000012 drop
- 200003d8 00000003 type
- 200003dc 00000001 exit
-W171
- HighLevel Ram Word .0r (xt $200003f0)
- HEAD
- 200003e0 20000388 link
- 200003e4 200003f0 cfa
- 200003e8 72302e00 name, flag
- 200003ec 00000000
- BODY
- 200003f0 00000044 >r
- 200003f4 0000002d 0
- 200003f8 00000041 <#
- 200003fc 00000020 #s
- 20000400 0000001f #>
- 20000404 00000078 r>
- 20000408 00000010 over
- 2000040c 00000018 -
- 20000410 0000002d 0
- 20000414 00000010 over
- 20000418 00000040 <
- 2000041c 00000005 zbran (20000448)
- 20000424 0000002d 0
- 20000428 00000008 (do)
- 2000042c 00000002 literal (00000030)
- 20000434 00000065 emit
- 20000438 00000009 (loop) (2000042c)
- 20000440 00000004 bran (2000044c)
- 20000448 00000012 drop
- 2000044c 00000003 type
- 20000450 00000001 exit
-W172
- HighLevel Ram Word led (xt $20000464)
- HEAD
- 20000454 200003e0 link
- 20000458 20000464 cfa
- 2000045c 64656c00 name, flag
- 20000460 00000000
- BODY
- 20000464 00000013 (con)
- 20000468 0000000d
-W173
- HighLevel Ram Word buzzer (xt $2000047c)
- HEAD
- 2000046c 20000454 link
- 20000470 2000047c cfa
- 20000474 7a756200 name, flag
- 20000478 0072657a
- BODY
- 2000047c 00000013 (con)
- 20000480 00000000
-W174
- HighLevel Ram Word BR (xt $20000490)
- HEAD
- 20000484 2000046c link
- 20000488 20000490 cfa
- 2000048c 00524200 name, flag
- BODY
- 20000490 00000013 (con)
- 20000494 00000009
-W175
- HighLevel Ram Word BD (xt $200004a4)
- HEAD
- 20000498 20000484 link
- 2000049c 200004a4 cfa
- 200004a0 00444200 name, flag
- BODY
- 200004a4 00000013 (con)
- 200004a8 0000000a
-W176
- HighLevel Ram Word BL (xt $200004b8)
- HEAD
- 200004ac 20000498 link
- 200004b0 200004b8 cfa
- 200004b4 004c4200 name, flag
- BODY
- 200004b8 00000013 (con)
- 200004bc 0000000b
-W177
- HighLevel Ram Word BU (xt $200004cc)
- HEAD
- 200004c0 200004ac link
- 200004c4 200004cc cfa
- 200004c8 00554200 name, flag
- BODY
- 200004cc 00000013 (con)
- 200004d0 0000000c
-W178
- HighLevel Ram Word O (xt $200004e0)
- HEAD
- 200004d4 200004c0 link
- 200004d8 200004e0 cfa
- 200004dc 00004f00 name, flag
- BODY
- 200004e0 0000002e 1
- 200004e4 0000007f swap
- 200004e8 0000009c pinMode
- 200004ec 00000001 exit
-W179
- HighLevel Ram Word I (xt $200004fc)
- HEAD
- 200004f0 200004d4 link
- 200004f4 200004fc cfa
- 200004f8 00004900 name, flag
- BODY
- 200004fc 0000002f 2
- 20000500 0000007f swap
- 20000504 0000009c pinMode
- 20000508 00000001 exit
-W180
- HighLevel Ram Word H (xt $20000518)
- HEAD
- 2000050c 200004f0 link
- 20000510 20000518 cfa
- 20000514 00004800 name, flag
- BODY
- 20000518 0000002e 1
- 2000051c 0000007f swap
- 20000520 0000009b pinWrite
- 20000524 00000001 exit
-W181
- HighLevel Ram Word L (xt $20000534)
- HEAD
- 20000528 2000050c link
- 2000052c 20000534 cfa
- 20000530 00004c00 name, flag
- BODY
- 20000534 0000002d 0
- 20000538 0000007f swap
- 2000053c 0000009b pinWrite
- 20000540 00000001 exit
-W182
- HighLevel Ram Word T (xt $20000550)
- HEAD
- 20000544 20000528 link
- 20000548 20000550 cfa
- 2000054c 00005400 name, flag
- BODY
- 20000550 0000002e 1
- 20000554 00000010 over
- 20000558 0000009d pinRead
- 2000055c 00000018 -
- 20000560 0000007f swap
- 20000564 0000009b pinWrite
- 20000568 00000001 exit
-W183
- HighLevel Ram Word X (xt $20000578)
- HEAD
- 2000056c 20000544 link
- 20000570 20000578 cfa
- 20000574 00005800 name, flag
- BODY
- 20000578 0000007f swap
- 2000057c 00000010 over
- 20000580 200004e0 O
- 20000584 0000002d 0
- 20000588 00000008 (do)
- 2000058c 00000063 dup
- 20000590 20000550 T
- 20000594 00000002 literal (000001f4)
- 2000059c 0000009a delay
- 200005a0 00000009 (loop) (2000058c)
- 200005a8 00000012 drop
- 200005ac 00000001 exit
-W184
- HighLevel Ram Word t (xt $200005bc)
- HEAD
- 200005b0 2000056c link
- 200005b4 200005bc cfa
- 200005b8 00007400 name, flag
- BODY
- 200005bc 00000002 literal (0000000a)
- 200005c4 0000002e 1
- 200005c8 00000008 (do)
- 200005cc 0000005d cr
- 200005d0 00000002 literal (0000000a)
- 200005d8 0000002e 1
- 200005dc 00000008 (do)
- 200005e0 200004fc I
- 200005e4 0000006d j
- 200005e8 0000001a *
- 200005ec 00000030 3
- 200005f0 20000394 .r
- 200005f4 00000009 (loop) (200005e0)
- 200005fc 00000009 (loop) (200005cc)
- 20000604 00000001 exit
-W185
- HighLevel Ram Word y (xt $20000614)
- HEAD
- 20000608 200005b0 link
- 2000060c 20000614 cfa
- 20000610 00007900 name, flag
- BODY
- 20000614 00000005 zbran (20000634)
- 2000061c 0000000e ." non-zero"
- 2000062c 00000004 bran (20000640)
- 20000634 0000000e ." zero"
- 20000640 00000001 exit
-W186
- HighLevel Ram Word z (xt $20000650)
- HEAD
- 20000644 20000608 link
- 20000648 20000650 cfa
- 2000064c 00007a00 name, flag
- BODY
- 20000650 00000005 zbran (20000664)
- 20000658 0000000e ." non-"
- 20000664 0000000e ." zero"
- 20000670 00000001 exit
-W187
- HighLevel Ram Word countRomWords (xt $2000068c)
- HEAD
- 20000674 20000644 link
- 20000678 2000068c cfa
- 2000067c 756f6300 name, flag
- 20000680 6f52746e
- 20000684 726f576d
- 20000688 00007364
- BODY
- 2000068c 0000002d 0
- 20000690 00000032 1+
- 20000694 00000063 dup
- 20000698 00000094 romEntry
- 2000069c 00000046 @
- 200006a0 0000001b 0=
- 200006a4 00000005 zbran (20000690)
- 200006ac 00000001 exit
-W188
- HighLevel Ram Word romWords (xt $200006c4)
- HEAD
- 200006b0 20000674 link
- 200006b4 200006c4 cfa
- 200006b8 6d6f7200 name, flag
- 200006bc 64726f57
- 200006c0 00000073
- BODY
- 200006c4 2000068c countRomWords
- 200006c8 00000063 dup
- 200006cc 00000005 zbran (200006ec)
- 200006d4 00000063 dup
- 200006d8 00000099 .name
- 200006dc 0000007d space
- 200006e0 00000033 1-
- 200006e4 00000004 bran (200006c8)
- 200006ec 00000012 drop
- 200006f0 00000001 exit
-W189
- HighLevel Ram Word immediate? (xt $20000708)
- HEAD
- 200006f4 200006b0 link
- 200006f8 20000708 cfa
- 200006fc 6d6d6900 name, flag
- 20000700 61696465
- 20000704 003f6574
- BODY
- 20000708 00000002 literal (00000080)
- 20000710 0000004b and
- 20000714 00000001 exit
-W190
- HighLevel Ram Word compile-only? (xt $20000730)
- HEAD
- 20000718 200006f4 link
- 2000071c 20000730 cfa
- 20000720 6d6f6300 name, flag
- 20000724 656c6970
- 20000728 6c6e6f2d
- 2000072c 00003f79
- BODY
- 20000730 00000002 literal (00000040)
- 20000738 0000004b and
- 2000073c 00000001 exit
-W191
- HighLevel Ram Word smudge? (xt $20000754)
- HEAD
- 20000740 20000718 link
- 20000744 20000754 cfa
- 20000748 756d7300 name, flag
- 2000074c 3f656764
- 20000750 00000000
- BODY
- 20000754 00000002 literal (00000020)
- 2000075c 0000004b and
- 20000760 00000001 exit
-W192
- HighLevel Ram Word entry>link (xt $20000778)
- HEAD
- 20000764 20000740 link
- 20000768 20000778 cfa
- 2000076c 746e6500 name, flag
- 20000770 6c3e7972
- 20000774 006b6e69
- BODY
- 20000778 00000001 exit
-W193
- HighLevel Ram Word entry>cfa (xt $20000790)
- HEAD
- 2000077c 20000764 link
- 20000780 20000790 cfa
- 20000784 746e6500 name, flag
- 20000788 633e7972
- 2000078c 20006166
- BODY
- 20000790 00000052 cell+
- 20000794 00000046 @
- 20000798 00000001 exit
-W194
- HighLevel Ram Word countRamWords (xt $200007b4)
- HEAD
- 2000079c 2000077c link
- 200007a0 200007b4 cfa
- 200007a4 756f6300 name, flag
- 200007a8 6152746e
- 200007ac 726f576d
- 200007b0 00007364
- BODY
- 200007b4 0000002d 0
- 200007b8 00000096 ramLast
- 200007bc 00000063 dup
- 200007c0 00000005 zbran (200007e4)
- 200007c8 0000007f swap
- 200007cc 00000032 1+
- 200007d0 0000007f swap
- 200007d4 20000778 entry>link
- 200007d8 00000046 @
- 200007dc 00000004 bran (200007bc)
- 200007e4 00000012 drop
- 200007e8 00000001 exit
-W195
- HighLevel Ram Word ramWords (xt $20000800)
- HEAD
- 200007ec 2000079c link
- 200007f0 20000800 cfa
- 200007f4 6d617200 name, flag
- 200007f8 64726f57
- 200007fc 00000073
- BODY
- 20000800 00000096 ramLast
- 20000804 00000063 dup
- 20000808 00000005 zbran (20000830)
- 20000810 00000063 dup
- 20000814 20000790 entry>cfa
- 20000818 00000099 .name
- 2000081c 0000007d space
- 20000820 20000778 entry>link
- 20000824 00000046 @
- 20000828 00000004 bran (20000804)
- 20000830 00000012 drop
- 20000834 00000001 exit
-W196
- HighLevel Ram Word allWords (xt $2000084c)
- HEAD
- 20000838 200007ec link
- 2000083c 2000084c cfa
- 20000840 6c6c6100 name, flag
- 20000844 64726f57
- 20000848 00000073
- BODY
- 2000084c 0000005d cr
- 20000850 20000800 ramWords
- 20000854 200006c4 romWords
- 20000858 00000001 exit
-W197
- HighLevel Ram Word w. (xt $20000868)
- HEAD
- 2000085c 20000838 link
- 20000860 20000868 cfa
- 20000864 002e7700 name, flag
- BODY
- 20000868 0000004c base
- 2000086c 00000046 @
- 20000870 00000044 >r
- 20000874 0000005f decimal
- 20000878 0000000e ." W"
- 20000880 00000030 3
- 20000884 200003f0 .0r
- 20000888 0000007d space
- 2000088c 00000078 r>
- 20000890 0000004c base
- 20000894 0000001d !
- 20000898 00000001 exit
-W198
- HighLevel Ram Word seeRamWords (xt $200008b4)
- HEAD
- 2000089c 2000085c link
- 200008a0 200008b4 cfa
- 200008a4 65657300 name, flag
- 200008a8 576d6152
- 200008ac 7364726f
- 200008b0 00000000
- BODY
- 200008b4 2000068c countRomWords
- 200008b8 200007b4 countRamWords
- 200008bc 00000019 +
- 200008c0 00000096 ramLast
- 200008c4 00000063 dup
- 200008c8 00000005 zbran (20000900)
- 200008d0 0000007f swap
- 200008d4 00000063 dup
- 200008d8 20000868 w.
- 200008dc 00000033 1-
- 200008e0 0000007f swap
- 200008e4 00000063 dup
- 200008e8 20000790 entry>cfa
- 200008ec 00000091 (see)
- 200008f0 20000778 entry>link
- 200008f4 00000046 @
- 200008f8 00000004 bran (200008c4)
- 20000900 0000003a 2drop
- 20000904 00000001 exit
-W199
- HighLevel Ram Word seeRomWords (xt $20000920)
- HEAD
- 20000908 2000089c link
- 2000090c 20000920 cfa
- 20000910 65657300 name, flag
- 20000914 576d6f52
- 20000918 7364726f
- 2000091c 00000000
- BODY
- 20000920 2000068c countRomWords
- 20000924 00000063 dup
- 20000928 00000005 zbran (2000094c)
- 20000930 00000063 dup
- 20000934 20000868 w.
- 20000938 00000063 dup
- 2000093c 00000091 (see)
- 20000940 00000033 1-
- 20000944 00000004 bran (20000924)
- 2000094c 00000012 drop
- 20000950 00000001 exit
-W200
- HighLevel Ram Word seeAll (xt $20000964)
- HEAD
- 20000954 20000908 link
- 20000958 20000964 cfa
- 2000095c 65657300 name, flag
- 20000960 006c6c41
- BODY
- 20000964 0000005d cr
- 20000968 200008b4 seeRamWords
- 2000096c 20000920 seeRomWords
- 20000970 00000001 exit
-W201
- HighLevel Ram Word ww (xt $20000980)
- HEAD
- 20000974 20000954 link
- 20000978 20000980 cfa
- 2000097c 00777700 name, flag
- BODY
- 20000980 0000005d cr
- 20000984 0000002d 0
- 20000988 00000032 1+
- 2000098c 00000063 dup
- 20000990 00000094 romEntry
- 20000994 00000046 @
- 20000998 00000005 zbran (200009bc)
- 200009a0 00000063 dup
- 200009a4 20000868 w.
- 200009a8 00000063 dup
- 200009ac 00000099 .name
- 200009b0 0000007d space
- 200009b4 00000004 bran (20000988)
- 200009bc 00000095 ramFirst
- 200009c0 0000007f swap
- 200009c4 00000063 dup
- 200009c8 20000868 w.
- 200009cc 00000032 1+
- 200009d0 0000007f swap
- 200009d4 00000063 dup
- 200009d8 20000790 entry>cfa
- 200009dc 00000099 .name
- 200009e0 0000007d space
- 200009e4 00000098 nextRamEntry
- 200009e8 0000001b 0=
- 200009ec 00000005 zbran (200009c0)
- 200009f4 00000012 drop
- 200009f8 00000001 exit
-W202
- HighLevel Ram Word ss (xt $20000a08)
- HEAD
- 200009fc 20000974 link
- 20000a00 20000a08 cfa
- 20000a04 00737300 name, flag
- BODY
- 20000a08 0000005d cr
- 20000a0c 0000002d 0
- 20000a10 00000032 1+
- 20000a14 00000063 dup
- 20000a18 00000094 romEntry
- 20000a1c 00000046 @
- 20000a20 00000005 zbran (20000a40)
- 20000a28 00000063 dup
- 20000a2c 20000868 w.
- 20000a30 00000063 dup
- 20000a34 00000091 (see)
- 20000a38 00000004 bran (20000a10)
- 20000a40 00000095 ramFirst
- 20000a44 0000007f swap
- 20000a48 00000032 1+
- 20000a4c 0000007f swap
- 20000a50 00000010 over
- 20000a54 20000868 w.
- 20000a58 00000063 dup
- 20000a5c 20000790 entry>cfa
- 20000a60 00000091 (see)
- 20000a64 00000098 nextRamEntry
- 20000a68 0000001b 0=
- 20000a6c 00000005 zbran (20000a44)
- 20000a74 00000012 drop
- 20000a78 00000001 exit
-W203
- HighLevel Ram Word tst (xt $20000a8c)
- HEAD
- 20000a7c 200009fc link
- 20000a80 20000a8c cfa
- 20000a84 74737400 name, flag
- 20000a88 00000000
- BODY
- 20000a8c 00000002 literal (00000030)
- 20000a94 0000002d 0
- 20000a98 00000008 (do)
- 20000a9c 200004fc I
- 20000aa0 00000002 literal (0000000c)
- 20000aa8 00000072 mod
- 20000aac 0000001b 0=
- 20000ab0 00000005 zbran (20000abc)
- 20000ab8 0000005d cr
- 20000abc 00000002 literal (000000fa)
- 20000ac4 200004fc I
- 20000ac8 00000054 cells
- 20000acc 000000a8 freq
- 20000ad0 00000019 +
- 20000ad4 00000046 @
- 20000ad8 00000063 dup
- 20000adc 00000031 4
- 20000ae0 200003f0 .0r
- 20000ae4 0000007d space
- 20000ae8 00000002 literal (0000000e)
- 20000af0 000000a6 tone
- 20000af4 00000002 literal (00000113)
- 20000afc 0000009a delay
- 20000b00 00000009 (loop) (20000a9c)
- 20000b08 00000001 exit
+  YAFFA samd51Forth (239 romWords) - 201905 - samsuanchen@gmail.com
  ok
+vocabulary A vocabulary B  OK
+
+order
+ current new  context new new primitive  OK
+
 words
-exit literal type throw evaluate s" ." (var) over = drop (con) variable
-warm print . - + * 0= abort ! # #> #s ' ( */ */mod +! +loop , / /mod 0<
-true false 0 1 2 3 4 1+ 1- 2+ 2- 2* 2! 2/ 2@ 2drop 2dup 2over 2swap : ;
-< <# > >body >r ?dup @ abort" abs accept allot and base begin bl c! c,
-c@ cell+ cell- cells cell/ char char+ chars constant strlen again count
-cr create decimal depth do does> dup else emit execute fill find here hold
-i if j leave loop max min mod negate nip or pick quit r> r@ repeat rot
-source space spaces swap then u. until while word \ xor [ ['] [char] ]
-.( hex help who .s dump (see) see words romEntry ramFirst ramLast isRamEntry
-nextRamEntry .name delay pinWrite pinMode pinRead analogRead analogWrite
->name eflmkdir load echo! remove download tone noTone freq .r .0r led buzzer
-BR BD BL BU O I H L T X t y z countRomWords romWords immediate? compile-only?
-smudge? entry>link entry>cfa countRamWords ramWords allWords w. seeRamWords
-seeRomWords seeAll ww ss tst
- ok
-see bran bran EXCEPTION(-13): Undefined Word
-see zbran zbran EXCEPTION(-13): Undefined Word
-see see (does)
- HighLevel Ram Word seeAll (xt $20000964)
+B A new  OK
+
+A definitions order
+ current A  context A new primitive  OK
+
+: a1 ; : a2 ;  OK
+
+words
+a2 a1  OK
+
+B definitions  OK
+
+order
+ current B  context B new primitive  OK
+
+: b1 ; : b2 ;  OK
+
+words
+b2 b1  OK
+
+new definitions  OK
+
+order
+ current new  context new new primitive  OK
+
+load  OK
+
+   OK
+
+\ yaffa on adafruit samd51 itsybitsy m4 -- samsuanchen@gmail.com 201906201  OK
+
+\ https://learn.adafruit.com/introducing-adafruit-itsybitsy-m4/setup  OK
+
+\  OK
+
+\ A. save this script to flashRom  OK
+
+\ A.1. connect samD51 to PC  OK
+
+\ A.1.1. open Arduino IDE  OK
+
+\ A.1.2. select Tools/Board/Adafruit ItsyBitsy M4 (samD51)  OK
+
+\ A.1.3. select Tools/Port  OK
+
+\ A.1.4. select Sketch/Upload  OK
+
+\ A.2. open Tera Term  OK
+
+\ A.2.1. select Setup/Serial Port/ Port:  OK
+
+\ A.2.2. select Setup/Serial Port/ Baud rate:  OK
+
+\ A.2.3. select Setup/Serial Port/ OK  OK
+
+\ A.3. enter ": x eflmkdir ; x"  OK
+
+\ A.4. enter "download"  OK
+
+\ A.5. paste this script  OK
+
+\  OK
+
+\ B. append another script to flash  OK
+
+\ B.1. enter "download"  OK
+
+\ B.2. paste another script  OK
+
+\ B.3. enter "\end."  OK
+
+\  OK
+
+\ C. erase this script in flash  OK
+
+\ C.1. enter "remove"  OK
+
+decimal  OK
+
+: .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if spaces
+  else drop
+  then type ;  OK
+
+: .0r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if 0
+    do 48 emit
+    loop
+  else drop
+  then type ;  OK
+
+cr .( 9 * 9 table )
+9 * 9 table  OK
+
+: t \ ( -- ) show 9 * 9 table
+  10 1 do cr 10 1 do i j * 3 .r loop loop ; t
+  1  2  3  4  5  6  7  8  9
+  2  4  6  8 10 12 14 16 18
+  3  6  9 12 15 18 21 24 27
+  4  8 12 16 20 24 28 32 36
+  5 10 15 20 25 30 35 40 45
+  6 12 18 24 30 36 42 48 54
+  7 14 21 28 35 42 49 56 63
+  8 16 24 32 40 48 56 64 72
+  9 18 27 36 45 54 63 72 81 OK
+
+ 13 constant led  OK
+
+ 14 constant buzzer  OK
+
+  9 constant BR \ red button right  OK
+
+ 10 constant BD \ yellow button down  OK
+
+ 11 constant BL \ green button left  OK
+
+ 12 constant BU \ blue button up  OK
+
+: O \ ( pin -- ) set pinMode as OUTPUT
+  1 swap pinMode ;  OK
+
+ led O buzzer O  OK
+
+: I \ ( pin -- ) set pinMode as INPUT
+  2 swap pinMode ;  OK
+
+ BR I BD I BL I BU I  OK
+
+: H \ ( pin -- ) set pinLevel as HIGH
+  1 swap pinWrite ;  OK
+
+: L \ ( pin -- ) set pinLevel as LOW
+  0 swap pinWrite ;  OK
+
+: T \ ( pin -- ) toggle pinLevel
+  1 over pinRead - swap pinWrite ;  OK
+
+cr .( 4 led toggles each 500 ms )
+4 led toggles each 500 ms  OK
+
+: X \ ( n pin -- ) n times toggle pinLevel
+  swap over O 0 do dup T 500 delay loop drop ;  OK
+
+ 4 led X  OK
+
+: y \ ( n -- ) check if n is zero
+  if ." non-zero" else ." zero" then ;  OK
+
+: z \ ( n -- ) check if n is zero
+  if ." non-" then ." zero" ;  OK
+
+: countRomWords ( -- n ) 0
+  begin 1+ dup romEntry @ 0=
+  until ;  OK
+
+: romWords \ ( -- ) show all words defined in rom
+  countRomWords
+  begin dup
+  while dup .name space 1-
+  repeat drop ;  OK
+
+: immediate? ( flag -- ) $80 and ;  OK
+
+: compile-only? ( flag -- ) $40 and ;  OK
+
+: smudge? ( flag -- ) $20 and ;  OK
+
+: entry>link ( ramWordEntry -- lfa ) ;  OK
+
+: entry>cfa ( ramWordEntry -- cfa ) cell+ @ ;  OK
+
+: countRamWords ( -- n ) 0 ramLast
+  begin dup
+  while swap 1+ swap entry>link @
+  repeat drop ;  OK
+
+: ramWords \ ( -- ) show all ram wordnames (in decreasing order)
+  lastVoc
+  begin ?dup
+  while dup 8 - cr ." vocabulary " .name cr dup cell- @
+    begin ?dup
+    while dup entry>cfa .name space entry>link @
+repeat @
+  repeat ;  OK
+
+: allWords \ ( -- ) show all wordnames (in decreasing order)
+  cr ramWords romWords ; \ words  OK
+
+: w. ( i -- ) base @ >r decimal ." W" 3 .0r space r> base ! ;  OK
+
+: seeRamWords \ ( -- ) see all ram words (in decreasing order)
+  countRomWords countRamWords + ramLast
+  begin dup
+  while swap dup w. 1- swap dup entry>cfa (see) entry>link @
+  repeat 2drop ;  OK
+
+: seeRomWords \ ( -- ) see all rom words (in decreasing order)
+  countRomWords
+  begin dup
+  while dup w. dup (see) 1-
+  repeat drop ;  OK
+
+: seeAll \ ( -- ) see all words (in decreasing order)
+  cr seeRamWords seeRomWords ; \ seeAllremove  OK
+
+: ww \ ( -- ) show all wordnames (in ascending order)
+  cr
+  \ for each rom words
+  0
+  begin 1+ ( iRomWord+1 ) dup romEntry @
+  while ( iRomWord+1 ) dup w. dup .name space
+  repeat ( nRomWords )
+  \ for each ram words
+  ramFirst
+  begin ( iWord ramEntry ) ?dup
+  while over w. dup entry>cfa .name space
+    swap 1+ swap nextRamEntry
+  repeat ( nWords ) drop ; \ www  OK
+
+: ss \ ( -- ) see all words (in ascending order)
+  cr
+  \ for each rom words
+  0
+  begin 1+ ( iRomWord+1 ) dup romEntry @
+  while ( iRomWord+1 ) dup w. dup (see)
+  repeat ( nRomWords )
+  \ for each ram words
+  ramFirst
+  begin ( iWord ramEntry ) ?dup
+  while over w. dup entry>cfa (see)
+    swap 1+ swap nextRamEntry
+  repeat ( nWords ) drop ; \ ss  OK
+
+cr .( hanoi tower )
+hanoi tower  OK
+
+: h ( a b c n -- )
+  dup 1 =
+  if ( a b c 1 ) drop nip swap emit emit exit
+  then 1- ( a b c n-1 ) 3 pick 2 pick 4 pick 3 pick
+  ( a b c n-1 a c b n-1 ) recurse
+  ( a b c n-1 ) space 3 pick emit 1 pick emit space
+  ( a b c n-1 ) 2swap swap 2swap
+  ( b a c n-1 ) recurse ;  OK
+
+65 66 67 1 h AC OK
+
+65 66 67 2 h AB AC BC OK
+
+65 66 67 3 h AC AB CB AC BA BC AC OK
+
+: tst 48 0
+  do i 12 mod 0=
+   if cr
+   then 250 i cells freq + @ dup 4 .0r space
+   14 tone 275 delay
+  loop ; \ tst  OK
+
+cr .( printableChars )
+printableChars  OK
+
+: printableChars base @ hex $7f $21 cr
+  do i 2 .0r space i emit space i $f and 0=
+    if cr
+    then
+  loop base ! ; printableChars
+21 ! 22 " 23 # 24 $ 25 % 26 & 27 ' 28 ( 29 ) 2a * 2b + 2c , 2d - 2e . 2f / 30 0
+31 1 32 2 33 3 34 4 35 5 36 6 37 7 38 8 39 9 3a : 3b ; 3c < 3d = 3e > 3f ? 40 @
+41 A 42 B 43 C 44 D 45 E 46 F 47 G 48 H 49 I 4a J 4b K 4c L 4d M 4e N 4f O 50 P
+51 Q 52 R 53 S 54 T 55 U 56 V 57 W 58 X 59 Y 5a Z 5b [ 5c \ 5d ] 5e ^ 5f _ 60 `
+61 a 62 b 63 c 64 d 65 e 66 f 67 g 68 h 69 i 6a j 6b k 6c l 6d m 6e n 6f o 70 p
+71 q 72 r 73 s 74 t 75 u 76 v 77 w 78 x 79 y 7a z 7b { 7c | 7d } 7e ~  OK
+
+variable keyNote  OK
+
+: getPFA r> r> r> r> drop cell+ -rot >r >r ;  OK
+
+: keyNote: create 1 allot , does> getPFA @ keyNote ! ;  OK
+
+220 keyNote: A  OK
+
+see keyNote
+ HighLevel Ram Word keyNote (xt $20000d60)
  HEAD
- 20000954 20000908 link
- 20000958 20000964 cfa
- 2000095c 65657300 name, flag
- 20000960 006c6c41
+ 20000d4c 20000cc0 link
+ 20000d50 20000d60 cfa
+ 20000d54 79656b00 name, flag
+ 20000d58 65746f4e
+ 20000d5c 00000000
+ CODE
+ 20000d60 0000000f (var)
  BODY
- 20000964 0000005d cr
- 20000968 200008b4 seeRamWords
- 2000096c 20000920 seeRomWords
- 20000970 00000001 exit
-(does) EXCEPTION(-13): Undefined Word
-see see
- HighLevel Ram Word seeAll (xt $20000964)
+ 20000d64 00000000
+ OK
+
+see keyNote:
+ HighLevel Ram Word keyNote: (xt $20000db4)
  HEAD
- 20000954 20000908 link
- 20000958 20000964 cfa
- 2000095c 65657300 name, flag
- 20000960 006c6c41
- BODY
- 20000964 0000005d cr
- 20000968 200008b4 seeRamWords
- 2000096c 20000920 seeRomWords
- 20000970 00000001 exit
- ok
-see z
- HighLevel Ram Word z (xt $20000650)
+ 20000da0 20000d68 link
+ 20000da4 20000db4 cfa
+ 20000da8 79656b00 name, flag
+ 20000dac 65746f4e
+ 20000db0 0000003a
+ CODE
+ 20000db4 00000062 create
+ 20000db8 00000030 1
+ 20000dbc 0000004e allot
+ 20000dc0 00000029 ,
+ 20000dc4 00000006 (does>)
+ 20000dc8 20000d78 getPFA
+ 20000dcc 0000004a @
+ 20000dd0 20000d60 keyNote
+ 20000dd4 0000001f !
+ 20000dd8 00000001 exit
+ OK
+
+see A
+ HighLevel Ram Word A (xt $20000de8)
  HEAD
- 20000644 20000608 link
- 20000648 20000650 cfa
- 2000064c 00007a00 name, flag
+ 20000ddc 20000da0 link
+ 20000de0 20000de8 cfa
+ 20000de4 00004100 name, flag
+ CODE
+ 20000de8 20000dc8 (does> keyNote:)
  BODY
- 20000650 00000005 zbran (20000664)
- 20000658 0000000e ." non-"
- 20000664 0000000e ." zero"
- 20000670 00000001 exit
- ok
-see X
- HighLevel Ram Word X (xt $20000578)
+ 20000df0 000000dc
+ OK
+
+A  OK
+
+see keyNote
+ HighLevel Ram Word keyNote (xt $20000d60)
  HEAD
- 2000056c 20000544 link
- 20000570 20000578 cfa
- 20000574 00005800 name, flag
+ 20000d4c 20000cc0 link
+ 20000d50 20000d60 cfa
+ 20000d54 79656b00 name, flag
+ 20000d58 65746f4e
+ 20000d5c 00000000
+ CODE
+ 20000d60 0000000f (var)
  BODY
- 20000578 0000007f swap
- 2000057c 00000010 over
- 20000580 200004e0 O
- 20000584 0000002d 0
- 20000588 00000008 (do)
- 2000058c 00000063 dup
- 20000590 20000550 T
- 20000594 00000002 literal (000001f4)
- 2000059c 0000009a delay
- 200005a0 00000009 (loop) (2000058c)
- 200005a8 00000012 drop
- 200005ac 00000001 exit
- ok
-words bran ?????????????????????
- ok
-words dup
-2dup ?dup dup  ok.
+ 20000d64 000000dc
+ OK
+
+order
+ current new  context new new primitive  OK
+
+words
+A keyNote: getPFA keyNote printableChars tst h ss ww seeAll seeRomWords
+seeRamWords w. allWords ramWords countRamWords entry>cfa entry>link smudge?
+compile-only? immediate? romWords countRomWords z y X T L H I O BU BL BD
+BR buzzer led t .0r .r B A new  OK
+
+ramWords
+vocabulary B
+b2 b1
+vocabulary A
+a2 a1
+vocabulary new
+A keyNote: getPFA keyNote printableChars tst h ss ww seeAll seeRomWords seeRamWords w. allWords ramWords countRamWords entry>cfa entry>link smudge? compile-only? immediate? romWords countRomWords z y X T L H I O BU BL BD BR buzzer led t .0r .r B A new  OK
+
+primitive words
+ primitive order previous also lastVoc vocs definitions current context
+bgBrightWhite bgBrightCyan bgBrightMagenta bgBrightBlue bgBrightYellow
+bgBrightGreen bgBrightRed bgBrightBlack bgWhite bgCyan bgMagenta bgBlue
+bgYellow bgGreen bgRed bgBlack fgBrightWhite fgBrightCyan fgBrightMagenta
+fgBrightBlue fgBrightYellow fgBrightGreen fgBrightRed fgBrightBlack fgWhite
+fgCyan fgMagenta fgBlue fgYellow fgGreen fgRed fgBlack bgBlue fgYellow
+setEscPrint isWord freq noTone tone download remove echo! load eflmkdir
+>name analogWrite analogRead pinRead pinMode pinWrite delay .name nextRamEntry
+isRamEntry ramLast ramFirst romEntry words see (see) dump .s who help endcase
+endof of case hex <> 2r@ 2r> 2>r 0> 0<> .( ] [char] ['] [ xor \ word while
+until u. then swap spaces space source rshift -rot rot repeat recurse r@
+r> quit postpone pick or nip negate move mod min max m* lshift loop leave
+j invert compile-only immediate if i hold here fm/mod find fill execute
+emit else dup does> do depth decimal create cr count again strlen constant
+chars char+ char cell/ cells cell- cell+ c@ c, c! bl begin base and allot
+accept abs abort" @ ?dup >r >number >in >body > <# < ; : 2swap 2over 2dup
+2drop 2@ 2/ 2! 2* 2- 2+ 1- 1+ 4 3 2 1 0 false true 0< /mod / , +loop +!
+*/mod */ ( ' #s #> # ! abort 0= * + - . print warm vocabulary (voc) variable
+(con) drop = over (var) ." s" evaluate (+loop) (leave) (loop) (do) throw
+(does>) zbran bran type literal exit  OK
+
+vocs
+B A new primitive OK
+
+A definitions : a3 ; B definitions : b3 ; 當機!!!

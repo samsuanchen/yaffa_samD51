@@ -2102,7 +2102,7 @@ void _see(void) {
       Serial.print(tab_str);
       Serial.print(*addr, HEX);
       Serial.print(tab_str);
-      printXtName(*addr);
+      dot_name(*addr);
       switch (*addr) {
         case 2:
           isLiteral = true;
@@ -2247,7 +2247,7 @@ void _analogWrite(void) {
 
 const char to_name_str[] = ">name";
 void _toName(void) {
-  printXtName(dStack_pop());
+  dot_name(dStack_pop());
 }
 #endif
 

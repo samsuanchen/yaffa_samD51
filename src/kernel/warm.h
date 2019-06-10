@@ -11,6 +11,7 @@ extern uint8_t state;
 extern void _quit(void);
 extern userEntry_t* pLastUserEntry;
 extern cell_t* pHere;
+extern cell_t* pLastVoc;
 extern cell_t forthSpace[FORTH_SIZE];
 extern char* cpToIn;
 extern char* cpSourceEnd;

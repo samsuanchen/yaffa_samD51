@@ -1733,7 +1733,7 @@ void _psee(void) { // samsuanchen@gmail.com
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt < 255) {
-    	Serial.print("LowLevel Rom Word "); printXtName(xt);
+    	Serial.print("LowLevel Rom Word "); dot_name(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addr = (cell_t*) &flashDict[xt-1];
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" nfa" ); addr++;
@@ -1741,7 +1741,7 @@ void _psee(void) { // samsuanchen@gmail.com
     	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" flag");
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("HighLevel Ram Word "); printXtName(xt);
+    	Serial.print("HighLevel Ram Word "); dot_name(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	cell_t* addr =  (cell_t*)xt; addr--;
     	while (*(--addr) != xt); addr--;
@@ -1755,9 +1755,9 @@ void _psee(void) { // samsuanchen@gmail.com
             cell_t n = *addr;
             done = isLiteral = false;
             Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
-            printXtName(n);
+            dot_name(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); printXtName(*(++addr)); Serial.print(")\r\n BODY");
+            	Serial.print("(does> "); dot_name(*(++addr)); Serial.print(")\r\n BODY");
             	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
             	break;
             }
@@ -1916,9 +1916,9 @@ void _analogWrite(void) {
 void _to_name(void) {
 	extern cell_t dStack_top(void);
 	extern void dStack_top(cell_t);
-	extern char* xtToNFA(cell_t);
+	extern char* to_name(cell_t);
 	cell_t top = dStack_top();
-    dStack_top( top>0 ? (cell_t) xtToNFA(top) : 0 );
+    dStack_top( top>0 ? (cell_t) to_name(top) : 0 );
 }
 #endif
 void _tone(void) {

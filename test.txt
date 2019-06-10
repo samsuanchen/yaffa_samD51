@@ -1,20 +1,19 @@
 \ yaffa on adafruit samd51 itsybitsy m4 -- samsuanchen@gmail.com 201906201
 \ https://learn.adafruit.com/introducing-adafruit-itsybitsy-m4/setup
 \
-\ A. save this script to flash
+\ A. save this script to flashRom
 \ A.1. connect samD51 to PC
 \ A.1.1. open Arduino IDE
 \ A.1.2. select Tools/Board/Adafruit ItsyBitsy M4 (samD51)
 \ A.1.3. select Tools/Port
 \ A.1.4. select Sketch/Upload
-\ A.2. open Tera Term VT
+\ A.2. open Tera Term
 \ A.2.1. select Setup/Serial Port/ Port:
 \ A.2.2. select Setup/Serial Port/ Baud rate:
 \ A.2.3. select Setup/Serial Port/ OK
 \ A.3. enter ": x eflmkdir ; x"
 \ A.4. enter "download"
 \ A.5. paste this script
-\ A.6. enter "\end."
 \
 \ B. append another script to flash
 \ B.1. enter "download"
@@ -23,6 +22,17 @@
 \
 \ C. erase this script in flash
 \ C.1. enter "remove"
+\
+vocabulary vocA vocabulary vocB
+order
+words
+vocA definitions order
+: a1 ; : a2 ;
+words
+vocB definitions order
+: b1 ; : b2 ;
+words
+new definitions
 decimal
 : .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
   if spaces
@@ -63,11 +73,8 @@ cr .( 4 led toggles each 500 ms )
   if ." non-zero" else ." zero" then ;
 : z \ ( n -- ) check if n is zero
   if ." non-" then ." zero" ;
-: countRomWords ( -- n ) 0
-  begin 1+ dup romEntry @ 0=
-  until ;
 : romWords \ ( -- ) show all words defined in rom
-  countRomWords
+  nRomWords cr
   begin dup
   while dup .name space 1-
   repeat drop ;
@@ -76,56 +83,37 @@ cr .( 4 led toggles each 500 ms )
 : smudge? ( flag -- ) $20 and ;
 : entry>link ( ramWordEntry -- lfa ) ;
 : entry>cfa ( ramWordEntry -- cfa ) cell+ @ ;
-: countRamWords ( -- n ) 0 ramLast
-  begin dup
-  while swap 1+ swap entry>link @
-  repeat drop ;
-: ramWords \ ( -- ) show all ram wordnames (in decreasing order)
-  ramLast
-  begin dup
-  while dup entry>cfa .name space entry>link @
-  repeat drop ;
+: nextCFA ( cfa -- cfa' | 0 )
+  begin cell+ ( adr ) isUserEntry ( adr flg )
+  until dup if entry>cfa then ;
+: nRamWords ( -- n ) \ count ram words in all vocabularies
+  0 ['] new
+  begin ?dup
+  while swap 1+ \ dup fgBrightYellow .
+    swap \ dup .name fgWhite space
+    nextCFA
+  repeat ;
 : allWords \ ( -- ) show all wordnames (in decreasing order)
-  cr ramWords romWords ; \ words
-: w. ( i -- ) base @ >r decimal ." W" 3 .0r space r> base ! ;
-: seeRamWords \ ( -- ) see all ram words (in decreasing order)
-  countRomWords countRamWords + ramLast
-  begin dup
-  while swap dup w. 1- swap dup entry>cfa (see) entry>link @
-  repeat 2drop ;
-: seeRomWords \ ( -- ) see all rom words (in decreasing order)
-  countRomWords
-  begin dup
-  while dup w. dup (see) 1-
+  cr lastVoc
+  begin ?dup
+  while dup 8 - cr ." in vocabulary " .name cr dup cell- @
+    begin ?dup
+    while dup entry>cfa .name space entry>link @
+    repeat @
+  repeat cr ." in vocabulary primitive" romWords ; \ words
+: w. ( i -- ) fgBrightYellow base @ >r decimal ." W" 3 .0r fgWhite space
+  r> base ! ;
+: seeRomWords \ ( -- ) see all rom words (in ascending order)
+  cr 0
+  begin 1+ dup w. dup (see) dup nRomWords =
+  until drop ;
+: seeRamWords \ ( -- ) see all ram words (in ascending order)
+  cr nRomWords ['] new
+  begin ?dup
+  while swap 1+ dup w. swap dup (see) nextCFA
   repeat drop ;
-: seeAll \ ( -- ) see all words (in decreasing order)
-  cr seeRamWords seeRomWords ; \ seeAllremove
-: ww \ ( -- ) show all wordnames (in ascending order)
-  cr
-  \ for each rom words
-  0
-  begin 1+ ( iRomWord+1 ) dup romEntry @
-  while ( iRomWord+1 ) dup w. dup .name space
-  repeat ( nRomWords )
-  \ for each ram words
-  ramFirst
-  begin ( iWord ramEntry ) ?dup
-  while over w. dup entry>cfa .name space
-    swap 1+ swap nextRamEntry
-  repeat ( nWords ) drop ; \ www
-: ss \ ( -- ) see all words (in ascending order)
-  cr
-  \ for each rom words
-  0
-  begin 1+ ( iRomWord+1 ) dup romEntry @
-  while ( iRomWord+1 ) dup w. dup (see)
-  repeat ( nRomWords )
-  \ for each ram words
-  ramFirst
-  begin ( iWord ramEntry ) ?dup
-  while over w. dup entry>cfa (see)
-    swap 1+ swap nextRamEntry
-  repeat ( nWords ) drop ; \ ss
+: seeAll \ ( -- ) see all words (in ascending order)
+  seeRomWords seeRamWords ;
 cr .( hanoi tower )
 : h ( a b c n -- )
   dup 1 =
@@ -151,13 +139,18 @@ cr .( printableChars )
     then
   loop base ! ; printableChars
 variable keyNote
-: keyNote: create 1 allot , does> r> r> drop cell+ @ keyNote ! ;
-220 keyNote: A
+: getPFA r> r> r> r> drop cell+ -rot >r >r ;
+: keyNote: create 1 allot , does> getPFA @ keyNote ! ;
+220 keyNote: keyA
 see keyNote
 see keyNote:
-see A
-A
+see keyA
+keyA
 see keyNote
+vocA definitions : a3 ; : a4 ;
+vocB definitions : b3 ; : b4 ;
+vocA words
+vocB words
+new definitions
+: 1234567890123456789012345678901 ;
 \end.
-
-: vocabulary ( <vocName> -- ) create 0 , does> r> r> drop cell+ @ context !

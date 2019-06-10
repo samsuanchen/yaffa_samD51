@@ -13,7 +13,9 @@ void _warm(void) {
   rStack_clear();                        // Clear the return stack.
   cpToIn = cpSourceEnd+1;
   pLastUserEntry = 0;
-  pHere = forthSpace;
+  forthSpace[5] = (cell_t) forthSpace;
+  pHere = forthSpace+7;
+  pLastVoc = &forthSpace[6];
   state = FALSE;
   _quit();
 //NVIC_SystemReset();      // processor software reset 

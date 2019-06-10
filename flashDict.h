@@ -79,3 +79,7 @@ extern void _vocs(void);
 extern void _also(void);
 extern void _previous(void);
 extern void _order(void);
+extern void _dash_rot(void);
+extern void _nRomWords(void);
+extern void _addrToSee(void);
+extern void _isUserEntry(void);

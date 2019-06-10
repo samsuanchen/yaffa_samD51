@@ -1,7 +1,7 @@
 // Wed Jun 21 20:55:05 UTC 2017
 // 4735-a0p-03-
 
-extern char* printXtName(cell_t xt);
+extern char* dot_name(cell_t xt);
 extern const char dot_name_str[];
 extern void _dot_name();
 

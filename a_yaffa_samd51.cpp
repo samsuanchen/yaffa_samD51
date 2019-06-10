@@ -237,14 +237,13 @@ void setup(void) {
   forthSpace[2] = 0x77656e00; // flag and name
   forthSpace[3] = 0; // end of string
   forthSpace[4] = 0x15; // VOC_SYS_IDX
-  forthSpace[5] = (cell_t) pLastUserEntry; // this vocWord in vocabulary new
+  forthSpace[5] = (cell_t) forthSpace; // this vocWord in vocabulary new
   forthSpace[6] = 0; // link to prevVoc
   pLastVoc = &forthSpace[6];
   pHere = &forthSpace[7];
   pOldHere = pHere;
-  current = &forthSpace[5];
-  context[1] = current;
-  nContext = 2;
+  context[2] = context[1] = current = &forthSpace[5];
+  nContext = 3;
   // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
   // Serial.print("\n warm boot message - "    );
   // Serial.print("early bird.               " );

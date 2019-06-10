@@ -11,7 +11,7 @@
 /** Functions for decompiling words                                          **/
 /**   Used by _see and _toName                                               **/
 /******************************************************************************/
-char* xtToNFA(cell_t xt) {
+char* to_name(cell_t xt) {
   // Second Search through the flash Dictionary
   if (xt < 256) return (char*) flashDict[xt-1].name;
   else {
@@ -27,7 +27,7 @@ char* xtToNFA(cell_t xt) {
 }
 extern void _fgYellow();
 extern void _fgWhite();
-char* printXtName(cell_t xt) {
+char* dot_name(cell_t xt) {
   _fgYellow();
   if (xt < 256) {
     Serial.print(flashDict[xt-1].name);
@@ -46,7 +46,7 @@ char* printXtName(cell_t xt) {
 }
 const char dot_name_str[] = ".name";
 void _dot_name(){
-	printXtName( dStack_pop() );
+	dot_name( dStack_pop() );
 }
 #endif
 

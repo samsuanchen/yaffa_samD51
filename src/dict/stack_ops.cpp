@@ -50,14 +50,14 @@ void _swap(void) { // ( x y -- y x )
   dStack_push(x);
 }
 //const char rot_str[] = "rot";
+void _rot(void) { // rot ( n2 n1 n0 -- n1 n0 n2 )
+  cell_t n0 = dStack_pop(), n1 = dStack_pop(), n2 = dStack_pop();
+  dStack_push(n1); dStack_push(n0); dStack_push(n2);
+}
 // ( x1 x2 x3 -- x2 x3 x1)
-void _rot(void) {
-  cell_t x3 = dStack_pop();
-  cell_t x2 = dStack_pop();
-  cell_t x1 = dStack_pop();
-  dStack_push(x2);
-  dStack_push(x3);
-  dStack_push(x1);
+void _dash_rot(void) { // -rot ( n2 n1 n0 -- n0 n2 n1 )
+  cell_t n0 = dStack_pop(), n1 = dStack_pop(), n2 = dStack_pop();
+  dStack_push(n0); dStack_push(n2); dStack_push(n1);
 }
 //const char and_str[] = "and";
 // ( x1 x2 -- x3 )
@@ -88,7 +88,7 @@ void _dot(void) {
 // ( u -- )
 // Displau u in free field format
 // tested and fixed by Alex Moskovskij
-void _u_dot(void) {
+void _u_dot(void) { // need to be fixed
   Serial.print((ucell_t) dStack_pop());
   Serial.print(F(" "));
 }
@@ -193,14 +193,17 @@ void _ramLast(void) { // value --
   dStack_push((cell_t)pLastUserEntry);
 }
 int isRamEntry(cell_t* adr, userEntry_t* pUserEntry){
-	if( adr > (cell_t*)pLastUserEntry ) return 1;
-	if( *adr != (cell_t) pUserEntry ) return false;
-	userEntry_t* nextEntry = (userEntry_t*) adr;
+//	if( adr > (cell_t*)pLastUserEntry ) return 1;
+	if( adr >= pHere ) return 1;
+//	if( *adr != (cell_t) pUserEntry ) return false;
+//	userEntry_t* nextEntry = (userEntry_t*) adr;
+	userEntry_t* entry = (userEntry_t*) adr;
 	extern void printHex(cell_t);
 	int a = (int) adr + 9;
 	a += (int) strlen( (char*) a ) + 4;
 	a &= -4;
-	int flag=0; if((int) nextEntry->cfa == a) flag=-1;
+//	int flag=0; if((int) nextEntry->cfa == a) flag=-1;
+	int flag=0; if((int) entry->cfa == a) flag=-1;
 	return flag;
 }
 /*

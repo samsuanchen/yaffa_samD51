@@ -806,7 +806,7 @@ void displayValue(void) {
 /** Functions for decompiling words                                          **/
 /**   Used by _see and _toName                                               **/
 /******************************************************************************/
-char* printXtName(cell_t xt) {
+char* dot_name(cell_t xt) {
   pUserEntry = pLastUserEntry;
 
   // Second Search through the flash Dictionary

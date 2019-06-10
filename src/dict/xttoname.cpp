@@ -11,24 +11,24 @@
 /** Functions for decompiling words                                          **/
 /**   Used by _see and _toName                                               **/
 /******************************************************************************/
-char* xtToNFA(cell_t xt) {
+char* to_name(cell_t xt) {
   char* name = 0;
   if (xt <= nFlashEntry) name = (char*) flashDict[xt-1].name;
   else {
   	cell_t* p = (cell_t*) xt - 1;
-  	int n=8; while( n-- ) if(*(--p)==xt ) break;
+  	int n=9; while( n-- ) if(*(--p)==xt ) break;
   	if(*p == xt) name = (char*) p + 5;
   }
   return name;
 }
-char* printXtName(cell_t xt) {
-  char* name = xtToNFA(xt);
+char* dot_name(cell_t xt) {
+  char* name = to_name(xt);
   if(name) Serial.print(name);
   return name;
 }
-const char dot_name_str[] = ".name";
+//const char dot_name_str[] = ".name";
 void _dot_name(){
-	printXtName( dStack_pop() );
+	dot_name( dStack_pop() );
 }
 #endif
 

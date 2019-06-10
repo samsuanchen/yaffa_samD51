@@ -78,16 +78,47 @@ void myword_underscore_seps(void) {
 #include "./new_dict_entries.h"
 #include "../../flashDict.h"
 
-char str[17];
-void printHex(cell_t num) {
-	itoa(num, str, 16);
-	Serial.print(str);
+char hexBuf[17];
+char* toHex( cell_t i ) {
+	itoa( i, hexBuf, 16 );
+	return (char *) hexBuf;
 }
-void printHex(cell_t num, uint8_t n) {
-	itoa(num, str, 16);
-	uint8_t i = strlen(str);
-	while(i++ < n) Serial.print("0");
-	Serial.print(str);
+char * fillChars( char * buf, char c, uint8_t n ) {
+	char * p = buf;
+	uint8_t m = n;
+	while( m -- > 0 ) * p ++ = c;
+	return p;
+}
+char nHexBuf[17];
+char * toNHex( cell_t i, char leading, int8_t n ) {
+	char * hex = toHex( i );
+	char * p = fillChars( (char *) nHexBuf, leading, n - strlen( hex ) );
+	strcpy( p, hex );
+	return (char *) nHexBuf;
+}
+void printStr( char* str ) {
+	Serial.print( str );
+}
+void printStr( char* str0, char* str ) {
+	printStr( str0 ); printStr( str );
+}
+void printHex( cell_t i ) {
+	printStr( toHex( i ) );
+}
+void printHex( char* str0, cell_t i ) {
+	printStr( str0, toHex( i ) );
+}
+void printHex(cell_t i, uint8_t n) {
+	printStr(toNHex(i, '0', n));
+}
+void printHex( char* str0, cell_t i, uint8_t n ) {
+	printStr( str0 ); printHex( i, n );
+}
+void print2Hex( char* str0, cell_t i ) {
+	printHex( str0, i, 2 );
+}
+void print8Hex( char* str0, cell_t i ) {
+	printHex( str0, i, 8 );
 }
 
 // const char not_done_str[] = " NOT Implemented Yet \n\r";
@@ -955,7 +986,7 @@ cell_t find(char* ptr, cell_t length) {
   	  if( i == nContext ) { // the voc p has not been searched yet
   	  	  //Serial.print(iContext); _space();
 	  	  if(p){
-	  	  	  //printXtName((cell_t) (p-1)); _space();
+	  	  	  //dot_name((cell_t) (p-1)); _space();
 	  	  	  pUserEntry = (userEntry_t*) *p;
 			  while (pUserEntry) {
 			  	name = pUserEntry->name;
@@ -1740,52 +1771,90 @@ void _showWordType(cell_t xt) { // samsuanchen@gmail.com
     if (flags & COMP_ONLY) _bgBlue(),Serial.print("COMP_ONLY"),_bgBlack(),Serial.print(" ");
     if (flags & IMMEDIATE) _fgRed(),Serial.print("IMMEDIATE "),_fgWhite();
 }
+bool isUserEntry(cell_t* addr) {
+	if(addr>=pHere){
+	//	printStr("\r\naddr>=pHere ");
+		return false; }
+	cell_t* prev= (cell_t*) *addr;
+	if(prev && (prev>(addr-4) || prev<(cell_t*)forthSpace)){
+	//	printStr("\r\nprev && (prev>(addr-4) || prev<(cell_t*)forthSpace) ");
+		return false; }
+	cell_t* cfa=(cell_t*) *(addr+1);
+	if(cfa<(addr+3) || cfa>(addr+12)){
+	//	printStr("\r\ncfa<(addr+3) || cfa>(addr+12) ");
+		return false; }
+	uint8_t*a=(uint8_t*)(addr+2);
+	uint8_t flags = *a++;
+	if(flags & 0x1f){
+	//	printStr("\r\nflags & 0x1f ");
+		return false; }
+	uint8_t c;
+	while(c=*a++) if(c<=0x20){
+	//	printStr("\r\nc<=0x20 ");
+		return false; } // blank or control code could not be in name
+	if(((cell_t)(a+3)&-4)!=(cell_t)cfa){
+	//	printStr("\r\n((cell_t)(a+3)&-4)!=(cell_t)cfa ");
+		return false; } // next aligned cell addr should be cfa
+//	while(a<(uint8_t*)cfa) if(*a++){
+//		printStr("\r\n*a++ ");
+//		return false; } // after end of name should all be 0 until cfa
+	return true;
+}
+void _isUserEntry(void) {
+	cell_t* addr = (cell_t*) dStack_pop();
+	if(addr>=pHere) dStack_push(0), dStack_push(1);
+	else dStack_push((cell_t) addr), dStack_push((cell_t) isUserEntry(addr));
+}
+
 // const char psee_str[] = "(see)";
 // ( xt -- ) need to fix con-sys and var-sys samsuanchen@gmail.com 20190508
+cell_t* addrToSee;
+void _addrToSee(void) {
+	dStack_push((cell_t) addrToSee);
+}
 void _psee(void) { // samsuanchen@gmail.com
     bool isLiteral, done;
-    cell_t* addr;
 	cell_t addrLmt = 0; cell_t av;
     if (errorCode) return;
     cell_t xt = dStack_pop();
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt <= nFlashEntry) {
-    	Serial.print("LowLevel Rom Word "); printXtName(xt);
+    	Serial.print("LowLevel Rom Word "); dot_name(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
-    	addr = (cell_t*) &flashDict[xt-1];
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" nfa" ); addr++;
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" code"); addr++;
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" flag");
+    	addrToSee = (cell_t*) &flashDict[xt-1];
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" nfa" ); addrToSee++;
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" code"); addrToSee++;
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" flag"); addrToSee++;
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("HighLevel Ram Word "); printXtName(xt);
+    	Serial.print("HighLevel Ram Word "); dot_name(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
-    	cell_t* addr =  (cell_t*)xt; addr--;
-    	while (*(--addr) != xt); addr--;
-    //  Serial.print(" (ramEntry %X)", addr);
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" link"); addr++;
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" cfa" ); addr++;
-    	Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); Serial.print(" name, flag"); addr++;
-		while (addr<(cell_t*)xt) { Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(*addr,8); addr++; }
-		Serial.print("\r\n CODE");
+    	addrToSee =  (cell_t*)xt; addrToSee--;
+    	while (*(--addrToSee) != xt); addrToSee--;
+    //  Serial.print(" (ramEntry %X)", addrToSee);
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" link"); addrToSee++;
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" cfa" ); addrToSee++;
+    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" name, flag"); addrToSee++;
+		while (addrToSee<(cell_t*)xt) { Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); addrToSee++; }
+		Serial.print("\r\n CODE ");
         do {
-            cell_t n = *addr;
+            cell_t n = *addrToSee;
             done = isLiteral = false;
-            Serial.print("\r\n "); printHex((cell_t) addr); Serial.print(" "); printHex(n,8); Serial.print(" ");
-            printXtName(n);
+            Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(n,8); Serial.print(" ");
+            dot_name(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); printXtName(*(++addr)); Serial.print(")\r\n BODY");
-            	Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            	Serial.print("(does> "); dot_name(*(++addrToSee)); Serial.print(")\r\n BODY");
+            	Serial.print("\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
             	break;
             }
         	switch (n) {
                 case VARIABLE_IDX:
                 case CONST_IDX:
                 case VOC_SYS_IDX:
-            		Serial.print("\r\n BODY\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            		Serial.print("\r\n BODY\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
             		if(n == VOC_SYS_IDX){
-            			Serial.print("\r\n "); printHex((cell_t) ++addr); Serial.print(" "); printHex(*addr,8);
+            			Serial.print("\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
             		}
             		done = true;
             		break;
@@ -1794,18 +1863,19 @@ void _psee(void) { // samsuanchen@gmail.com
                 case JUMP_IDX:
                 case ZJUMP_IDX:
                 case LOOP_SYS_IDX:
-                	av = *++addr;
+                	av = *++addrToSee;
                     Serial.print(" ("); printHex(av,8); Serial.print(")");
                     addrLmt =  ( ( n==JUMP_IDX || n==ZJUMP_IDX ) && addrLmt < av ) ? av : addrLmt;
+                //  printStr(" addrLmt "); printHex(addrLmt);
                     break;
                 case S_QUOTE_IDX:
                 case DOT_QUOTE_IDX:
                     Serial.print(sp_str);
-                    char *ptr = (char*)(++addr);
+                    char *ptr = (char*)(++addrToSee);
                     while (*ptr) Serial.print(*ptr++);
                     Serial.print("\x22");
-                    addr = (cell_t *)((int)ptr&-4); // samsuanchen@gmail.com 20190503
-                  //ALIGN_P(addr); // samsuanchen@gmail.com 20190503
+                    addrToSee = (cell_t *)((int)ptr&-4); // samsuanchen@gmail.com 20190503
+                  //ALIGN_P(addrToSee); // samsuanchen@gmail.com 20190503
                     break;
             } // switch
             // We're done if exit code but not a literal with value of one
@@ -1813,11 +1883,12 @@ void _psee(void) { // samsuanchen@gmail.com
           //Serial.print(" n 0x"), Serial.print(n,16);
           //Serial.print(" *isLiteral "), Serial.print(isLiteral);
           //Serial.print(")");
-            done = done || ( (n == EXIT_IDX) && (addrLmt < (cell_t) addr) );
-            addr++;
+            done = done || ( (n == EXIT_IDX) && (addrLmt <= (cell_t) addrToSee) );
+            addrToSee++;
         } while (! done); // do
     } // else
-    Serial.println();
+//  _space(); printHex((cell_t) addrToSee);
+    _cr();
 }
 
 const char see_str[] = "see";
@@ -1938,9 +2009,9 @@ void _analogWrite(void) {
 void _to_name(void) {
 	extern cell_t dStack_top(void);
 	extern void dStack_top(cell_t);
-	extern char* xtToNFA(cell_t);
+	extern char* to_name(cell_t);
 	cell_t top = dStack_top();
-    dStack_top( top>0 ? (cell_t) xtToNFA(top) : 0 );
+    dStack_top( top>0 ? (cell_t) to_name(top) : 0 );
 }
 #endif
 void _tone(void) {
@@ -1981,10 +2052,11 @@ void _lastVoc(void) {
 }
 void _vocs(void) { _cr(); cell_t* p = pLastVoc;
 	while(p) {
-		Serial.print(" 0x"); Serial.print((cell_t) p, 16); _space();
-		char* name = xtToNFA((cell_t)(p-2)); Serial.print(name); _space();
+		//Serial.print(" 0x"); Serial.print((cell_t) p, 16); _space();
+		char* name = to_name((cell_t)(p-2)); Serial.print(name); _space();
 		p = (cell_t*) *p;
 	}
+	Serial.print("primitive");
 }
 void _context(void) {
 	dStack_push((cell_t) context);
@@ -1996,22 +2068,31 @@ void _definitions(void) {
 	current = context[nContext-1];
 }
 void _also(void) {
-	if( nContext< 8 ) context[nContext] = context[nContext-1], nContext++;
-	else Serial.print("\r\ncontext full (max 8 vocs)");
+	if( context[nContext-1] ) {
+		if( nContext< 8 ) context[nContext] = context[nContext-1], nContext++;
+		else Serial.print("\r\n context full (max 8 vocs)");
+	} else Serial.print("\r\n current cannot be primitive");
 }
 void _previous(void) {
 	if(nContext) nContext--;
-	else Serial.print("\r\ncontext empty");
+	else Serial.print( "\r\ncontext empty" );
+}
+void fgBrightYellowStr( char * str ) {
+	_space(); _fgBrightYellow(); Serial.print( str ); _fgWhite();
+}
+void printVoc( cell_t * voc ) {
+	if( voc ) dot_name( (cell_t) (voc-1) );
+	else Serial.print( "primitive" );
+	_space();
 }
 void _order(void) {
-	Serial.print("\r\ncurrent:");
-	if(current) printXtName((cell_t)(current-1));
-	else Serial.print("premitive");
-	Serial.print(" context:");
-	for(int i=nContext-1; i>=0; i--){
-		if(context[i]) printXtName((cell_t)(context[i]-1));
-		else Serial.print("premitive"); _space();
-	}
+	_cr(); fgBrightYellowStr( "current " );
+	printVoc( current );
+	fgBrightYellowStr( "context " );
+	for(int i = nContext -1; i >= 0; i -- ) printVoc( context[i] );
+}
+void _nRomWords(void) {
+	dStack_push(nFlashEntry);
 }
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/

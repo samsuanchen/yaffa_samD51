@@ -223,6 +223,7 @@ const flashEntry_t flashDict[] = {
   { "recurse",        _recurse,         IMMEDIATE + COMP_ONLY },
   { "repeat",         _repeat,        IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
   { "rot",            _rot,             NORMAL },
+  { "-rot",           _dash_rot,        NORMAL }, // added samsuanchen@gmail.com 20190606
   { "rshift",         _rshift,          NORMAL },
 //   { "s>d",         _s_to_d,          NORMAL },
 //   { "sign",           _sign,            NORMAL },
@@ -249,7 +250,7 @@ const flashEntry_t flashDict[] = {
   { "]",  _right_bracket,   NORMAL },
 
 #ifdef CORE_EXT_SET
-  { ".(",      _dot_paren,       IMMEDIATE },
+  { ".(",      _dot_paren,       NORMAL },
   { "0<>", _zero_not_equal,  NORMAL },
   { "0>",   _zero_greater,    NORMAL },
   { "2>r",       _two_to_r,        NORMAL },
@@ -398,6 +399,10 @@ const flashEntry_t flashDict[] = {
   { "previous",   _previous,    NORMAL },
   { "order",   _order,    NORMAL },
   { "primitive",   _primitive,    NORMAL },
+  { "nRomWords",   _nRomWords,    NORMAL },
+  { "addrToSee",   _addrToSee,    NORMAL },
+  { "isUserEntry", _isUserEntry,  NORMAL },
+  
 
 #endif // #ifdef HAS_QSPI_FLASH_DEMO
 

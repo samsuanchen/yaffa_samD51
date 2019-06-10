@@ -1,299 +1,2550 @@
-C:\Program Files (x86)\Arduino\arduino-builder -dump-prefs -logger=machine -hardware C:\Program Files (x86)\Arduino\hardware -hardware C:\Users\samsu\AppData\Local\Arduino15\packages -hardware C:\Users\samsu\Documents\Arduino\hardware -tools C:\Program Files (x86)\Arduino\tools-builder -tools C:\Program Files (x86)\Arduino\hardware\tools\avr -tools C:\Users\samsu\AppData\Local\Arduino15\packages -built-in-libraries C:\Program Files (x86)\Arduino\libraries -libraries C:\Users\samsu\Documents\Arduino\libraries -fqbn=adafruit:samd:adafruit_itsybitsy_m4:cache=on,speed=120,opt=small,maxspi=24,maxqspi=50 -vid-pid=0X239A_0X802B -ide-version=10809 -build-path C:\Users\samsu\AppData\Local\Temp\arduino_build_150992 -warnings=none -build-cache C:\Users\samsu\AppData\Local\Temp\arduino_cache_612713 -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.arm-none-eabi-gcc.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1 -prefs=runtime.tools.arm-none-eabi-gcc-4.8.3-2014q1.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1 -prefs=runtime.tools.CMSIS-Atmel.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0 -prefs=runtime.tools.CMSIS-Atmel-1.2.0.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0 -prefs=runtime.tools.CMSIS.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0 -prefs=runtime.tools.CMSIS-4.5.0.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0 -prefs=runtime.tools.openocd.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino -prefs=runtime.tools.openocd-0.9.0-arduino.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino -prefs=runtime.tools.bossac.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -prefs=runtime.tools.bossac-1.8.0-48-gb176eee.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -verbose C:\Users\samsu\Documents\Arduino\ainsuForth-gen-exp-m4\ainsuForth-gen-exp-m4.ino
-C:\Program Files (x86)\Arduino\arduino-builder -compile -logger=machine -hardware C:\Program Files (x86)\Arduino\hardware -hardware C:\Users\samsu\AppData\Local\Arduino15\packages -hardware C:\Users\samsu\Documents\Arduino\hardware -tools C:\Program Files (x86)\Arduino\tools-builder -tools C:\Program Files (x86)\Arduino\hardware\tools\avr -tools C:\Users\samsu\AppData\Local\Arduino15\packages -built-in-libraries C:\Program Files (x86)\Arduino\libraries -libraries C:\Users\samsu\Documents\Arduino\libraries -fqbn=adafruit:samd:adafruit_itsybitsy_m4:cache=on,speed=120,opt=small,maxspi=24,maxqspi=50 -vid-pid=0X239A_0X802B -ide-version=10809 -build-path C:\Users\samsu\AppData\Local\Temp\arduino_build_150992 -warnings=none -build-cache C:\Users\samsu\AppData\Local\Temp\arduino_cache_612713 -prefs=build.warn_data_percentage=75 -prefs=runtime.tools.arm-none-eabi-gcc.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1 -prefs=runtime.tools.arm-none-eabi-gcc-4.8.3-2014q1.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\arm-none-eabi-gcc\4.8.3-2014q1 -prefs=runtime.tools.CMSIS-Atmel.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0 -prefs=runtime.tools.CMSIS-Atmel-1.2.0.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS-Atmel\1.2.0 -prefs=runtime.tools.CMSIS.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0 -prefs=runtime.tools.CMSIS-4.5.0.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\CMSIS\4.5.0 -prefs=runtime.tools.openocd.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino -prefs=runtime.tools.openocd-0.9.0-arduino.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\openocd\0.9.0-arduino -prefs=runtime.tools.bossac.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -prefs=runtime.tools.bossac-1.8.0-48-gb176eee.path=C:\Users\samsu\AppData\Local\Arduino15\packages\arduino\tools\bossac\1.8.0-48-gb176eee -verbose C:\Users\samsu\Documents\Arduino\ainsuForth-gen-exp-m4\ainsuForth-gen-exp-m4.ino
-Using board 'adafruit_itsybitsy_m4' from platform in folder: C:\Users\samsu\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.4.1
-Using core 'arduino' from platform in folder: C:\Users\samsu\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.4.1
-Detecting libraries used...
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-g++" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions "-D__SKETCH_NAME__=\"\"\"ainsuForth-gen-exp-m4.ino\"\"\"" -w -x c++ -E -CC -DF_CPU=120000000L -DARDUINO=10809 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON "-DUSB_MANUFACTURER=\"Adafruit LLC\"" "-DUSB_PRODUCT=\"Adafruit ItsyBitsy M4\"" -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE -Os -DMAX_SPI=24000000 -DVARIANT_QSPI_BAUD_DEFAULT=50000000 "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS\\4.5.0/CMSIS/Include/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS-Atmel\\1.2.0/CMSIS/Device/ATMEL/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\cores\\arduino" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForth-gen-exp-m4.ino.cpp" -o nul
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\ainsuForthsketch.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\flashDict.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\accept.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\allot.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\begin_while_repeat.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\cblink.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\char.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\colon_semi.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\constant.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\dict_comments_only.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\do_loop.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\dump.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\help.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\iasmd.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\if_else_then.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\max_min.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\new_dict_entries.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\stack_ops.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\store_fetch.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\xttoname.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\dl_interpreter.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\do_sys.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\dot_quote.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\download.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\drop.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\entry.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\eq.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\execute_word.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\exit.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline_m0_exp.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline_m4_exp.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\gettoken.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\interpreter.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\is_dl_word_number.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\is_word_number.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\jump.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\leave_sys.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\literal.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\load.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\loop_sys.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\over.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\plus_loop_sys.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\quit.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\remove.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\s_quote.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\signon.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\stacks.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\strings.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\subroutine.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\target_sensed.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\throw.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\type.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\variable.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\warm.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\zjump.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\dotstar.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\neo_pixel.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\qspi\flashrom.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash_FatFs.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\ccsbcs.c
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\ff.c
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash\utility\flashdisk.cpp
-Using cached library dependencies for file: C:\Users\samsu\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.4.1\libraries\SPI\SPI.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_GD25Q.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_Generic.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_QSPI\Adafruit_QSPI_S25FL1.cpp
-Using cached library dependencies for file: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp
-Generating function prototypes...
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-g++" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions "-D__SKETCH_NAME__=\"\"\"ainsuForth-gen-exp-m4.ino\"\"\"" -w -x c++ -E -CC -DF_CPU=120000000L -DARDUINO=10809 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON "-DUSB_MANUFACTURER=\"Adafruit LLC\"" "-DUSB_PRODUCT=\"Adafruit ItsyBitsy M4\"" -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE -Os -DMAX_SPI=24000000 -DVARIANT_QSPI_BAUD_DEFAULT=50000000 "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS\\4.5.0/CMSIS/Include/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS-Atmel\\1.2.0/CMSIS/Device/ATMEL/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\cores\\arduino" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_SPIFlash" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\libraries\\SPI" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_QSPI" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_DotStar" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForth-gen-exp-m4.ino.cpp" -o "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\preproc\\ctags_target_for_gcc_minus_e.cpp"
-"C:\\Program Files (x86)\\Arduino\\tools-builder\\ctags\\5.8-arduino11/ctags" -u --language-force=c++ -f - --c++-kinds=svpf --fields=KSTtzns --line-directives "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\preproc\\ctags_target_for_gcc_minus_e.cpp"
-Compiling sketch...
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-g++" -mcpu=cortex-m4 -mthumb -c -g -Os -w -std=gnu++11 -ffunction-sections -fdata-sections -fno-threadsafe-statics -nostdlib --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD "-D__SKETCH_NAME__=\"\"\"ainsuForth-gen-exp-m4.ino\"\"\"" -DF_CPU=120000000L -DARDUINO=10809 -DARDUINO_ITSYBITSY_M4 -DARDUINO_ARCH_SAMD -D__SAMD51G19A__ -DADAFRUIT_ITSYBITSY_M4_EXPRESS -D__SAMD51__ -DUSB_VID=0x239A -DUSB_PID=0x802B -DUSBCON "-DUSB_MANUFACTURER=\"Adafruit LLC\"" "-DUSB_PRODUCT=\"Adafruit ItsyBitsy M4\"" -D__FPU_PRESENT -DARM_MATH_CM4 -DCRYSTALLESS -mfloat-abi=hard -mfpu=fpv4-sp-d16 -DENABLE_CACHE -Os -DMAX_SPI=24000000 -DVARIANT_QSPI_BAUD_DEFAULT=50000000 "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS\\4.5.0/CMSIS/Include/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS-Atmel\\1.2.0/CMSIS/Device/ATMEL/" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\cores\\arduino" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_SPIFlash" "-IC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\libraries\\SPI" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_QSPI" "-IC:\\Users\\samsu\\Documents\\Arduino\\libraries\\Adafruit_DotStar" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForth-gen-exp-m4.ino.cpp" -o "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForth-gen-exp-m4.ino.cpp.o"
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\ainsuForthsketch.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\flashDict.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\dict_comments_only.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\over.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\cblink.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\dump.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\if_else_then.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\jump.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\is_word_number.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\gettoken.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\load.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\literal.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\quit.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\allot.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\remove.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\s_quote.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\new_dict_entries.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\signon.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\target_sensed.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\stack_ops.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\type.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\store_fetch.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\stacks.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\throw.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\subroutine.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\warm.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\strings.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\zjump.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\qspi\flashrom.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\neo_pixel.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\xttoname.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\periph\dotstar.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\dl_interpreter.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\do_sys.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\dot_quote.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\drop.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\download.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\eq.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\entry.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\execute_word.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline_m0_exp.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\constant.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\interpreter.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\do_loop.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\begin_while_repeat.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\accept.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\loop_sys.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\is_dl_word_number.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\iasmd.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\plus_loop_sys.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\colon_semi.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\leave_sys.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\help.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\max_min.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\variable.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\exit.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline_m4_exp.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\dict\char.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\sketch\src\kernel\getline.cpp.o
-Compiling libraries...
-Compiling library "Adafruit_SPIFlash"
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash_FatFs.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_SPIFlash\Adafruit_SPIFlash.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_SPIFlash\utility\ff.c.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_SPIFlash\utility\ccsbcs.c.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_SPIFlash\utility\flashdisk.cpp.o
-Compiling library "SPI"
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\SPI\SPI.cpp.o
-Compiling library "Adafruit_QSPI"
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_QSPI\Adafruit_QSPI_Generic.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_QSPI\Adafruit_QSPI_GD25Q.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_QSPI\Adafruit_QSPI_S25FL1.cpp.o
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_QSPI\Adafruit_QSPI.cpp.o
-Compiling library "Adafruit_DotStar"
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\libraries\Adafruit_DotStar\Adafruit_DotStar.cpp.o
-Compiling core...
-Using previously compiled file: C:\Users\samsu\AppData\Local\Temp\arduino_build_150992\core\variant.cpp.o
-Using precompiled core: C:\Users\samsu\AppData\Local\Temp\arduino_cache_612713\core\core_02f97b69ad83e20fc58e413391494cff.a
-Linking everything together...
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-gcc" "-LC:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992" -Os -Wl,--gc-sections -save-temps "-TC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4/linker_scripts/gcc/flash_with_bootloader.ld" "-Wl,-Map,C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/ainsuForth-gen-exp-m4.ino.map" --specs=nano.specs --specs=nosys.specs -mcpu=cortex-m4 -mthumb -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align -o "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/ainsuForth-gen-exp-m4.ino.elf" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForth-gen-exp-m4.ino.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\ainsuForthsketch.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\flashDict.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\accept.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\allot.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\begin_while_repeat.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\cblink.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\char.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\colon_semi.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\constant.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\dict_comments_only.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\do_loop.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\dump.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\help.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\iasmd.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\if_else_then.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\max_min.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\new_dict_entries.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\stack_ops.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\store_fetch.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\dict\\xttoname.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\dl_interpreter.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\do_sys.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\dot_quote.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\download.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\drop.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\entry.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\eq.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\execute_word.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\exit.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\getline.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\getline_m0_exp.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\getline_m4_exp.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\gettoken.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\interpreter.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\is_dl_word_number.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\is_word_number.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\jump.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\leave_sys.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\literal.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\load.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\loop_sys.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\over.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\plus_loop_sys.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\quit.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\remove.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\s_quote.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\signon.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\stacks.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\strings.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\subroutine.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\target_sensed.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\throw.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\type.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\variable.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\warm.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\kernel\\zjump.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\periph\\dotstar.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\periph\\neo_pixel.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\sketch\\src\\periph\\qspi\\flashrom.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_SPIFlash\\Adafruit_SPIFlash.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_SPIFlash\\Adafruit_SPIFlash_FatFs.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_SPIFlash\\utility\\ccsbcs.c.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_SPIFlash\\utility\\ff.c.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_SPIFlash\\utility\\flashdisk.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\SPI\\SPI.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_QSPI\\Adafruit_QSPI.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_QSPI\\Adafruit_QSPI_GD25Q.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_QSPI\\Adafruit_QSPI_Generic.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_QSPI\\Adafruit_QSPI_S25FL1.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\libraries\\Adafruit_DotStar\\Adafruit_DotStar.cpp.o" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992\\core\\variant.cpp.o" -Wl,--start-group "-LC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4" -larm_cortexM4lf_math -mfloat-abi=hard -mfpu=fpv4-sp-d16 "-LC:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.4.1\\variants\\itsybitsy_m4" -lm "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/..\\arduino_cache_612713\\core\\core_02f97b69ad83e20fc58e413391494cff.a" -Wl,--end-group
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-objcopy" -O binary "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/ainsuForth-gen-exp-m4.ino.elf" "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/ainsuForth-gen-exp-m4.ino.bin"
-Using library Adafruit_SPIFlash at version 1.2.0 in folder: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_SPIFlash 
-Using library SPI at version 1.0 in folder: C:\Users\samsu\AppData\Local\Arduino15\packages\adafruit\hardware\samd\1.4.1\libraries\SPI 
-Using library Adafruit_QSPI at version 2.0.0 in folder: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_QSPI 
-Using library Adafruit_DotStar at version 1.1.1 in folder: C:\Users\samsu\Documents\Arduino\libraries\Adafruit_DotStar 
-"C:\\Users\\samsu\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\arm-none-eabi-gcc\\4.8.3-2014q1/bin/arm-none-eabi-size" -A "C:\\Users\\samsu\\AppData\\Local\\Temp\\arduino_build_150992/ainsuForth-gen-exp-m4.ino.elf"
-Sketch uses 50704 bytes (9%) of program storage space. Maximum is 507904 bytes.
-Device       : ATSAMD51x19
-Version      : v1.1 [Arduino:XYZ] Apr  6 2019 10:10:42
-Address      : 0x0
-Pages        : 1024
-Page Size    : 512 bytes
-Total Size   : 512KB
-Planes       : 1
-Lock Regions : 32
-Locked       : none
-Security     : false
-BOD          : false
-BOR          : true
-Write 51072 bytes to flash (100 pages)
 
-[                              ] 0% (0/100 pages)
-[==                            ] 8% (8/100 pages)
-[====                          ] 16% (16/100 pages)
-[=======                       ] 24% (24/100 pages)
-[=========                     ] 32% (32/100 pages)
-[============                  ] 40% (40/100 pages)
-[==============                ] 48% (48/100 pages)
-[================              ] 56% (56/100 pages)
-[===================           ] 64% (64/100 pages)
-[=====================         ] 72% (72/100 pages)
-[========================      ] 80% (80/100 pages)
-[==========================    ] 88% (88/100 pages)
-[============================  ] 96% (96/100 pages)
-[==============================] 100% (100/100 pages)
-Done in 0.615 seconds
-Verify 51072 bytes of flash
+ Serial.begin(115200) buzzer pin A0 = 14
+ Hello from setup_qspi m4 getline stuff.    Found QSPI Flash.
+ NOV 2018: Mounted filesystem!
+ SPI_FlashROM_FILENAME: /forth/ascii_xfer_a001.txt
 
-[=                             ] 4% (4/100 pages)
-[=                             ] 5% (5/100 pages)
-[=                             ] 6% (6/100 pages)
-[==                            ] 7% (7/100 pages)
-[==                            ] 8% (8/100 pages)
-[==                            ] 9% (9/100 pages)
-[===                           ] 10% (10/100 pages)
-[===                           ] 11% (11/100 pages)
-[===                           ] 12% (12/100 pages)
-[===                           ] 13% (13/100 pages)
-[====                          ] 14% (14/100 pages)
-[====                          ] 15% (15/100 pages)
-[====                          ] 16% (16/100 pages)
-[=====                         ] 17% (17/100 pages)
-[=====                         ] 18% (18/100 pages)
-[=====                         ] 19% (19/100 pages)
-[======                        ] 20% (20/100 pages)
-[======                        ] 21% (21/100 pages)
-[======                        ] 22% (22/100 pages)
-[======                        ] 23% (23/100 pages)
-[=======                       ] 24% (24/100 pages)
-[=======                       ] 25% (25/100 pages)
-[=======                       ] 26% (26/100 pages)
-[========                      ] 27% (27/100 pages)
-[========                      ] 28% (28/100 pages)
-[========                      ] 29% (29/100 pages)
-[=========                     ] 30% (30/100 pages)
-[=========                     ] 31% (31/100 pages)
-[=========                     ] 32% (32/100 pages)
-[=========                     ] 33% (33/100 pages)
-[==========                    ] 34% (34/100 pages)
-[==========                    ] 35% (35/100 pages)
-[==========                    ] 36% (36/100 pages)
-[===========                   ] 37% (37/100 pages)
-[===========                   ] 38% (38/100 pages)
-[===========                   ] 39% (39/100 pages)
-[============                  ] 40% (40/100 pages)
-[============                  ] 41% (41/100 pages)
-[============                  ] 42% (42/100 pages)
-[============                  ] 43% (43/100 pages)
-[=============                 ] 44% (44/100 pages)
-[=============                 ] 45% (45/100 pages)
-[=============                 ] 46% (46/100 pages)
-[==============                ] 47% (47/100 pages)
-[==============                ] 48% (48/100 pages)
-[==============                ] 49% (49/100 pages)
-[===============               ] 50% (50/100 pages)
-[===============               ] 51% (51/100 pages)
-[===============               ] 52% (52/100 pages)
-[===============               ] 53% (53/100 pages)
-[================              ] 54% (54/100 pages)
-[================              ] 55% (55/100 pages)
-[================              ] 56% (56/100 pages)
-[=================             ] 57% (57/100 pages)
-[=================             ] 58% (58/100 pages)
-[=================             ] 59% (59/100 pages)
-[==================            ] 60% (60/100 pages)
-[==================            ] 61% (61/100 pages)
-[==================            ] 62% (62/100 pages)
-[==================            ] 63% (63/100 pages)
-[===================           ] 64% (64/100 pages)
-[===================           ] 65% (65/100 pages)
-[===================           ] 66% (66/100 pages)
-[====================          ] 67% (67/100 pages)
-[====================          ] 68% (68/100 pages)
-[====================          ] 69% (69/100 pages)
-[=====================         ] 70% (70/100 pages)
-[=====================         ] 71% (71/100 pages)
-[=====================         ] 72% (72/100 pages)
-[=====================         ] 73% (73/100 pages)
-[======================        ] 74% (74/100 pages)
-[======================        ] 75% (75/100 pages)
-[======================        ] 76% (76/100 pages)
-[=======================       ] 77% (77/100 pages)
-[=======================       ] 78% (78/100 pages)
-[=======================       ] 79% (79/100 pages)
-[========================      ] 80% (80/100 pages)
-[========================      ] 81% (81/100 pages)
-[========================      ] 82% (82/100 pages)
-[========================      ] 83% (83/100 pages)
-[=========================     ] 84% (84/100 pages)
-[=========================     ] 85% (85/100 pages)
-[=========================     ] 86% (86/100 pages)
-[==========================    ] 87% (87/100 pages)
-[==========================    ] 88% (88/100 pages)
-[==========================    ] 89% (89/100 pages)
-[===========================   ] 90% (90/100 pages)
-[===========================   ] 91% (91/100 pages)
-[===========================   ] 92% (92/100 pages)
-[===========================   ] 93% (93/100 pages)
-[============================  ] 94% (94/100 pages)
-[============================  ] 95% (95/100 pages)
-[============================  ] 96% (96/100 pages)
-[============================= ] 97% (97/100 pages)
-[============================= ] 98% (98/100 pages)
-[============================= ] 99% (99/100 pages)
-[==============================] 100% (100/100 pages)
-Verify successful
-Done in 0.313 seconds
-Couldn't find a Board on the selected port. Check that you have the correct port selected.  If it is correct, try pressing the board's reset button after initiating the upload.
+ GIT 8c8141d2866
+ SIWNA feature +trm4x +fm4x +crickitCPX
+ time Sun Nov 4 02:32:24 2018 branch testing-gg-
+ shred 4737-a3c-00d- target Trellis M4 Express
+ forthSpace $200003DC size 0x8000
+
+  YAFFA samd51Forth (241 romWords) - 201905 - samsuanchen@gmail.com
+ ok
+load  OK
+
+   OK
+
+\ yaffa on adafruit samd51 itsybitsy m4 -- samsuanchen@gmail.com 201906201  OK
+
+\ https://learn.adafruit.com/introducing-adafruit-itsybitsy-m4/setup  OK
+
+\  OK
+
+\ A. save this script to flashRom  OK
+
+\ A.1. connect samD51 to PC  OK
+
+\ A.1.1. open Arduino IDE  OK
+
+\ A.1.2. select Tools/Board/Adafruit ItsyBitsy M4 (samD51)  OK
+
+\ A.1.3. select Tools/Port  OK
+
+\ A.1.4. select Sketch/Upload  OK
+
+\ A.2. open Tera Term  OK
+
+\ A.2.1. select Setup/Serial Port/ Port:  OK
+
+\ A.2.2. select Setup/Serial Port/ Baud rate:  OK
+
+\ A.2.3. select Setup/Serial Port/ OK  OK
+
+\ A.3. enter ": x eflmkdir ; x"  OK
+
+\ A.4. enter "download"  OK
+
+\ A.5. paste this script  OK
+
+\  OK
+
+\ B. append another script to flash  OK
+
+\ B.1. enter "download"  OK
+
+\ B.2. paste another script  OK
+
+\ B.3. enter "\end."  OK
+
+\  OK
+
+\ C. erase this script in flash  OK
+
+\ C.1. enter "remove"  OK
+
+\  OK
+
+vocabulary vocA vocabulary vocB  OK
+
+order
+ current new  context new new primitive  OK
+
+words
+vocB vocA new  OK
+
+vocA definitions order
+ current vocA  context vocA new primitive  OK
+
+: a1 ; : a2 ;  OK
+
+words
+a2 a1  OK
+
+vocB definitions order
+ current vocB  context vocB new primitive  OK
+
+: b1 ; : b2 ;  OK
+
+words
+b2 b1  OK
+
+new definitions  OK
+
+decimal  OK
+
+: .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if spaces
+  else drop
+  then type ;  OK
+
+: .0r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
+  if 0
+    do 48 emit
+    loop
+  else drop
+  then type ;  OK
+
+cr .( 9 * 9 table )
+9 * 9 table  OK
+
+: t \ ( -- ) show 9 * 9 table
+  10 1 do cr 10 1 do i j * 3 .r loop loop ; t
+  1  2  3  4  5  6  7  8  9
+  2  4  6  8 10 12 14 16 18
+  3  6  9 12 15 18 21 24 27
+  4  8 12 16 20 24 28 32 36
+  5 10 15 20 25 30 35 40 45
+  6 12 18 24 30 36 42 48 54
+  7 14 21 28 35 42 49 56 63
+  8 16 24 32 40 48 56 64 72
+  9 18 27 36 45 54 63 72 81 OK
+
+ 13 constant led  OK
+
+ 14 constant buzzer  OK
+
+  9 constant BR \ red button right  OK
+
+ 10 constant BD \ yellow button down  OK
+
+ 11 constant BL \ green button left  OK
+
+ 12 constant BU \ blue button up  OK
+
+: O \ ( pin -- ) set pinMode as OUTPUT
+  1 swap pinMode ;  OK
+
+ led O buzzer O  OK
+
+: I \ ( pin -- ) set pinMode as INPUT
+  2 swap pinMode ;  OK
+
+ BR I BD I BL I BU I  OK
+
+: H \ ( pin -- ) set pinLevel as HIGH
+  1 swap pinWrite ;  OK
+
+: L \ ( pin -- ) set pinLevel as LOW
+  0 swap pinWrite ;  OK
+
+: T \ ( pin -- ) toggle pinLevel
+  1 over pinRead - swap pinWrite ;  OK
+
+cr .( 4 led toggles each 500 ms )
+4 led toggles each 500 ms  OK
+
+: X \ ( n pin -- ) n times toggle pinLevel
+  swap over O 0 do dup T 500 delay loop drop ;  OK
+
+ 4 led X  OK
+
+: y \ ( n -- ) check if n is zero
+  if ." non-zero" else ." zero" then ;  OK
+
+: z \ ( n -- ) check if n is zero
+  if ." non-" then ." zero" ;  OK
+
+: romWords \ ( -- ) show all words defined in rom
+  nRomWords cr
+  begin dup
+  while dup .name space 1-
+  repeat drop ;  OK
+
+: immediate? ( flag -- ) $80 and ;  OK
+
+: compile-only? ( flag -- ) $40 and ;  OK
+
+: smudge? ( flag -- ) $20 and ;  OK
+
+: entry>link ( ramWordEntry -- lfa ) ;  OK
+
+: entry>cfa ( ramWordEntry -- cfa ) cell+ @ ;  OK
+
+: nextCFA ( cfa -- cfa' | 0 )
+  begin cell+ ( adr ) isUserEntry ( adr flg )
+  until dup if entry>cfa then ;  OK
+
+: nRamWords ( -- n ) \ count ram words in all vocabularies
+  0 ['] new
+  begin ?dup
+  while swap 1+ \ dup fgBrightYellow .
+    swap \ dup .name fgWhite space
+    nextCFA
+  repeat ;  OK
+
+: allWords \ ( -- ) show all wordnames (in decreasing order)
+  cr lastVoc
+  begin ?dup
+  while dup 8 - cr ." in vocabulary " .name cr dup cell- @
+    begin ?dup
+    while dup entry>cfa .name space entry>link @
+    repeat @
+  repeat cr ." in vocabulary primitive" romWords ; \ words  OK
+
+: w. ( i -- ) fgBrightYellow base @ >r decimal ." W" 3 .0r fgWhite space
+  r> base ! ;  OK
+
+: seeRomWords \ ( -- ) see all rom words (in ascending order)
+  cr 0
+  begin 1+ dup w. dup (see) dup nRomWords =
+  until drop ;  OK
+
+: seeRamWords \ ( -- ) see all ram words (in ascending order)
+  cr nRomWords ['] new
+  begin ?dup
+  while swap 1+ dup w. swap dup (see) nextCFA
+  repeat drop ;  OK
+
+: seeAll \ ( -- ) see all words (in ascending order)
+  seeRomWords seeRamWords ;  OK
+
+cr .( hanoi tower )
+hanoi tower  OK
+
+: h ( a b c n -- )
+  dup 1 =
+  if ( a b c 1 ) drop nip swap emit emit exit
+  then 1- ( a b c n-1 ) 3 pick 2 pick 4 pick 3 pick
+  ( a b c n-1 a c b n-1 ) recurse
+  ( a b c n-1 ) space 3 pick emit 1 pick emit space
+  ( a b c n-1 ) 2swap swap 2swap
+  ( b a c n-1 ) recurse ;  OK
+
+65 66 67 1 h AC OK
+
+65 66 67 2 h AB AC BC OK
+
+65 66 67 3 h AC AB CB AC BA BC AC OK
+
+: tst 48 0
+  do i 12 mod 0=
+   if cr
+   then 250 i cells freq + @ dup 4 .0r space
+   14 tone 275 delay
+  loop ; \ tst  OK
+
+cr .( printableChars )
+printableChars  OK
+
+: printableChars base @ hex $7f $21 cr
+  do i 2 .0r space i emit space i $f and 0=
+    if cr
+    then
+  loop base ! ; printableChars
+21 ! 22 " 23 # 24 $ 25 % 26 & 27 ' 28 ( 29 ) 2a * 2b + 2c , 2d - 2e . 2f / 30 0
+31 1 32 2 33 3 34 4 35 5 36 6 37 7 38 8 39 9 3a : 3b ; 3c < 3d = 3e > 3f ? 40 @
+41 A 42 B 43 C 44 D 45 E 46 F 47 G 48 H 49 I 4a J 4b K 4c L 4d M 4e N 4f O 50 P
+51 Q 52 R 53 S 54 T 55 U 56 V 57 W 58 X 59 Y 5a Z 5b [ 5c \ 5d ] 5e ^ 5f _ 60 `
+61 a 62 b 63 c 64 d 65 e 66 f 67 g 68 h 69 i 6a j 6b k 6c l 6d m 6e n 6f o 70 p
+71 q 72 r 73 s 74 t 75 u 76 v 77 w 78 x 79 y 7a z 7b { 7c | 7d } 7e ~  OK
+
+variable keyNote  OK
+
+: getPFA r> r> r> r> drop cell+ -rot >r >r ;  OK
+
+: keyNote: create 1 allot , does> getPFA @ keyNote ! ;  OK
+
+220 keyNote: keyA  OK
+
+see keyNote
+ HighLevel Ram Word keyNote (xt $20000c50)
+ HEAD
+ 20000c3c 20000bb0 link
+ 20000c40 20000c50 cfa
+ 20000c44 79656b00 name, flag
+ 20000c48 65746f4e
+ 20000c4c 00000000
+ CODE
+ 20000c50 0000000f (var)
+ BODY
+ 20000c54 00000000
+ OK
+
+see keyNote:
+ HighLevel Ram Word keyNote: (xt $20000ca4)
+ HEAD
+ 20000c90 20000c58 link
+ 20000c94 20000ca4 cfa
+ 20000c98 79656b00 name, flag
+ 20000c9c 65746f4e
+ 20000ca0 0000003a
+ CODE
+ 20000ca4 00000062 create
+ 20000ca8 00000030 1
+ 20000cac 0000004e allot
+ 20000cb0 00000029 ,
+ 20000cb4 00000006 (does>)
+ 20000cb8 20000c68 getPFA
+ 20000cbc 0000004a @
+ 20000cc0 20000c50 keyNote
+ 20000cc4 0000001f !
+ 20000cc8 00000001 exit
+ OK
+
+see keyA
+ HighLevel Ram Word keyA (xt $20000cdc)
+ HEAD
+ 20000ccc 20000c90 link
+ 20000cd0 20000cdc cfa
+ 20000cd4 79656b00 name, flag
+ 20000cd8 00000041
+ CODE
+ 20000cdc 20000cb8 (does> keyNote:)
+ BODY
+ 20000ce4 000000dc
+ OK
+
+keyA  OK
+
+see keyNote
+ HighLevel Ram Word keyNote (xt $20000c50)
+ HEAD
+ 20000c3c 20000bb0 link
+ 20000c40 20000c50 cfa
+ 20000c44 79656b00 name, flag
+ 20000c48 65746f4e
+ 20000c4c 00000000
+ CODE
+ 20000c50 0000000f (var)
+ BODY
+ 20000c54 000000dc
+ OK
+
+vocA definitions : a3 ; : a4 ;  OK
+
+vocB definitions : b3 ; : b4 ;  OK
+
+vocA words
+a4 a3 a2 a1  OK
+
+vocB words
+b4 b3 b2 b1  OK
+
+new definitions  OK
+
+: 1234567890123456789012345678901 ;  OK
+
+seeAll
+W001
+ LowLevel Rom Word exit (xt $1)
+ HEAD
+ e44c 0000df00 nfa
+ e450 00006971 code
+ e454 00000000 flag
+W002
+ IMMEDIATE LowLevel Rom Word literal (xt $2)
+ HEAD
+ e458 0000df05 nfa
+ e45c 00007475 code
+ e460 00000080 flag
+W003
+ LowLevel Rom Word type (xt $3)
+ HEAD
+ e464 0000df0d nfa
+ e468 00007b09 code
+ e46c 00000000 flag
+W004
+ SMUDGE LowLevel Rom Word bran (xt $4)
+ HEAD
+ e470 0000df13 nfa
+ e474 00007435 code
+ e478 00000020 flag
+W005
+ SMUDGE LowLevel Rom Word zbran (xt $5)
+ HEAD
+ e47c 0000df12 nfa
+ e480 00007bc1 code
+ e484 00000020 flag
+W006
+ SMUDGE LowLevel Rom Word (does>) (xt $6)
+ HEAD
+ e488 0000df18 nfa
+ e48c 00007a3d code
+ e490 00000020 flag
+W007
+ LowLevel Rom Word throw (xt $7)
+ HEAD
+ e494 0000df20 nfa
+ e498 00007a61 code
+ e49c 00000000 flag
+W008
+ SMUDGE LowLevel Rom Word (do) (xt $8)
+ HEAD
+ e4a0 0000df26 nfa
+ e4a4 000066f5 code
+ e4a8 00000020 flag
+W009
+ SMUDGE LowLevel Rom Word (loop) (xt $9)
+ HEAD
+ e4ac 0000df2b nfa
+ e4b0 000074d9 code
+ e4b4 00000020 flag
+W010
+ SMUDGE LowLevel Rom Word (leave) (xt $a)
+ HEAD
+ e4b8 0000df32 nfa
+ e4bc 00007445 code
+ e4c0 00000020 flag
+W011
+ SMUDGE LowLevel Rom Word (+loop) (xt $b)
+ HEAD
+ e4c4 0000df3a nfa
+ e4c8 00007535 code
+ e4cc 00000020 flag
+W012
+ LowLevel Rom Word evaluate (xt $c)
+ HEAD
+ e4d0 0000df42 nfa
+ e4d4 00004acd code
+ e4d8 00000000 flag
+W013
+ COMP_ONLY IMMEDIATE LowLevel Rom Word s" (xt $d)
+ HEAD
+ e4dc 0000df4b nfa
+ e4e0 000075c1 code
+ e4e4 000000c0 flag
+W014
+ COMP_ONLY IMMEDIATE LowLevel Rom Word ." (xt $e)
+ HEAD
+ e4e8 0000df4e nfa
+ e4ec 00006715 code
+ e4f0 000000c0 flag
+W015
+ LowLevel Rom Word (var) (xt $f)
+ HEAD
+ e4f4 0000df51 nfa
+ e4f8 00007b31 code
+ e4fc 00000000 flag
+W016
+ LowLevel Rom Word over (xt $10)
+ HEAD
+ e500 0000dfd7 nfa
+ e504 00007525 code
+ e508 00000000 flag
+W017
+ LowLevel Rom Word = (xt $11)
+ HEAD
+ e50c 0000df83 nfa
+ e510 000068d5 code
+ e514 00000000 flag
+W018
+ LowLevel Rom Word drop (xt $12)
+ HEAD
+ e518 0000dfcc nfa
+ e51c 000067e9 code
+ e520 00000000 flag
+W019
+ LowLevel Rom Word (con) (xt $13)
+ HEAD
+ e524 0000df57 nfa
+ e528 000046e9 code
+ e52c 00000000 flag
+W020
+ LowLevel Rom Word variable (xt $14)
+ HEAD
+ e530 0000df5d nfa
+ e534 00007b49 code
+ e538 00000000 flag
+W021
+ LowLevel Rom Word (voc) (xt $15)
+ HEAD
+ e53c 0000df66 nfa
+ e540 00005eb5 code
+ e544 00000000 flag
+W022
+ LowLevel Rom Word vocabulary (xt $16)
+ HEAD
+ e548 0000df6c nfa
+ e54c 00005ef1 code
+ e550 00000000 flag
+W023
+ LowLevel Rom Word warm (xt $17)
+ HEAD
+ e554 0000df77 nfa
+ e558 00007b6d code
+ e55c 00000000 flag
+W024
+ LowLevel Rom Word print (xt $18)
+ HEAD
+ e560 0000df7c nfa
+ e564 00007af1 code
+ e568 00000000 flag
+W025
+ LowLevel Rom Word . (xt $19)
+ HEAD
+ e56c 0000f2e6 nfa
+ e570 00006199 code
+ e574 00000000 flag
+W026
+ LowLevel Rom Word - (xt $1a)
+ HEAD
+ e578 0000dfb7 nfa
+ e57c 000048b3 code
+ e580 00000000 flag
+W027
+ LowLevel Rom Word + (xt $1b)
+ HEAD
+ e584 0000dfb4 nfa
+ e588 0000489d code
+ e58c 00000000 flag
+W028
+ LowLevel Rom Word * (xt $1c)
+ HEAD
+ e590 0000dfc0 nfa
+ e594 000048c9 code
+ e598 00000000 flag
+W029
+ LowLevel Rom Word 0= (xt $1d)
+ HEAD
+ e59c 0000df82 nfa
+ e5a0 000064ad code
+ e5a4 00000000 flag
+W030
+ LowLevel Rom Word abort (xt $1e)
+ HEAD
+ e5a8 0000df85 nfa
+ e5ac 00005133 code
+ e5b0 00000000 flag
+W031
+ LowLevel Rom Word ! (xt $1f)
+ HEAD
+ e5b4 0000df9d nfa
+ e5b8 000064d3 code
+ e5bc 00000000 flag
+W032
+ LowLevel Rom Word # (xt $20)
+ HEAD
+ e5c0 0000dfe5 nfa
+ e5c4 00004c69 code
+ e5c8 00000000 flag
+W033
+ LowLevel Rom Word #> (xt $21)
+ HEAD
+ e5cc 0000df8b nfa
+ e5d0 00004f0d code
+ e5d4 00000000 flag
+W034
+ LowLevel Rom Word #s (xt $22)
+ HEAD
+ e5d8 0000df8e nfa
+ e5dc 00004cc9 code
+ e5e0 00000000 flag
+W035
+ LowLevel Rom Word ' (xt $23)
+ HEAD
+ e5e4 0000df91 nfa
+ e5e8 00004d31 code
+ e5ec 00000000 flag
+W036
+ IMMEDIATE LowLevel Rom Word ( (xt $24)
+ HEAD
+ e5f0 0000f7fd nfa
+ e5f4 0000623d code
+ e5f8 00000080 flag
+W037
+ LowLevel Rom Word */ (xt $25)
+ HEAD
+ e5fc 0000df93 nfa
+ e600 00004d65 code
+ e604 00000000 flag
+W038
+ LowLevel Rom Word */mod (xt $26)
+ HEAD
+ e608 0000df96 nfa
+ e60c 00004d8b code
+ e610 00000000 flag
+W039
+ LowLevel Rom Word +! (xt $27)
+ HEAD
+ e614 0000df9c nfa
+ e618 0000650d code
+ e61c 00000000 flag
+W040
+ COMP_ONLY IMMEDIATE LowLevel Rom Word +loop (xt $28)
+ HEAD
+ e620 0000df9f nfa
+ e624 00004dc9 code
+ e628 000000c0 flag
+W041
+ LowLevel Rom Word , (xt $29)
+ HEAD
+ e62c 0000e02c nfa
+ e630 00004ed5 code
+ e634 00000000 flag
+W042
+ LowLevel Rom Word / (xt $2a)
+ HEAD
+ e638 0000df94 nfa
+ e63c 000048df code
+ e640 00000000 flag
+W043
+ LowLevel Rom Word /mod (xt $2b)
+ HEAD
+ e644 0000df97 nfa
+ e648 00004e15 code
+ e64c 00000000 flag
+W044
+ LowLevel Rom Word 0< (xt $2c)
+ HEAD
+ e650 0000dfa5 nfa
+ e654 00004e49 code
+ e658 00000000 flag
+W045
+ LowLevel Rom Word true (xt $2d)
+ HEAD
+ e65c 0000dfa8 nfa
+ e660 00004e59 code
+ e664 00000000 flag
+W046
+ LowLevel Rom Word false (xt $2e)
+ HEAD
+ e668 0000dfad nfa
+ e66c 00004e61 code
+ e670 00000000 flag
+W047
+ LowLevel Rom Word 0 (xt $2f)
+ HEAD
+ e674 0000fef8 nfa
+ e678 00004e67 code
+ e67c 00000000 flag
+W048
+ LowLevel Rom Word 1 (xt $30)
+ HEAD
+ e680 0000f7ca nfa
+ e684 00004e6d code
+ e688 00000000 flag
+W049
+ LowLevel Rom Word 2 (xt $31)
+ HEAD
+ e68c 0000f7ce nfa
+ e690 00004e73 code
+ e694 00000000 flag
+W050
+ LowLevel Rom Word 3 (xt $32)
+ HEAD
+ e698 0000f7d2 nfa
+ e69c 00004e79 code
+ e6a0 00000000 flag
+W051
+ LowLevel Rom Word 4 (xt $33)
+ HEAD
+ e6a4 0000f7d6 nfa
+ e6a8 00004e7f code
+ e6ac 00000000 flag
+W052
+ LowLevel Rom Word 1+ (xt $34)
+ HEAD
+ e6b0 0000dfb3 nfa
+ e6b4 00004ea5 code
+ e6b8 00000000 flag
+W053
+ LowLevel Rom Word 1- (xt $35)
+ HEAD
+ e6bc 0000dfb6 nfa
+ e6c0 00004eb5 code
+ e6c4 00000000 flag
+W054
+ LowLevel Rom Word 2+ (xt $36)
+ HEAD
+ e6c8 0000dfb9 nfa
+ e6cc 00004e85 code
+ e6d0 00000000 flag
+W055
+ LowLevel Rom Word 2- (xt $37)
+ HEAD
+ e6d4 0000dfbc nfa
+ e6d8 00004e95 code
+ e6dc 00000000 flag
+W056
+ LowLevel Rom Word 2* (xt $38)
+ HEAD
+ e6e0 0000dfbf nfa
+ e6e4 00004ec5 code
+ e6e8 00000000 flag
+W057
+ LowLevel Rom Word 2! (xt $39)
+ HEAD
+ e6ec 0000dfc2 nfa
+ e6f0 00006545 code
+ e6f4 00000000 flag
+W058
+ LowLevel Rom Word 2/ (xt $3a)
+ HEAD
+ e6f8 0000dfc5 nfa
+ e6fc 00004eed code
+ e700 00000000 flag
+W059
+ LowLevel Rom Word 2@ (xt $3b)
+ HEAD
+ e704 0000dfc8 nfa
+ e708 000065b5 code
+ e70c 00000000 flag
+W060
+ LowLevel Rom Word 2drop (xt $3c)
+ HEAD
+ e710 0000dfcb nfa
+ e714 00004efd code
+ e718 00000000 flag
+W061
+ LowLevel Rom Word 2dup (xt $3d)
+ HEAD
+ e71c 0000dfd1 nfa
+ e720 00004f39 code
+ e724 00000000 flag
+W062
+ LowLevel Rom Word 2over (xt $3e)
+ HEAD
+ e728 0000dfd6 nfa
+ e72c 00004f53 code
+ e730 00000000 flag
+W063
+ LowLevel Rom Word 2swap (xt $3f)
+ HEAD
+ e734 0000dfdc nfa
+ e738 00004f75 code
+ e73c 00000000 flag
+W064
+ LowLevel Rom Word : (xt $40)
+ HEAD
+ e740 0000f510 nfa
+ e744 000046a1 code
+ e748 00000000 flag
+W065
+ IMMEDIATE LowLevel Rom Word ; (xt $41)
+ HEAD
+ e74c 0000dfe2 nfa
+ e750 000046bd code
+ e754 00000080 flag
+W066
+ LowLevel Rom Word < (xt $42)
+ HEAD
+ e758 0000dfa6 nfa
+ e75c 00004fab code
+ e760 00000000 flag
+W067
+ LowLevel Rom Word <# (xt $43)
+ HEAD
+ e764 0000dfe4 nfa
+ e768 00004fc9 code
+ e76c 00000000 flag
+W068
+ LowLevel Rom Word > (xt $44)
+ HEAD
+ e770 0000df8c nfa
+ e774 00004ff5 code
+ e778 00000000 flag
+W069
+ LowLevel Rom Word >body (xt $45)
+ HEAD
+ e77c 0000dfe7 nfa
+ e780 00005015 code
+ e784 00000000 flag
+W070
+ LowLevel Rom Word >in (xt $46)
+ HEAD
+ e788 0000dfed nfa
+ e78c 00005055 code
+ e790 00000000 flag
+W071
+ LowLevel Rom Word >number (xt $47)
+ HEAD
+ e794 0000dff1 nfa
+ e798 00005061 code
+ e79c 00000000 flag
+W072
+ LowLevel Rom Word >r (xt $48)
+ HEAD
+ e7a0 0000e183 nfa
+ e7a4 000065fb code
+ e7a8 00000000 flag
+W073
+ LowLevel Rom Word ?dup (xt $49)
+ HEAD
+ e7ac 0000dff9 nfa
+ e7b0 00005111 code
+ e7b4 00000000 flag
+W074
+ LowLevel Rom Word @ (xt $4a)
+ HEAD
+ e7b8 0000dfc9 nfa
+ e7bc 000065a5 code
+ e7c0 00000000 flag
+W075
+ COMP_ONLY IMMEDIATE LowLevel Rom Word abort" (xt $4b)
+ HEAD
+ e7c4 0000dffe nfa
+ e7c8 00005145 code
+ e7cc 000000c0 flag
+W076
+ LowLevel Rom Word abs (xt $4c)
+ HEAD
+ e7d0 0000e005 nfa
+ e7d4 00004919 code
+ e7d8 00000000 flag
+W077
+ LowLevel Rom Word accept (xt $4d)
+ HEAD
+ e7dc 0000e009 nfa
+ e7e0 00004621 code
+ e7e4 00000000 flag
+W078
+ LowLevel Rom Word allot (xt $4e)
+ HEAD
+ e7e8 0000e010 nfa
+ e7ec 0000463d code
+ e7f0 00000000 flag
+W079
+ LowLevel Rom Word and (xt $4f)
+ HEAD
+ e7f4 0000e016 nfa
+ e7f8 00006155 code
+ e7fc 00000000 flag
+W080
+ LowLevel Rom Word base (xt $50)
+ HEAD
+ e800 0000e01a nfa
+ e804 0000528d code
+ e808 00000000 flag
+W081
+ COMP_ONLY IMMEDIATE LowLevel Rom Word begin (xt $51)
+ HEAD
+ e80c 0000e01f nfa
+ e810 0000518d code
+ e814 000000c0 flag
+W082
+ LowLevel Rom Word bl (xt $52)
+ HEAD
+ e818 0000e025 nfa
+ e81c 00005299 code
+ e820 00000000 flag
+W083
+ LowLevel Rom Word c! (xt $53)
+ HEAD
+ e824 0000e028 nfa
+ e828 000064e3 code
+ e82c 00000000 flag
+W084
+ LowLevel Rom Word c, (xt $54)
+ HEAD
+ e830 0000e02b nfa
+ e834 000064f5 code
+ e838 00000000 flag
+W085
+ LowLevel Rom Word c@ (xt $55)
+ HEAD
+ e83c 0000e02e nfa
+ e840 000065cd code
+ e844 00000000 flag
+W086
+ LowLevel Rom Word cell+ (xt $56)
+ HEAD
+ e848 0000e031 nfa
+ e84c 0000529f code
+ e850 00000000 flag
+W087
+ LowLevel Rom Word cell- (xt $57)
+ HEAD
+ e854 0000e037 nfa
+ e858 000052af code
+ e85c 00000000 flag
+W088
+ LowLevel Rom Word cells (xt $58)
+ HEAD
+ e860 0000e03d nfa
+ e864 000052bf code
+ e868 00000000 flag
+W089
+ LowLevel Rom Word cell/ (xt $59)
+ HEAD
+ e86c 0000e043 nfa
+ e870 000052cf code
+ e874 00000000 flag
+W090
+ LowLevel Rom Word char (xt $5a)
+ HEAD
+ e878 0000e049 nfa
+ e87c 00004679 code
+ e880 00000000 flag
+W091
+ LowLevel Rom Word char+ (xt $5b)
+ HEAD
+ e884 0000e04e nfa
+ e888 000052df code
+ e88c 00000000 flag
+W092
+ LowLevel Rom Word chars (xt $5c)
+ HEAD
+ e890 0000e054 nfa
+ e894 000052ef code
+ e898 00000000 flag
+W093
+ LowLevel Rom Word constant (xt $5d)
+ HEAD
+ e89c 0000e05a nfa
+ e8a0 00004701 code
+ e8a4 00000000 flag
+W094
+ LowLevel Rom Word strlen (xt $5e)
+ HEAD
+ e8a8 0000e063 nfa
+ e8ac 00004a99 code
+ e8b0 00000000 flag
+W095
+ COMP_ONLY IMMEDIATE LowLevel Rom Word again (xt $5f)
+ HEAD
+ e8b4 0000e06a nfa
+ e8b8 000051a9 code
+ e8bc 000000c0 flag
+W096
+ LowLevel Rom Word count (xt $60)
+ HEAD
+ e8c0 0000e070 nfa
+ e8c4 00004a81 code
+ e8c8 00000000 flag
+W097
+ LowLevel Rom Word cr (xt $61)
+ HEAD
+ e8cc 0000e076 nfa
+ e8d0 00006269 code
+ e8d4 00000000 flag
+W098
+ LowLevel Rom Word create (xt $62)
+ HEAD
+ e8d8 0000e079 nfa
+ e8dc 000052f1 code
+ e8e0 00000000 flag
+W099
+ LowLevel Rom Word decimal (xt $63)
+ HEAD
+ e8e4 0000e080 nfa
+ e8e8 000062b5 code
+ e8ec 00000000 flag
+W100
+ LowLevel Rom Word depth (xt $64)
+ HEAD
+ e8f0 0000e088 nfa
+ e8f4 0000531d code
+ e8f8 00000000 flag
+W101
+ COMP_ONLY IMMEDIATE LowLevel Rom Word do (xt $65)
+ HEAD
+ e8fc 0000e08e nfa
+ e900 00004729 code
+ e904 000000c0 flag
+W102
+ COMP_ONLY IMMEDIATE LowLevel Rom Word does> (xt $66)
+ HEAD
+ e908 0000e091 nfa
+ e90c 00005341 code
+ e910 000000c0 flag
+W103
+ LowLevel Rom Word dup (xt $67)
+ HEAD
+ e914 0000dfd2 nfa
+ e918 000060c1 code
+ e91c 00000000 flag
+W104
+ COMP_ONLY IMMEDIATE LowLevel Rom Word else (xt $68)
+ HEAD
+ e920 0000e097 nfa
+ e924 00004959 code
+ e928 000000c0 flag
+W105
+ LowLevel Rom Word emit (xt $69)
+ HEAD
+ e92c 0000e09c nfa
+ e930 00006225 code
+ e934 00000000 flag
+W106
+ LowLevel Rom Word execute (xt $6a)
+ HEAD
+ e938 0000e0a1 nfa
+ e93c 00004b21 code
+ e940 00000000 flag
+W107
+ LowLevel Rom Word fill (xt $6b)
+ HEAD
+ e944 0000e0a9 nfa
+ e948 00006581 code
+ e94c 00000000 flag
+W108
+ LowLevel Rom Word find (xt $6c)
+ HEAD
+ e950 0000e0ae nfa
+ e954 00005461 code
+ e958 00000000 flag
+W109
+ LowLevel Rom Word fm/mod (xt $6d)
+ HEAD
+ e95c 0000e0b3 nfa
+ e960 000054bd code
+ e964 00000000 flag
+W110
+ LowLevel Rom Word here (xt $6e)
+ HEAD
+ e968 0000e0ba nfa
+ e96c 00004a75 code
+ e970 00000000 flag
+W111
+ LowLevel Rom Word hold (xt $6f)
+ HEAD
+ e974 0000e0bf nfa
+ e978 000054e1 code
+ e97c 00000000 flag
+W112
+ LowLevel Rom Word i (xt $70)
+ HEAD
+ e980 0000e0c4 nfa
+ e984 00004aab code
+ e988 00000000 flag
+W113
+ COMP_ONLY IMMEDIATE LowLevel Rom Word if (xt $71)
+ HEAD
+ e98c 0000e0c6 nfa
+ e990 0000492d code
+ e994 000000c0 flag
+W114
+ LowLevel Rom Word immediate (xt $72)
+ HEAD
+ e998 0000e0c9 nfa
+ e99c 00005505 code
+ e9a0 00000000 flag
+W115
+ LowLevel Rom Word compile-only (xt $73)
+ HEAD
+ e9a4 0000e0d3 nfa
+ e9a8 00005519 code
+ e9ac 00000000 flag
+W116
+ LowLevel Rom Word invert (xt $74)
+ HEAD
+ e9b0 0000e0e0 nfa
+ e9b4 0000552d code
+ e9b8 00000000 flag
+W117
+ LowLevel Rom Word j (xt $75)
+ HEAD
+ e9bc 0000e0e7 nfa
+ e9c0 00004abb code
+ e9c4 00000000 flag
+W118
+ COMP_ONLY IMMEDIATE LowLevel Rom Word leave (xt $76)
+ HEAD
+ e9c8 0000e0e9 nfa
+ e9cc 0000553d code
+ e9d0 000000c0 flag
+W119
+ COMP_ONLY IMMEDIATE LowLevel Rom Word loop (xt $77)
+ HEAD
+ e9d4 0000dfa0 nfa
+ e9d8 0000474d code
+ e9dc 000000c0 flag
+W120
+ LowLevel Rom Word lshift (xt $78)
+ HEAD
+ e9e0 0000e0ef nfa
+ e9e4 00005555 code
+ e9e8 00000000 flag
+W121
+ LowLevel Rom Word m* (xt $79)
+ HEAD
+ e9ec 0000e0f6 nfa
+ e9f0 0000556b code
+ e9f4 00000000 flag
+W122
+ LowLevel Rom Word max (xt $7a)
+ HEAD
+ e9f8 0000e0f9 nfa
+ e9fc 000049cd code
+ ea00 00000000 flag
+W123
+ LowLevel Rom Word min (xt $7b)
+ HEAD
+ ea04 0000e0fd nfa
+ ea08 000049e7 code
+ ea0c 00000000 flag
+W124
+ LowLevel Rom Word mod (xt $7c)
+ HEAD
+ ea10 0000df98 nfa
+ ea14 00005581 code
+ ea18 00000000 flag
+W125
+ LowLevel Rom Word move (xt $7d)
+ HEAD
+ ea1c 0000e246 nfa
+ ea20 0000559d code
+ ea24 00000000 flag
+W126
+ LowLevel Rom Word negate (xt $7e)
+ HEAD
+ ea28 0000e101 nfa
+ ea2c 00004909 code
+ ea30 00000000 flag
+W127
+ LowLevel Rom Word nip (xt $7f)
+ HEAD
+ ea34 0000e108 nfa
+ ea38 0000532b code
+ ea3c 00000000 flag
+W128
+ LowLevel Rom Word or (xt $80)
+ HEAD
+ ea40 0000e16a nfa
+ ea44 0000616b code
+ ea48 00000000 flag
+W129
+ LowLevel Rom Word pick (xt $81)
+ HEAD
+ ea4c 0000e10c nfa
+ ea50 000060d1 code
+ ea54 00000000 flag
+W130
+ COMP_ONLY IMMEDIATE LowLevel Rom Word postpone (xt $82)
+ HEAD
+ ea58 0000e111 nfa
+ ea5c 000055c5 code
+ ea60 000000c0 flag
+W131
+ LowLevel Rom Word quit (xt $83)
+ HEAD
+ ea64 0000e11a nfa
+ ea68 00007585 code
+ ea6c 00000000 flag
+W132
+ LowLevel Rom Word r> (xt $84)
+ HEAD
+ ea70 0000e187 nfa
+ ea74 000065ed code
+ ea78 00000000 flag
+W133
+ LowLevel Rom Word r@ (xt $85)
+ HEAD
+ ea7c 0000e18b nfa
+ ea80 000065dd code
+ ea84 00000000 flag
+W134
+ COMP_ONLY IMMEDIATE LowLevel Rom Word recurse (xt $86)
+ HEAD
+ ea88 0000e11f nfa
+ ea8c 00005651 code
+ ea90 000000c0 flag
+W135
+ COMP_ONLY IMMEDIATE LowLevel Rom Word repeat (xt $87)
+ HEAD
+ ea94 0000e127 nfa
+ ea98 00005251 code
+ ea9c 000000c0 flag
+W136
+ LowLevel Rom Word rot (xt $88)
+ HEAD
+ eaa0 0000e12f nfa
+ eaa4 00006101 code
+ eaa8 00000000 flag
+W137
+ LowLevel Rom Word -rot (xt $89)
+ HEAD
+ eaac 0000e12e nfa
+ eab0 0000612b code
+ eab4 00000000 flag
+W138
+ LowLevel Rom Word rshift (xt $8a)
+ HEAD
+ eab8 0000e133 nfa
+ eabc 00005669 code
+ eac0 00000000 flag
+W139
+ LowLevel Rom Word source (xt $8b)
+ HEAD
+ eac4 0000e13a nfa
+ eac8 00005681 code
+ eacc 00000000 flag
+W140
+ LowLevel Rom Word space (xt $8c)
+ HEAD
+ ead0 0000e141 nfa
+ ead4 00006275 code
+ ead8 00000000 flag
+W141
+ LowLevel Rom Word spaces (xt $8d)
+ HEAD
+ eadc 0000e147 nfa
+ eae0 00006285 code
+ eae4 00000000 flag
+W142
+ LowLevel Rom Word swap (xt $8e)
+ HEAD
+ eae8 0000dfdd nfa
+ eaec 000060e3 code
+ eaf0 00000000 flag
+W143
+ COMP_ONLY IMMEDIATE LowLevel Rom Word then (xt $8f)
+ HEAD
+ eaf4 0000e14e nfa
+ eaf8 000049a1 code
+ eafc 000000c0 flag
+W144
+ LowLevel Rom Word u. (xt $90)
+ HEAD
+ eb00 0000e153 nfa
+ eb04 000061b1 code
+ eb08 00000000 flag
+W145
+ COMP_ONLY IMMEDIATE LowLevel Rom Word until (xt $91)
+ HEAD
+ eb0c 0000e156 nfa
+ eb10 000051dd code
+ eb14 000000c0 flag
+W146
+ COMP_ONLY IMMEDIATE LowLevel Rom Word while (xt $92)
+ HEAD
+ eb18 0000e15c nfa
+ eb1c 00005211 code
+ eb20 000000c0 flag
+W147
+ LowLevel Rom Word word (xt $93)
+ HEAD
+ eb24 0000e162 nfa
+ eb28 00004b9d code
+ eb2c 00000000 flag
+W148
+ IMMEDIATE LowLevel Rom Word \ (xt $94)
+ HEAD
+ eb30 0000e167 nfa
+ eb34 00004c05 code
+ eb38 00000080 flag
+W149
+ LowLevel Rom Word xor (xt $95)
+ HEAD
+ eb3c 0000e169 nfa
+ eb40 00006181 code
+ eb44 00000000 flag
+W150
+ IMMEDIATE LowLevel Rom Word [ (xt $96)
+ HEAD
+ eb48 0000f76a nfa
+ eb4c 0000569d code
+ eb50 00000080 flag
+W151
+ IMMEDIATE LowLevel Rom Word ['] (xt $97)
+ HEAD
+ eb54 0000e16d nfa
+ eb58 000056a9 code
+ eb5c 00000080 flag
+W152
+ IMMEDIATE LowLevel Rom Word [char] (xt $98)
+ HEAD
+ eb60 0000e171 nfa
+ eb64 000056f9 code
+ eb68 00000080 flag
+W153
+ LowLevel Rom Word ] (xt $99)
+ HEAD
+ eb6c 0000e16f nfa
+ eb70 00005731 code
+ eb74 00000000 flag
+W154
+ LowLevel Rom Word .( (xt $9a)
+ HEAD
+ eb78 0000e178 nfa
+ eb7c 00006251 code
+ eb80 00000000 flag
+W155
+ LowLevel Rom Word 0<> (xt $9b)
+ HEAD
+ eb84 0000e17b nfa
+ eb88 0000573d code
+ eb8c 00000000 flag
+W156
+ LowLevel Rom Word 0> (xt $9c)
+ HEAD
+ eb90 0000e17f nfa
+ eb94 00005759 code
+ eb98 00000000 flag
+W157
+ LowLevel Rom Word 2>r (xt $9d)
+ HEAD
+ eb9c 0000e182 nfa
+ eba0 00005779 code
+ eba4 00000000 flag
+W158
+ LowLevel Rom Word 2r> (xt $9e)
+ HEAD
+ eba8 0000e186 nfa
+ ebac 0000578b code
+ ebb0 00000000 flag
+W159
+ LowLevel Rom Word 2r@ (xt $9f)
+ HEAD
+ ebb4 0000e18a nfa
+ ebb8 0000579d code
+ ebbc 00000000 flag
+W160
+ LowLevel Rom Word <> (xt $a0)
+ HEAD
+ ebc0 0000e17c nfa
+ ebc4 000057bb code
+ ebc8 00000000 flag
+W161
+ LowLevel Rom Word hex (xt $a1)
+ HEAD
+ ebcc 0000e18e nfa
+ ebd0 000062a9 code
+ ebd4 00000000 flag
+W162
+ COMP_ONLY IMMEDIATE LowLevel Rom Word case (xt $a2)
+ HEAD
+ ebd8 0000e19b nfa
+ ebdc 000057d9 code
+ ebe0 000000c0 flag
+W163
+ COMP_ONLY IMMEDIATE LowLevel Rom Word of (xt $a3)
+ HEAD
+ ebe4 0000e195 nfa
+ ebe8 000057ed code
+ ebec 000000c0 flag
+W164
+ COMP_ONLY IMMEDIATE LowLevel Rom Word endof (xt $a4)
+ HEAD
+ ebf0 0000e192 nfa
+ ebf4 00005839 code
+ ebf8 000000c0 flag
+W165
+ COMP_ONLY IMMEDIATE LowLevel Rom Word endcase (xt $a5)
+ HEAD
+ ebfc 0000e198 nfa
+ ec00 0000588d code
+ ec04 000000c0 flag
+W166
+ LowLevel Rom Word help (xt $a6)
+ HEAD
+ ec08 0000e1a0 nfa
+ ec0c 00004861 code
+ ec10 00000000 flag
+W167
+ LowLevel Rom Word who (xt $a7)
+ HEAD
+ ec14 0000e1a5 nfa
+ ec18 00004881 code
+ ec1c 00000000 flag
+W168
+ LowLevel Rom Word .s (xt $a8)
+ HEAD
+ ec20 0000e1a9 nfa
+ ec24 000061d9 code
+ ec28 00000000 flag
+W169
+ LowLevel Rom Word dump (xt $a9)
+ HEAD
+ ec2c 0000e1ac nfa
+ ec30 00004799 code
+ ec34 00000000 flag
+W170
+ LowLevel Rom Word (see) (xt $aa)
+ HEAD
+ ec38 0000e1b1 nfa
+ ec3c 00005a0d code
+ ec40 00000000 flag
+W171
+ LowLevel Rom Word see (xt $ab)
+ HEAD
+ ec44 0000e1b7 nfa
+ ec48 00005de5 code
+ ec4c 00000000 flag
+W172
+ LowLevel Rom Word words (xt $ac)
+ HEAD
+ ec50 0000e1bb nfa
+ ec54 00006429 code
+ ec58 00000000 flag
+W173
+ LowLevel Rom Word romEntry (xt $ad)
+ HEAD
+ ec5c 0000e1c1 nfa
+ ec60 000062c1 code
+ ec64 00000000 flag
+W174
+ LowLevel Rom Word ramFirst (xt $ae)
+ HEAD
+ ec68 0000e1ca nfa
+ ec6c 000062dd code
+ ec70 00000000 flag
+W175
+ LowLevel Rom Word ramLast (xt $af)
+ HEAD
+ ec74 0000e1d3 nfa
+ ec78 000062e9 code
+ ec7c 00000000 flag
+W176
+ LowLevel Rom Word isRamEntry (xt $b0)
+ HEAD
+ ec80 0000e1db nfa
+ ec84 00006329 code
+ ec88 00000000 flag
+W177
+ LowLevel Rom Word nextRamEntry (xt $b1)
+ HEAD
+ ec8c 0000e1e6 nfa
+ ec90 00006381 code
+ ec94 00000000 flag
+W178
+ LowLevel Rom Word .name (xt $b2)
+ HEAD
+ ec98 0000e1f3 nfa
+ ec9c 00006661 code
+ eca0 00000000 flag
+W179
+ LowLevel Rom Word delay (xt $b3)
+ HEAD
+ eca4 0000e1f9 nfa
+ eca8 000064c5 code
+ ecac 00000000 flag
+W180
+ LowLevel Rom Word pinWrite (xt $b4)
+ HEAD
+ ecb0 0000e1ff nfa
+ ecb4 00005df3 code
+ ecb8 00000000 flag
+W181
+ LowLevel Rom Word pinMode (xt $b5)
+ HEAD
+ ecbc 0000e208 nfa
+ ecc0 00005e0b code
+ ecc4 00000000 flag
+W182
+ LowLevel Rom Word pinRead (xt $b6)
+ HEAD
+ ecc8 0000e210 nfa
+ eccc 00005e23 code
+ ecd0 00000000 flag
+W183
+ LowLevel Rom Word analogRead (xt $b7)
+ HEAD
+ ecd4 0000e218 nfa
+ ecd8 00005e35 code
+ ecdc 00000000 flag
+W184
+ LowLevel Rom Word analogWrite (xt $b8)
+ HEAD
+ ece0 0000e223 nfa
+ ece4 00005e47 code
+ ece8 00000000 flag
+W185
+ LowLevel Rom Word >name (xt $b9)
+ HEAD
+ ecec 0000e22f nfa
+ ecf0 00005e5f code
+ ecf4 00000000 flag
+W186
+ COMP_ONLY IMMEDIATE LowLevel Rom Word eflmkdir (xt $ba)
+ HEAD
+ ecf8 0000e235 nfa
+ ecfc 00006b05 code
+ ed00 000000c0 flag
+W187
+ LowLevel Rom Word load (xt $bb)
+ HEAD
+ ed04 0000e24f nfa
+ ed08 000074cd code
+ ed0c 00000000 flag
+W188
+ LowLevel Rom Word echo! (xt $bc)
+ HEAD
+ ed10 0000e23e nfa
+ ed14 000074b1 code
+ ed18 00000000 flag
+W189
+ LowLevel Rom Word remove (xt $bd)
+ HEAD
+ ed1c 0000e244 nfa
+ ed20 000075a5 code
+ ed24 00000000 flag
+W190
+ LowLevel Rom Word download (xt $be)
+ HEAD
+ ed28 0000e24b nfa
+ ed2c 000067b1 code
+ ed30 00000000 flag
+W191
+ LowLevel Rom Word tone (xt $bf)
+ HEAD
+ ed34 0000e254 nfa
+ ed38 00005e79 code
+ ed3c 00000000 flag
+W192
+ LowLevel Rom Word noTone (xt $c0)
+ HEAD
+ ed40 0000e259 nfa
+ ed44 00005e99 code
+ ed48 00000000 flag
+W193
+ LowLevel Rom Word freq (xt $c1)
+ HEAD
+ ed4c 0000e260 nfa
+ ed50 00005ea9 code
+ ed54 00000000 flag
+W194
+ LowLevel Rom Word isWord (xt $c2)
+ HEAD
+ ed58 0000e265 nfa
+ ed5c 00007381 code
+ ed60 00000000 flag
+W195
+ LowLevel Rom Word setEscPrint (xt $c3)
+ HEAD
+ ed64 0000e26c nfa
+ ed68 0000768d code
+ ed6c 00000000 flag
+W196
+ LowLevel Rom Word fgYellow (xt $c4)
+ HEAD
+ ed70 0000e278 nfa
+ ed74 000076d5 code
+ ed78 00000000 flag
+W197
+ LowLevel Rom Word bgBlue (xt $c5)
+ HEAD
+ ed7c 0000e281 nfa
+ ed80 000077a1 code
+ ed84 00000000 flag
+W198
+ LowLevel Rom Word fgBlack (xt $c6)
+ HEAD
+ ed88 0000e288 nfa
+ ed8c 000076b1 code
+ ed90 00000000 flag
+W199
+ LowLevel Rom Word fgRed (xt $c7)
+ HEAD
+ ed94 0000e290 nfa
+ ed98 000076bd code
+ ed9c 00000000 flag
+W200
+ LowLevel Rom Word fgGreen (xt $c8)
+ HEAD
+ eda0 0000e296 nfa
+ eda4 000076c9 code
+ eda8 00000000 flag
+W201
+ LowLevel Rom Word fgYellow (xt $c9)
+ HEAD
+ edac 0000e278 nfa
+ edb0 000076d5 code
+ edb4 00000000 flag
+W202
+ LowLevel Rom Word fgBlue (xt $ca)
+ HEAD
+ edb8 0000e29e nfa
+ edbc 000076e1 code
+ edc0 00000000 flag
+W203
+ LowLevel Rom Word fgMagenta (xt $cb)
+ HEAD
+ edc4 0000e2a5 nfa
+ edc8 000076ed code
+ edcc 00000000 flag
+W204
+ LowLevel Rom Word fgCyan (xt $cc)
+ HEAD
+ edd0 0000e2af nfa
+ edd4 000076f9 code
+ edd8 00000000 flag
+W205
+ LowLevel Rom Word fgWhite (xt $cd)
+ HEAD
+ eddc 0000e2b6 nfa
+ ede0 00007705 code
+ ede4 00000000 flag
+W206
+ LowLevel Rom Word fgBrightBlack (xt $ce)
+ HEAD
+ ede8 0000e2be nfa
+ edec 00007711 code
+ edf0 00000000 flag
+W207
+ LowLevel Rom Word fgBrightRed (xt $cf)
+ HEAD
+ edf4 0000e2cc nfa
+ edf8 0000771d code
+ edfc 00000000 flag
+W208
+ LowLevel Rom Word fgBrightGreen (xt $d0)
+ HEAD
+ ee00 0000e2d8 nfa
+ ee04 00007729 code
+ ee08 00000000 flag
+W209
+ LowLevel Rom Word fgBrightYellow (xt $d1)
+ HEAD
+ ee0c 0000e2e6 nfa
+ ee10 00007735 code
+ ee14 00000000 flag
+W210
+ LowLevel Rom Word fgBrightBlue (xt $d2)
+ HEAD
+ ee18 0000e2f5 nfa
+ ee1c 00007741 code
+ ee20 00000000 flag
+W211
+ LowLevel Rom Word fgBrightMagenta (xt $d3)
+ HEAD
+ ee24 0000e302 nfa
+ ee28 0000774d code
+ ee2c 00000000 flag
+W212
+ LowLevel Rom Word fgBrightCyan (xt $d4)
+ HEAD
+ ee30 0000e312 nfa
+ ee34 00007759 code
+ ee38 00000000 flag
+W213
+ LowLevel Rom Word fgBrightWhite (xt $d5)
+ HEAD
+ ee3c 0000e31f nfa
+ ee40 00007765 code
+ ee44 00000000 flag
+W214
+ LowLevel Rom Word bgBlack (xt $d6)
+ HEAD
+ ee48 0000e32d nfa
+ ee4c 00007771 code
+ ee50 00000000 flag
+W215
+ LowLevel Rom Word bgRed (xt $d7)
+ HEAD
+ ee54 0000e335 nfa
+ ee58 0000777d code
+ ee5c 00000000 flag
+W216
+ LowLevel Rom Word bgGreen (xt $d8)
+ HEAD
+ ee60 0000e33b nfa
+ ee64 00007789 code
+ ee68 00000000 flag
+W217
+ LowLevel Rom Word bgYellow (xt $d9)
+ HEAD
+ ee6c 0000e343 nfa
+ ee70 00007795 code
+ ee74 00000000 flag
+W218
+ LowLevel Rom Word bgBlue (xt $da)
+ HEAD
+ ee78 0000e281 nfa
+ ee7c 000077a1 code
+ ee80 00000000 flag
+W219
+ LowLevel Rom Word bgMagenta (xt $db)
+ HEAD
+ ee84 0000e34c nfa
+ ee88 000077ad code
+ ee8c 00000000 flag
+W220
+ LowLevel Rom Word bgCyan (xt $dc)
+ HEAD
+ ee90 0000e356 nfa
+ ee94 000077b9 code
+ ee98 00000000 flag
+W221
+ LowLevel Rom Word bgWhite (xt $dd)
+ HEAD
+ ee9c 0000e35d nfa
+ eea0 000077c5 code
+ eea4 00000000 flag
+W222
+ LowLevel Rom Word bgBrightBlack (xt $de)
+ HEAD
+ eea8 0000e365 nfa
+ eeac 000077d1 code
+ eeb0 00000000 flag
+W223
+ LowLevel Rom Word bgBrightRed (xt $df)
+ HEAD
+ eeb4 0000e373 nfa
+ eeb8 000077dd code
+ eebc 00000000 flag
+W224
+ LowLevel Rom Word bgBrightGreen (xt $e0)
+ HEAD
+ eec0 0000e37f nfa
+ eec4 000077e9 code
+ eec8 00000000 flag
+W225
+ LowLevel Rom Word bgBrightYellow (xt $e1)
+ HEAD
+ eecc 0000e38d nfa
+ eed0 000077f5 code
+ eed4 00000000 flag
+W226
+ LowLevel Rom Word bgBrightBlue (xt $e2)
+ HEAD
+ eed8 0000e39c nfa
+ eedc 00007801 code
+ eee0 00000000 flag
+W227
+ LowLevel Rom Word bgBrightMagenta (xt $e3)
+ HEAD
+ eee4 0000e3a9 nfa
+ eee8 0000780d code
+ eeec 00000000 flag
+W228
+ LowLevel Rom Word bgBrightCyan (xt $e4)
+ HEAD
+ eef0 0000e3b9 nfa
+ eef4 00007819 code
+ eef8 00000000 flag
+W229
+ LowLevel Rom Word bgBrightWhite (xt $e5)
+ HEAD
+ eefc 0000e3c6 nfa
+ ef00 00007825 code
+ ef04 00000000 flag
+W230
+ LowLevel Rom Word context (xt $e6)
+ HEAD
+ ef08 0000e3d4 nfa
+ ef0c 00005f6d code
+ ef10 00000000 flag
+W231
+ LowLevel Rom Word current (xt $e7)
+ HEAD
+ ef14 0000e3dc nfa
+ ef18 00005f79 code
+ ef1c 00000000 flag
+W232
+ LowLevel Rom Word definitions (xt $e8)
+ HEAD
+ ef20 0000e3e4 nfa
+ ef24 00005f85 code
+ ef28 00000000 flag
+W233
+ LowLevel Rom Word vocs (xt $e9)
+ HEAD
+ ef2c 0000e3f0 nfa
+ ef30 00005f31 code
+ ef34 00000000 flag
+W234
+ LowLevel Rom Word lastVoc (xt $ea)
+ HEAD
+ ef38 0000e3f5 nfa
+ ef3c 00005f25 code
+ ef40 00000000 flag
+W235
+ LowLevel Rom Word also (xt $eb)
+ HEAD
+ ef44 0000e3fd nfa
+ ef48 00005fa5 code
+ ef4c 00000000 flag
+W236
+ LowLevel Rom Word previous (xt $ec)
+ HEAD
+ ef50 0000e402 nfa
+ ef54 00005fe5 code
+ ef58 00000000 flag
+W237
+ LowLevel Rom Word order (xt $ed)
+ HEAD
+ ef5c 0000e40b nfa
+ ef60 00006049 code
+ ef64 00000000 flag
+W238
+ LowLevel Rom Word primitive (xt $ee)
+ HEAD
+ ef68 0000f0b2 nfa
+ ef6c 00005ed9 code
+ ef70 00000000 flag
+W239
+ LowLevel Rom Word nRomWords (xt $ef)
+ HEAD
+ ef74 0000e411 nfa
+ ef78 0000609d code
+ ef7c 00000000 flag
+W240
+ LowLevel Rom Word addrToSee (xt $f0)
+ HEAD
+ ef80 0000e41b nfa
+ ef84 00005a01 code
+ ef88 00000000 flag
+W241
+ LowLevel Rom Word isUserEntry (xt $f1)
+ HEAD
+ ef8c 0000e425 nfa
+ ef90 000059d1 code
+ ef94 00000000 flag
+
+W242
+ HighLevel Ram Word new (xt $200003d0)
+ HEAD
+ 200003c0 00000000 link
+ 200003c4 200003d0 cfa
+ 200003c8 77656e00 name, flag
+ 200003cc 00000000
+ CODE
+ 200003d0 00000015 (voc)
+ BODY
+ 200003d4 20000d28
+ 200003d8 00000000
+W243
+ HighLevel Ram Word vocA (xt $200003ec)
+ HEAD
+ 200003dc 200003c0 link
+ 200003e0 200003ec cfa
+ 200003e4 636f7600 name, flag
+ 200003e8 00000041
+ CODE
+ 200003ec 00000015 (voc)
+ BODY
+ 200003f0 20000cf8
+ 200003f4 200003d8
+W244
+ HighLevel Ram Word vocB (xt $20000408)
+ HEAD
+ 200003f8 200003dc link
+ 200003fc 20000408 cfa
+ 20000400 636f7600 name, flag
+ 20000404 00000042
+ CODE
+ 20000408 00000015 (voc)
+ BODY
+ 2000040c 20000d18
+ 20000410 200003f4
+W245
+ HighLevel Ram Word a1 (xt $20000420)
+ HEAD
+ 20000414 00000000 link
+ 20000418 20000420 cfa
+ 2000041c 00316100 name, flag
+ CODE
+ 20000420 00000001 exit
+W246
+ HighLevel Ram Word a2 (xt $20000430)
+ HEAD
+ 20000424 20000414 link
+ 20000428 20000430 cfa
+ 2000042c 00326100 name, flag
+ CODE
+ 20000430 00000001 exit
+W247
+ HighLevel Ram Word b1 (xt $20000440)
+ HEAD
+ 20000434 00000000 link
+ 20000438 20000440 cfa
+ 2000043c 00316200 name, flag
+ CODE
+ 20000440 00000001 exit
+W248
+ HighLevel Ram Word b2 (xt $20000450)
+ HEAD
+ 20000444 20000434 link
+ 20000448 20000450 cfa
+ 2000044c 00326200 name, flag
+ CODE
+ 20000450 00000001 exit
+W249
+ HighLevel Ram Word .r (xt $20000460)
+ HEAD
+ 20000454 200003f8 link
+ 20000458 20000460 cfa
+ 2000045c 00722e00 name, flag
+ CODE
+ 20000460 00000048 >r
+ 20000464 0000002f 0
+ 20000468 00000043 <#
+ 2000046c 00000022 #s
+ 20000470 00000021 #>
+ 20000474 00000084 r>
+ 20000478 00000010 over
+ 2000047c 0000001a -
+ 20000480 0000002f 0
+ 20000484 00000010 over
+ 20000488 00000042 <
+ 2000048c 00000005 zbran (200004a0)
+ 20000494 0000008d spaces
+ 20000498 00000004 bran (200004a4)
+ 200004a0 00000012 drop
+ 200004a4 00000003 type
+ 200004a8 00000001 exit
+W250
+ HighLevel Ram Word .0r (xt $200004bc)
+ HEAD
+ 200004ac 20000454 link
+ 200004b0 200004bc cfa
+ 200004b4 72302e00 name, flag
+ 200004b8 00000000
+ CODE
+ 200004bc 00000048 >r
+ 200004c0 0000002f 0
+ 200004c4 00000043 <#
+ 200004c8 00000022 #s
+ 200004cc 00000021 #>
+ 200004d0 00000084 r>
+ 200004d4 00000010 over
+ 200004d8 0000001a -
+ 200004dc 0000002f 0
+ 200004e0 00000010 over
+ 200004e4 00000042 <
+ 200004e8 00000005 zbran (20000514)
+ 200004f0 0000002f 0
+ 200004f4 00000008 (do)
+ 200004f8 00000002 literal (00000030)
+ 20000500 00000069 emit
+ 20000504 00000009 (loop) (200004f8)
+ 2000050c 00000004 bran (20000518)
+ 20000514 00000012 drop
+ 20000518 00000003 type
+ 2000051c 00000001 exit
+W251
+ HighLevel Ram Word t (xt $2000052c)
+ HEAD
+ 20000520 200004ac link
+ 20000524 2000052c cfa
+ 20000528 61007400 name, flag
+ CODE
+ 2000052c 00000002 literal (0000000a)
+ 20000534 00000030 1
+ 20000538 00000008 (do)
+ 2000053c 00000061 cr
+ 20000540 00000002 literal (0000000a)
+ 20000548 00000030 1
+ 2000054c 00000008 (do)
+ 20000550 00000070 i
+ 20000554 00000075 j
+ 20000558 0000001c *
+ 2000055c 00000032 3
+ 20000560 20000460 .r
+ 20000564 00000009 (loop) (20000550)
+ 2000056c 00000009 (loop) (2000053c)
+ 20000574 00000001 exit
+W252
+ HighLevel Ram Word led (xt $20000588)
+ HEAD
+ 20000578 20000520 link
+ 2000057c 20000588 cfa
+ 20000580 64656c00 name, flag
+ 20000584 00000000
+ CODE
+ 20000588 00000013 (con)
+ BODY
+ 2000058c 0000000d
+W253
+ HighLevel Ram Word buzzer (xt $200005a0)
+ HEAD
+ 20000590 20000578 link
+ 20000594 200005a0 cfa
+ 20000598 7a756200 name, flag
+ 2000059c 0072657a
+ CODE
+ 200005a0 00000013 (con)
+ BODY
+ 200005a4 0000000e
+W254
+ HighLevel Ram Word BR (xt $200005b4)
+ HEAD
+ 200005a8 20000590 link
+ 200005ac 200005b4 cfa
+ 200005b0 00524200 name, flag
+ CODE
+ 200005b4 00000013 (con)
+ BODY
+ 200005b8 00000009
+W255
+ HighLevel Ram Word BD (xt $200005c8)
+ HEAD
+ 200005bc 200005a8 link
+ 200005c0 200005c8 cfa
+ 200005c4 00444200 name, flag
+ CODE
+ 200005c8 00000013 (con)
+ BODY
+ 200005cc 0000000a
+W256
+ HighLevel Ram Word BL (xt $200005dc)
+ HEAD
+ 200005d0 200005bc link
+ 200005d4 200005dc cfa
+ 200005d8 004c4200 name, flag
+ CODE
+ 200005dc 00000013 (con)
+ BODY
+ 200005e0 0000000b
+W257
+ HighLevel Ram Word BU (xt $200005f0)
+ HEAD
+ 200005e4 200005d0 link
+ 200005e8 200005f0 cfa
+ 200005ec 00554200 name, flag
+ CODE
+ 200005f0 00000013 (con)
+ BODY
+ 200005f4 0000000c
+W258
+ HighLevel Ram Word O (xt $20000604)
+ HEAD
+ 200005f8 200005e4 link
+ 200005fc 20000604 cfa
+ 20000600 00004f00 name, flag
+ CODE
+ 20000604 00000030 1
+ 20000608 0000008e swap
+ 2000060c 000000b5 pinMode
+ 20000610 00000001 exit
+W259
+ HighLevel Ram Word I (xt $20000620)
+ HEAD
+ 20000614 200005f8 link
+ 20000618 20000620 cfa
+ 2000061c 00004900 name, flag
+ CODE
+ 20000620 00000031 2
+ 20000624 0000008e swap
+ 20000628 000000b5 pinMode
+ 2000062c 00000001 exit
+W260
+ HighLevel Ram Word H (xt $2000063c)
+ HEAD
+ 20000630 20000614 link
+ 20000634 2000063c cfa
+ 20000638 00004800 name, flag
+ CODE
+ 2000063c 00000030 1
+ 20000640 0000008e swap
+ 20000644 000000b4 pinWrite
+ 20000648 00000001 exit
+W261
+ HighLevel Ram Word L (xt $20000658)
+ HEAD
+ 2000064c 20000630 link
+ 20000650 20000658 cfa
+ 20000654 00004c00 name, flag
+ CODE
+ 20000658 0000002f 0
+ 2000065c 0000008e swap
+ 20000660 000000b4 pinWrite
+ 20000664 00000001 exit
+W262
+ HighLevel Ram Word T (xt $20000674)
+ HEAD
+ 20000668 2000064c link
+ 2000066c 20000674 cfa
+ 20000670 00005400 name, flag
+ CODE
+ 20000674 00000030 1
+ 20000678 00000010 over
+ 2000067c 000000b6 pinRead
+ 20000680 0000001a -
+ 20000684 0000008e swap
+ 20000688 000000b4 pinWrite
+ 2000068c 00000001 exit
+W263
+ HighLevel Ram Word X (xt $2000069c)
+ HEAD
+ 20000690 20000668 link
+ 20000694 2000069c cfa
+ 20000698 6f005800 name, flag
+ CODE
+ 2000069c 0000008e swap
+ 200006a0 00000010 over
+ 200006a4 20000604 O
+ 200006a8 0000002f 0
+ 200006ac 00000008 (do)
+ 200006b0 00000067 dup
+ 200006b4 20000674 T
+ 200006b8 00000002 literal (000001f4)
+ 200006c0 000000b3 delay
+ 200006c4 00000009 (loop) (200006b0)
+ 200006cc 00000012 drop
+ 200006d0 00000001 exit
+W264
+ HighLevel Ram Word y (xt $200006e0)
+ HEAD
+ 200006d4 20000690 link
+ 200006d8 200006e0 cfa
+ 200006dc 00007900 name, flag
+ CODE
+ 200006e0 00000005 zbran (20000700)
+ 200006e8 0000000e ." non-zero"
+ 200006f8 00000004 bran (2000070c)
+ 20000700 0000000e ." zero"
+ 2000070c 00000001 exit
+W265
+ HighLevel Ram Word z (xt $2000071c)
+ HEAD
+ 20000710 200006d4 link
+ 20000714 2000071c cfa
+ 20000718 00007a00 name, flag
+ CODE
+ 2000071c 00000005 zbran (20000730)
+ 20000724 0000000e ." non-"
+ 20000730 0000000e ." zero"
+ 2000073c 00000001 exit
+W266
+ HighLevel Ram Word romWords (xt $20000754)
+ HEAD
+ 20000740 20000710 link
+ 20000744 20000754 cfa
+ 20000748 6d6f7200 name, flag
+ 2000074c 64726f57
+ 20000750 00000073
+ CODE
+ 20000754 000000ef nRomWords
+ 20000758 00000061 cr
+ 2000075c 00000067 dup
+ 20000760 00000005 zbran (20000780)
+ 20000768 00000067 dup
+ 2000076c 000000b2 .name
+ 20000770 0000008c space
+ 20000774 00000035 1-
+ 20000778 00000004 bran (2000075c)
+ 20000780 00000012 drop
+ 20000784 00000001 exit
+W267
+ HighLevel Ram Word immediate? (xt $2000079c)
+ HEAD
+ 20000788 20000740 link
+ 2000078c 2000079c cfa
+ 20000790 6d6d6900 name, flag
+ 20000794 61696465
+ 20000798 003f6574
+ CODE
+ 2000079c 00000002 literal (00000080)
+ 200007a4 0000004f and
+ 200007a8 00000001 exit
+W268
+ HighLevel Ram Word compile-only? (xt $200007c4)
+ HEAD
+ 200007ac 20000788 link
+ 200007b0 200007c4 cfa
+ 200007b4 6d6f6300 name, flag
+ 200007b8 656c6970
+ 200007bc 6c6e6f2d
+ 200007c0 00003f79
+ CODE
+ 200007c4 00000002 literal (00000040)
+ 200007cc 0000004f and
+ 200007d0 00000001 exit
+W269
+ HighLevel Ram Word smudge? (xt $200007e8)
+ HEAD
+ 200007d4 200007ac link
+ 200007d8 200007e8 cfa
+ 200007dc 756d7300 name, flag
+ 200007e0 3f656764
+ 200007e4 00000000
+ CODE
+ 200007e8 00000002 literal (00000020)
+ 200007f0 0000004f and
+ 200007f4 00000001 exit
+W270
+ HighLevel Ram Word entry>link (xt $2000080c)
+ HEAD
+ 200007f8 200007d4 link
+ 200007fc 2000080c cfa
+ 20000800 746e6500 name, flag
+ 20000804 6c3e7972
+ 20000808 006b6e69
+ CODE
+ 2000080c 00000001 exit
+W271
+ HighLevel Ram Word entry>cfa (xt $20000824)
+ HEAD
+ 20000810 200007f8 link
+ 20000814 20000824 cfa
+ 20000818 746e6500 name, flag
+ 2000081c 633e7972
+ 20000820 20006166
+ CODE
+ 20000824 00000056 cell+
+ 20000828 0000004a @
+ 2000082c 00000001 exit
+W272
+ HighLevel Ram Word nextCFA (xt $20000844)
+ HEAD
+ 20000830 20000810 link
+ 20000834 20000844 cfa
+ 20000838 78656e00 name, flag
+ 2000083c 41464374
+ 20000840 00000000
+ CODE
+ 20000844 00000056 cell+
+ 20000848 000000f1 isUserEntry
+ 2000084c 00000005 zbran (20000844)
+ 20000854 00000067 dup
+ 20000858 00000005 zbran (20000864)
+ 20000860 20000824 entry>cfa
+ 20000864 00000001 exit
+W273
+ HighLevel Ram Word nRamWords (xt $2000087c)
+ HEAD
+ 20000868 20000830 link
+ 2000086c 2000087c cfa
+ 20000870 61526e00 name, flag
+ 20000874 726f576d
+ 20000878 00007364
+ CODE
+ 2000087c 0000002f 0
+ 20000880 00000002 literal (200003d0)
+ 20000888 00000049 ?dup
+ 2000088c 00000005 zbran (200008ac)
+ 20000894 0000008e swap
+ 20000898 00000034 1+
+ 2000089c 0000008e swap
+ 200008a0 20000844 nextCFA
+ 200008a4 00000004 bran (20000888)
+ 200008ac 00000001 exit
+W274
+ HighLevel Ram Word allWords (xt $200008c4)
+ HEAD
+ 200008b0 20000868 link
+ 200008b4 200008c4 cfa
+ 200008b8 6c6c6100 name, flag
+ 200008bc 64726f57
+ 200008c0 00000073
+ CODE
+ 200008c4 00000061 cr
+ 200008c8 000000ea lastVoc
+ 200008cc 00000049 ?dup
+ 200008d0 00000005 zbran (2000094c)
+ 200008d8 00000067 dup
+ 200008dc 00000002 literal (00000008)
+ 200008e4 0000001a -
+ 200008e8 00000061 cr
+ 200008ec 0000000e ." in vocabulary "
+ 20000900 000000b2 .name
+ 20000904 00000061 cr
+ 20000908 00000067 dup
+ 2000090c 00000057 cell-
+ 20000910 0000004a @
+ 20000914 00000049 ?dup
+ 20000918 00000005 zbran (20000940)
+ 20000920 00000067 dup
+ 20000924 20000824 entry>cfa
+ 20000928 000000b2 .name
+ 2000092c 0000008c space
+ 20000930 2000080c entry>link
+ 20000934 0000004a @
+ 20000938 00000004 bran (20000914)
+ 20000940 0000004a @
+ 20000944 00000004 bran (200008cc)
+ 2000094c 00000061 cr
+ 20000950 0000000e ." in vocabulary primitive"
+ 2000096c 20000754 romWords
+ 20000970 00000001 exit
+W275
+ HighLevel Ram Word w. (xt $20000980)
+ HEAD
+ 20000974 200008b0 link
+ 20000978 20000980 cfa
+ 2000097c 002e7700 name, flag
+ CODE
+ 20000980 000000d1 fgBrightYellow
+ 20000984 00000050 base
+ 20000988 0000004a @
+ 2000098c 00000048 >r
+ 20000990 00000063 decimal
+ 20000994 0000000e ." W"
+ 2000099c 00000032 3
+ 200009a0 200004bc .0r
+ 200009a4 000000cd fgWhite
+ 200009a8 0000008c space
+ 200009ac 00000084 r>
+ 200009b0 00000050 base
+ 200009b4 0000001f !
+ 200009b8 00000001 exit
+W276
+ HighLevel Ram Word seeRomWords (xt $200009d4)
+ HEAD
+ 200009bc 20000974 link
+ 200009c0 200009d4 cfa
+ 200009c4 65657300 name, flag
+ 200009c8 576d6f52
+ 200009cc 7364726f
+ 200009d0 00000000
+ CODE
+ 200009d4 00000061 cr
+ 200009d8 0000002f 0
+ 200009dc 00000034 1+
+ 200009e0 00000067 dup
+ 200009e4 20000980 w.
+ 200009e8 00000067 dup
+ 200009ec 000000aa (see)
+ 200009f0 00000067 dup
+ 200009f4 000000ef nRomWords
+ 200009f8 00000011 =
+ 200009fc 00000005 zbran (200009dc)
+ 20000a04 00000012 drop
+ 20000a08 00000001 exit
+W277
+ HighLevel Ram Word seeRamWords (xt $20000a24)
+ HEAD
+ 20000a0c 200009bc link
+ 20000a10 20000a24 cfa
+ 20000a14 65657300 name, flag
+ 20000a18 576d6152
+ 20000a1c 7364726f
+ 20000a20 00000000
+ CODE
+ 20000a24 00000061 cr
+ 20000a28 000000ef nRomWords
+ 20000a2c 00000002 literal (200003d0)
+ 20000a34 00000049 ?dup
+ 20000a38 00000005 zbran (20000a68)
+ 20000a40 0000008e swap
+ 20000a44 00000034 1+
+ 20000a48 00000067 dup
+ 20000a4c 20000980 w.
+ 20000a50 0000008e swap
+ 20000a54 00000067 dup
+ 20000a58 000000aa (see)
+ 20000a5c 20000844 nextCFA
+ 20000a60 00000004 bran (20000a34)
+ 20000a68 00000012 drop
+ 20000a6c 00000001 exit
+W278
+ HighLevel Ram Word seeAll (xt $20000a80)
+ HEAD
+ 20000a70 20000a0c link
+ 20000a74 20000a80 cfa
+ 20000a78 65657300 name, flag
+ 20000a7c 006c6c41
+ CODE
+ 20000a80 200009d4 seeRomWords
+ 20000a84 20000a24 seeRamWords
+ 20000a88 00000001 exit
+W279
+ HighLevel Ram Word h (xt $20000a98)
+ HEAD
+ 20000a8c 20000a70 link
+ 20000a90 20000a98 cfa
+ 20000a94 6f006800 name, flag
+ CODE
+ 20000a98 00000067 dup
+ 20000a9c 00000030 1
+ 20000aa0 00000011 =
+ 20000aa4 00000005 zbran (20000ac4)
+ 20000aac 00000012 drop
+ 20000ab0 0000007f nip
+ 20000ab4 0000008e swap
+ 20000ab8 00000069 emit
+ 20000abc 00000069 emit
+ 20000ac0 00000001 exit
+ 20000ac4 00000035 1-
+ 20000ac8 00000032 3
+ 20000acc 00000081 pick
+ 20000ad0 00000031 2
+ 20000ad4 00000081 pick
+ 20000ad8 00000033 4
+ 20000adc 00000081 pick
+ 20000ae0 00000032 3
+ 20000ae4 00000081 pick
+ 20000ae8 20000a98 h
+ 20000aec 0000008c space
+ 20000af0 00000032 3
+ 20000af4 00000081 pick
+ 20000af8 00000069 emit
+ 20000afc 00000030 1
+ 20000b00 00000081 pick
+ 20000b04 00000069 emit
+ 20000b08 0000008c space
+ 20000b0c 0000003f 2swap
+ 20000b10 0000008e swap
+ 20000b14 0000003f 2swap
+ 20000b18 20000a98 h
+ 20000b1c 00000001 exit
+W280
+ HighLevel Ram Word tst (xt $20000b30)
+ HEAD
+ 20000b20 20000a8c link
+ 20000b24 20000b30 cfa
+ 20000b28 74737400 name, flag
+ 20000b2c 00000000
+ CODE
+ 20000b30 00000002 literal (00000030)
+ 20000b38 0000002f 0
+ 20000b3c 00000008 (do)
+ 20000b40 00000070 i
+ 20000b44 00000002 literal (0000000c)
+ 20000b4c 0000007c mod
+ 20000b50 0000001d 0=
+ 20000b54 00000005 zbran (20000b60)
+ 20000b5c 00000061 cr
+ 20000b60 00000002 literal (000000fa)
+ 20000b68 00000070 i
+ 20000b6c 00000058 cells
+ 20000b70 000000c1 freq
+ 20000b74 0000001b +
+ 20000b78 0000004a @
+ 20000b7c 00000067 dup
+ 20000b80 00000033 4
+ 20000b84 200004bc .0r
+ 20000b88 0000008c space
+ 20000b8c 00000002 literal (0000000e)
+ 20000b94 000000bf tone
+ 20000b98 00000002 literal (00000113)
+ 20000ba0 000000b3 delay
+ 20000ba4 00000009 (loop) (20000b40)
+ 20000bac 00000001 exit
+W281
+ HighLevel Ram Word printableChars (xt $20000bc8)
+ HEAD
+ 20000bb0 20000b20 link
+ 20000bb4 20000bc8 cfa
+ 20000bb8 69727000 name, flag
+ 20000bbc 6261746e
+ 20000bc0 6843656c
+ 20000bc4 00737261
+ CODE
+ 20000bc8 00000050 base
+ 20000bcc 0000004a @
+ 20000bd0 000000a1 hex
+ 20000bd4 00000002 literal (0000007f)
+ 20000bdc 00000002 literal (00000021)
+ 20000be4 00000061 cr
+ 20000be8 00000008 (do)
+ 20000bec 00000070 i
+ 20000bf0 00000031 2
+ 20000bf4 200004bc .0r
+ 20000bf8 0000008c space
+ 20000bfc 00000070 i
+ 20000c00 00000069 emit
+ 20000c04 0000008c space
+ 20000c08 00000070 i
+ 20000c0c 00000002 literal (0000000f)
+ 20000c14 0000004f and
+ 20000c18 0000001d 0=
+ 20000c1c 00000005 zbran (20000c28)
+ 20000c24 00000061 cr
+ 20000c28 00000009 (loop) (20000bec)
+ 20000c30 00000050 base
+ 20000c34 0000001f !
+ 20000c38 00000001 exit
+W282
+ HighLevel Ram Word keyNote (xt $20000c50)
+ HEAD
+ 20000c3c 20000bb0 link
+ 20000c40 20000c50 cfa
+ 20000c44 79656b00 name, flag
+ 20000c48 65746f4e
+ 20000c4c 00000000
+ CODE
+ 20000c50 0000000f (var)
+ BODY
+ 20000c54 000000dc
+W283
+ HighLevel Ram Word getPFA (xt $20000c68)
+ HEAD
+ 20000c58 20000c3c link
+ 20000c5c 20000c68 cfa
+ 20000c60 74656700 name, flag
+ 20000c64 00414650
+ CODE
+ 20000c68 00000084 r>
+ 20000c6c 00000084 r>
+ 20000c70 00000084 r>
+ 20000c74 00000084 r>
+ 20000c78 00000012 drop
+ 20000c7c 00000056 cell+
+ 20000c80 00000089 -rot
+ 20000c84 00000048 >r
+ 20000c88 00000048 >r
+ 20000c8c 00000001 exit
+W284
+ HighLevel Ram Word keyNote: (xt $20000ca4)
+ HEAD
+ 20000c90 20000c58 link
+ 20000c94 20000ca4 cfa
+ 20000c98 79656b00 name, flag
+ 20000c9c 65746f4e
+ 20000ca0 0000003a
+ CODE
+ 20000ca4 00000062 create
+ 20000ca8 00000030 1
+ 20000cac 0000004e allot
+ 20000cb0 00000029 ,
+ 20000cb4 00000006 (does>)
+ 20000cb8 20000c68 getPFA
+ 20000cbc 0000004a @
+ 20000cc0 20000c50 keyNote
+ 20000cc4 0000001f !
+ 20000cc8 00000001 exit
+W285
+ HighLevel Ram Word keyA (xt $20000cdc)
+ HEAD
+ 20000ccc 20000c90 link
+ 20000cd0 20000cdc cfa
+ 20000cd4 79656b00 name, flag
+ 20000cd8 00000041
+ CODE
+ 20000cdc 20000cb8 (does> keyNote:)
+ BODY
+ 20000ce4 000000dc
+W286
+ HighLevel Ram Word a3 (xt $20000cf4)
+ HEAD
+ 20000ce8 20000424 link
+ 20000cec 20000cf4 cfa
+ 20000cf0 00336100 name, flag
+ CODE
+ 20000cf4 00000001 exit
+W287
+ HighLevel Ram Word a4 (xt $20000d04)
+ HEAD
+ 20000cf8 20000ce8 link
+ 20000cfc 20000d04 cfa
+ 20000d00 00346100 name, flag
+ CODE
+ 20000d04 00000001 exit
+W288
+ HighLevel Ram Word b3 (xt $20000d14)
+ HEAD
+ 20000d08 20000444 link
+ 20000d0c 20000d14 cfa
+ 20000d10 00336200 name, flag
+ CODE
+ 20000d14 00000001 exit
+W289
+ HighLevel Ram Word b4 (xt $20000d24)
+ HEAD
+ 20000d18 20000d08 link
+ 20000d1c 20000d24 cfa
+ 20000d20 00346200 name, flag
+ CODE
+ 20000d24 00000001 exit
+W290
+ HighLevel Ram Word 1234567890123456789012345678901 (xt $20000d54)
+ HEAD
+ 20000d28 20000ccc link
+ 20000d2c 20000d54 cfa
+ 20000d30 33323100 name, flag
+ 20000d34 37363534
+ 20000d38 31303938
+ 20000d3c 35343332
+ 20000d40 39383736
+ 20000d44 33323130
+ 20000d48 37363534
+ 20000d4c 31303938
+ 20000d50 00000000
+ CODE
+ 20000d54 00000001 exit
+ OK

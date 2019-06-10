@@ -9,15 +9,16 @@
 #include "strings.h"
 
 // const char sp_str[] = " ";
-const char hexidecimal_str[] = "$";
-const char octal_str[] = "0";
-const char binary_str[] = "%";
+//const char hexidecimal_str[] = "$";
+//const char octal_str[] = "0";
+//const char binary_str[] = "%";
 
 /******************************************************************************/
 /** String and Serial Functions                                              **/
 /******************************************************************************/
+char strBuf[33];
 void displayValue(void) {
-  switch (base) {
+/*switch (base) {
     case DECIMAL: 
       Serial.print(w, DEC);
       break;
@@ -34,6 +35,9 @@ void displayValue(void) {
       Serial.print(w, BIN);
       break;
   }
+*/
+  itoa(w, strBuf, base);
+  Serial.print(strBuf);
   Serial.print(sp_str);
 }
 

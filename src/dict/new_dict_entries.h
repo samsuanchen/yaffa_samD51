@@ -13,7 +13,7 @@ extern uint16_t nFlashEntry;
 extern flashEntry_t* pLimitFlashEntry;
 extern userEntry_t* pUserEntry;
 extern userEntry_t* pLastUserEntry;
-extern char* xtToNFA(cell_t);
+extern char* to_name(cell_t);
 extern cell_t* context[];
 extern cell_t* current;
 extern uint8_t nContext;
@@ -178,3 +178,8 @@ extern void _also(void);			//samsuanchen@gmail.com 20190604
 extern void _previous(void);		//samsuanchen@gmail.com 20190604
 extern void _order(void);			//samsuanchen@gmail.com 20190604
 extern void _primitive(void);		//samsuanchen@gmail.com 20190604
+
+extern void _dash_rot(void);		//samsuanchen@gmail.com 20190606
+extern void _nRomWords(void);		//samsuanchen@gmail.com 20190609
+extern void _addrToSee(void);		//samsuanchen@gmail.com 20190609
+extern void _isUserEntry(void);		//samsuanchen@gmail.com 20190610

@@ -84,6 +84,8 @@ extern void dStack_top(cell_t);
 extern cell_t dStack_top(void);
 extern userEntry_t* pFirstUserEntry;
 
+extern void _dash_rot(void);
+
 extern void _bgBlue(void);
 extern void _fgRed(void);
 extern void _fgWhite(void);
