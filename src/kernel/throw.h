@@ -11,10 +11,11 @@ extern int8_t errorCode; // = 0;
 extern uint8_t state; // Holds the text interpreters compile/interpreter state
 
 // prototypes - external functions
+extern cell_t *ip_begin, *ip;
 extern cell_t dStack_pop(void);
 extern void dStack_clear(void);
+extern void _quit(void);
 extern void _cr(void);
-extern void _warm(void);
 extern void _fgRed();
 extern void _fgWhite();
 

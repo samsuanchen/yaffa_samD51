@@ -37,10 +37,11 @@ void _throw(void) {
     }
     index++;
   } while (tableCode);
+  ip = ip_begin = 0;
   dStack_clear(), state = FALSE;
   extern void waitEsc(void);
   waitEsc();
-  _warm(); // clear rStack too
+  _quit();
 }  
 #endif
 #endif
