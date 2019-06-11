@@ -109,10 +109,17 @@ cr .( 4 led toggles each 500 ms )
   cr 0
   begin 1+ dup w. dup (see) dup nRomWords =
   until drop ;
+: >entry ( cfa -- userEntry ) >name ?dup if 9 - then ;
 : seeRamWords \ ( -- ) see all ram words (in ascending order)
   cr nRomWords ['] new
   begin ?dup
-  while swap 1+ dup w. swap dup (see) nextCFA
+  while swap 1+ dup w. swap
+    dup ['] new <>
+	if dup >entry addrToSee <>
+	  if cr fgRed ." ram word Entry " . ." is not addrToSee " addrToSee . fgWhite
+	  then
+	then
+    dup (see) nextCFA
   repeat drop ;
 : seeAll \ ( -- ) see all words (in ascending order)
   seeRomWords seeRamWords ;

@@ -5,4 +5,4 @@ extern const char quit_str[]; // = "quit";
 extern void _quit(void);
 extern void rStack_clear(void);
 extern char* cpToIn;
-extern uint8_t spiFlashReading;
+extern bool spiFlashReading;

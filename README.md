@@ -2,7 +2,7 @@
   
 ## to do
 
-	1. primitive words: >flags .r .0r 
+	1. primitive words: >flags .r .0r h. h.r h0.r ?
 
 ## history
 
@@ -23,27 +23,29 @@
 	 tst h seeAll seeRamWords seeRomWords w. allWords prevVoc body> voc> nRamWords
 	 nextCFA entry>cfa entry>link smudge? compile-only? immediate? romWords
 	 z y X T L H I O BU BL BD BR buzzer led t .0r .r vocB vocA new
+
 	in vocabulary primitive
-	 isUserEntry addrToSee nRomWords primitive order previous also lastVoc vocs
-	 definitions current context bgBrightWhite bgBrightCyan bgBrightMagenta
-	 bgBrightBlue bgBrightYellow bgBrightGreen bgBrightRed bgBrightBlack bgWhite
-	 bgCyan bgMagenta bgBlue bgYellow bgGreen bgRed bgBlack fgBrightWhite fgBrightCyan
-	 fgBrightMagenta fgBrightBlue fgBrightYellow fgBrightGreen fgBrightRed fgBrightBlack
-	 fgWhite fgCyan fgMagenta fgBlue fgYellow fgGreen fgRed fgBlack bgBlue fgYellow
-	 setEscPrint isWord freq noTone tone download remove echo! load eflmkdir
-	 >name analogWrite analogRead pinRead pinMode pinWrite delay .name nextRamEntry
-	 isRamEntry ramLast ramFirst romEntry words see (see) dump .s who help endcase
-	 endof of case hex <> 2r@ 2r> 2>r 0> 0<> .( ] [char] ['] [ xor \ word while
-	 until u. then swap spaces space source rshift -rot rot repeat recurse r@
-	 r> quit postpone pick or nip negate move mod min max m* lshift loop leave
-	 j invert compile-only immediate if i hold here fm/mod find fill execute
-	 emit else dup does> do depth decimal create cr count again strlen constant
-	 chars char+ char cell/ cells cell- cell+ c@ c, c! bl begin base and allot
-	 accept abs abort" @ ?dup >r >number >in >body > <# < ; : 2swap 2over 2dup
-	 2drop 2@ 2/ 2! 2* 2- 2+ 1- 1+ 4 3 2 1 0 false true 0< /mod / , +loop +!
-	 */mod */ ( ' #s #> # ! abort 0= * + - . print warm vocabulary (voc) variable
-	 (con) drop = over (var) ." s" evaluate (+loop) (leave) (loop) (do) throw
-	 (does>) zbran bran type literal exit  OK
+	 ! # #> #s ' ( (+loop) (con) (do) (does>) (leave) (loop) (see) (var) (voc)
+	 * */ */mod + +! +loop , - -rot . ." .( .name .s / /mod 0 0< 0<> 0= 0>
+	 1 1+ 1- 2 2! 2* 2+ 2- 2/ 2>r 2@ 2drop 2dup 2over 2r> 2r@ 2swap 3 4 : ;
+	 < <# <> = > >body >in >name >number >r ?dup @ [ ['] [char] \ ]
+	 abort abort" abs accept addrToSee again allot also analogRead analogWrite and
+	 base begin bgBlack bgBlue bgBrightBlack bgBrightBlue bgBrightCyan bgBrightGreen
+	 bgBrightMagenta bgBrightRed bgBrightWhite bgBrightYellow bgCyan bgGreen bgMagenta
+	 bgRed bgWhite bgYello bl bran c! c, c@ case cell+ cell- cell/ cells char+ char
+	 chars compile-only context constant cr count create current
+	 decimal definitions delay depth do does> download drop dump dup
+	 echo! eflmkdir else endcase endof emit evaluate execute exit
+	 false fgBlack fgBlue fgBrightBlack fgBrightBlue fgBrightCyan fgBrightGreen
+	 fgBrightMagenta fgBrightRed fgBrightWhite fgBrightYellow fgCyan fgGreen fgMagenta
+	 fgRed fgWhite fgYellow fill find fm/mod freq here help hex hold
+	 i if immediate invert isRamEntry isUserEntry isWord j
+	 lastVoc leave literal load loop lshift m* max min mod move
+	 negate nextRamEntry nip noTone nRomWords of or order over
+	 pick pinMode pinRead pinWrite postpone previous primitive print
+	 quit r> r@ ramFirst ramLast recurse remove repeat romEntry rot rshift
+	 s" see setEscPrint source space spaces strlen swap then throw tone true type
+	 u. until variable vocabulary vocs warm while who word words xor zbran
 	
 	nRamWords . 49  OK
 	
