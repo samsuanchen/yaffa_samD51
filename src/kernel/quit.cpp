@@ -11,6 +11,7 @@ const char quit_str[] = "quit";
 void _quit(void) {
   rStack_clear();
   *cpToIn = 0;          // Terminate buffer to stop interpreting
+  spiFlashReading = 0;
   Serial.flush();
 }
 

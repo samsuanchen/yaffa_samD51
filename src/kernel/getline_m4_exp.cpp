@@ -374,7 +374,11 @@ if (silentReading) {
 /**   Valid characters are:  Backspace, Carriage Return (0x0d), Escape,      **/
 /**   Tab, Newline (0x0a) and standard (printable) characters                **/
 /******************************************************************************/
+unsigned char isPrintable(unsigned char key){
+	return (key >= 0x20 && key <= 0xfe) ? 1 : 0;
+}
 char getKey(void) {
+//	Serial.print("getKey"); while(1);
     char inChar;
     // the load word provides this boolean:
     if (spiFlashReading) {
@@ -384,7 +388,7 @@ char getKey(void) {
             inChar == ASCII_NL  ||   // new
             inChar == ASCII_DEL ||   // new
             inChar == ASCII_ESC ||
-            isprint(inChar)) {
+            isPrintable(inChar)) {
             return inChar;
         }
     } else {
@@ -397,7 +401,7 @@ char getKey(void) {
                     inChar == ASCII_NL  ||   // new
                     inChar == ASCII_DEL ||   // new
                     inChar == ASCII_ESC ||
-                    isprint(inChar)) {
+                    isPrintable(inChar)) {
                     return inChar;
                 }
             }
