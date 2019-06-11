@@ -230,15 +230,19 @@ void _evaluate(void) { /* samsuanchen@gmail.com 20190502
 void _execute(void) {
     func function;
     w = dStack_pop();
-	if (w <= 0 || (w > nFlashEntry && w < (cell_t) (pFirstUserEntry->cfa)) || w > (cell_t) (pLastUserEntry->cfa)) {
-		dStack_push(-13); _throw(); return; }
+	if ( ( w <= 0 ) ||
+	     ( ( w > nFlashEntry ) && ( w < (cell_t) &forthSpace[4] ) ) ||
+	     ( w > (cell_t) pLastUserEntry->cfa )
+	   ) {
+		dStack_push(-13); _throw(); }
     if (w <= nFlashEntry) {
         function = flashDict[w - 1].function;
         function();
     } else {
         // comment: see original source for extra commented-out 1 line of code here
+        rStack_push((cell_t) ip_begin);        // CAL - Push our return address
         rStack_push((cell_t) ip);        // CAL - Push our return address
-        ip = (cell_t *)w;          // set the ip to the XT (memory location)
+        ip_begin = ip = (cell_t *)w;          // set the ip to the XT (memory location)
         executeWord();
     }
 }

@@ -232,11 +232,11 @@ void setup(void) {
   base = DECIMAL;
   pNewUserEntry = (userEntry_t*)&forthSpace[0];
   pLastUserEntry = pFirstUserEntry = pNewUserEntry;
-  forthSpace[0] = 0; // link to prevWord
+  forthSpace[0] = 0; // no prevWord
   forthSpace[1] = (cell_t) &forthSpace[4]; // cfa
-  forthSpace[2] = 0x77656e00; // flag and name
+  forthSpace[2] = 0x77656e00; // flag 0 and name "new"
   forthSpace[3] = 0; // end of string
-  forthSpace[4] = 0x15; // VOC_SYS_IDX
+  forthSpace[4] = 0x15; // VOC_SYS_IDX // (voc)
   forthSpace[5] = (cell_t) forthSpace; // this vocWord in vocabulary new
   forthSpace[6] = 0; // link to prevVoc
   pLastVoc = &forthSpace[6];

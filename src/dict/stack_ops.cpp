@@ -254,7 +254,7 @@ void _nextRamEntry(){ // ( entry -- entry' | 0 )
 uint8_t outLen;
 void println(){ Serial.println(); outLen = 0; }
 void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLmt){
-	if (outLen > outLmt) println();
+	if (outLen > outLmt) println(), _space();
 	if(n==0 || strstr(name, sub)) {
 	  if(flags & COMP_ONLY) _bgBlue();
 	  if(flags & IMMEDIATE) _fgRed();
@@ -266,7 +266,7 @@ void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLm
 }
 //const char words_str[] = "words";
 void _words(void) { // ( <substr> -- )
-  println();
+  println(), _space();
   uint8_t n=getToken();
   cell_t* voc = context[nContext-1];
   if(voc) {

@@ -93,14 +93,16 @@ cr .( 4 led toggles each 500 ms )
     swap \ dup .name fgWhite space
     nextCFA
   repeat ;
+: voc> ( voc -- cfa ) cell- cell- ;
+: body> ( pfa -- cfa ) cell- ;
+: prevVoc ( voc -- voc' ) @ ;
 : allWords \ ( -- ) show all wordnames (in decreasing order)
-  cr lastVoc
+  lastVoc
   begin ?dup
-  while dup 8 - cr ." in vocabulary " .name cr dup cell- @
-    begin ?dup
-    while dup entry>cfa .name space entry>link @
-    repeat @
-  repeat cr ." in vocabulary primitive" romWords ; \ words
+  while dup voc> cr ." in vocabulary " dup .name execute
+    words prevVoc
+  repeat cr ." in vocabulary primitive"
+  primitive words ; \ allWords
 : w. ( i -- ) fgBrightYellow base @ >r decimal ." W" 3 .0r fgWhite space
   r> base ! ;
 : seeRomWords \ ( -- ) see all rom words (in ascending order)

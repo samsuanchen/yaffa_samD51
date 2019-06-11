@@ -83,6 +83,7 @@ extern cell_t dStack_pop();
 extern void dStack_top(cell_t);
 extern cell_t dStack_top(void);
 extern userEntry_t* pFirstUserEntry;
+extern void printStr(char*);
 
 extern void _dash_rot(void);
 
