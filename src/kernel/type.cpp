@@ -10,15 +10,16 @@
 
 const char print_str[] = "print";
 // ( c-addr -- ) // display character string specified by c-addr
-void _print(void) { Serial.print( (char*)dStack_pop() ); }
+extern uint8_t outLen;
+void _print(void) { outLen += Serial.print( (char*)dStack_pop() ); }
 
 const char type_str[] = "type";
 // ( c-addr u -- ) / if u is greater than zero, display character string specified by c-addr and u
 void _type(void) {
   uint8_t length = (uint8_t)dStack_pop();
+  outLen += length;
   char* addr = (char*)dStack_pop();
-  for (char i = 0; i < length; i++)
-    Serial.print(*addr++);
+  for (char i = 0; i < length; i++) Serial.print(*addr++);
 }
 
 #endif

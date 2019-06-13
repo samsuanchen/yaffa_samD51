@@ -14,6 +14,7 @@ extern flashEntry_t* pLimitFlashEntry;
 extern userEntry_t* pUserEntry;
 extern userEntry_t* pLastUserEntry;
 extern char* to_name(cell_t);
+extern uint8_t outLen;
 extern cell_t* context[];
 extern cell_t* current;
 extern uint8_t nContext;

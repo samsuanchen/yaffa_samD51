@@ -15,7 +15,7 @@
 
 #include <Arduino.h>
 #include "../../yaffa.h"
-#include "../../flashDict.h"
+#include "../../b_flashdict.h"
 #include "../../Dictionary.h"
 #include "./stack_ops.h"
 
@@ -146,7 +146,7 @@ void _dot_paren(void) {
 }
 //const char cr_str[] = "cr"; // ( -- ) Carriage Return
 void _cr(void) {
-  Serial.println();
+  Serial.println(); outLen = 0;
 }
 //const char space_str[] = "space";
 // ( -- )
@@ -247,8 +247,6 @@ void _nextRamEntry(){ // ( entry -- entry' | 0 )
 	dStack_push( (cell_t) adr );
 }
 
-#define OUTLMT 70
-uint8_t outLen;
 void println(){ Serial.println(); outLen = 0; }
 void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLmt){
 	if (outLen > outLmt) println();

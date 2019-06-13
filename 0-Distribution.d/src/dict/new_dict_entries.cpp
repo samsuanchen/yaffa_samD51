@@ -76,7 +76,7 @@ void myword_underscore_seps(void) {
 #include "../../yaffa.h"
 #include "../../Dictionary.h"
 #include "./new_dict_entries.h"
-#include "../../flashDict.h"
+#include "../../b_flashdict.h"
 
 char str[17];
 void printHex(cell_t num) {

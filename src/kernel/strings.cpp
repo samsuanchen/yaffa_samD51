@@ -16,29 +16,13 @@
 /******************************************************************************/
 /** String and Serial Functions                                              **/
 /******************************************************************************/
-char strBuf[33];
-void displayValue(void) {
-/*switch (base) {
-    case DECIMAL: 
-      Serial.print(w, DEC);
-      break;
-    case HEXIDECIMAL:
-      Serial.print(hexidecimal_str); 
-      Serial.print(w, HEX);
-      break;
-    case OCTAL:
-      Serial.print(octal_str); 
-      Serial.print(w, OCT);
-      break;
-    case BINARY:  
-      Serial.print(binary_str); 
-      Serial.print(w, BIN);
-      break;
-  }
-*/
+#define OUTLMT 80
+uint8_t outLen;
+char strBuf[256];
+void displayValue(cell_t w) {
   itoa(w, strBuf, base);
-  Serial.print(strBuf);
-  Serial.print(sp_str);
+  outLen += Serial.print(strBuf);
+  outLen += Serial.print(sp_str);
 }
 
 #endif

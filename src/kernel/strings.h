@@ -7,7 +7,7 @@ extern const char octal_str[]; // = "0";
 extern const char binary_str[]; // = "%";
 
 // prototypes - this word
-extern void displayValue(void);
+extern void displayValue(cell_t);
 
 // prototypes - variables
 extern cell_t w;     // Working Register

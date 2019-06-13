@@ -223,6 +223,7 @@ static const unsigned long SRAM_SIZE = 192;
 #define STACK_SIZE    32
 #define BUFFER_SIZE   255
 #define WORD_SIZE     32
+#define OUTLMT		  80
 
 #elif defined(__AVR_ATSAM3X8E__) // Due
 #elif defined(_AVR_AR9331__) // Yun 400Mhz

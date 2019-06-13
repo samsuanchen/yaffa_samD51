@@ -15,7 +15,7 @@
 
 #include <Arduino.h>
 #include "../../yaffa.h"
-#include "../../flashDict.h"
+#include "../../b_flashdict.h"
 #include "../../Dictionary.h"
 #include "./stack_ops.h"
 
@@ -80,17 +80,16 @@ void _xor(void) {
 //const char dot_str[] = ".";
 // ( n -- )
 // display n in free field format
+extern uint8_t outLen;
 void _dot(void) {
-  w = dStack_pop();
-  displayValue();
+  displayValue(dStack_pop());
 }
 //const char u_dot_str[] = "u.";
 // ( u -- )
 // Displau u in free field format
 // tested and fixed by Alex Moskovskij
 void _u_dot(void) { // need to be fixed
-  Serial.print((ucell_t) dStack_pop());
-  Serial.print(F(" "));
+  displayValue(dStack_pop());
 }
 /**                          Programming Tools Set                            **/
 // #ifdef TOOLS_SET  // YAFFA-ARM organization: TOOLS_SET
@@ -106,8 +105,7 @@ void _dot_s(void) {
   if (depth > 0) {
     for (i = depth; i > 0; i--) { // walk backwards
       j = i - 1; // normalize
-      w = dStack_peek(j);
-      displayValue();
+      displayValue(dStack_peek(j));
     }
   }
 }
@@ -134,31 +132,24 @@ void _paren(void) {
 // ( "ccc<paren>" -- )
 // Parse and display ccc delimitied by ) (right parenthesis). .( is an immediate word.
 void _dot_paren(void) { 
-  dStack_push(')');
-  _word();
-  _count(); // has the fixes (below) appended
-  // _swap();
-  // uint8_t* addr = (uint8_t*)dStack_pop();
-  // *addr++;  *addr++;  *addr++;
-  // dStack_push((size_t)addr);
-  // _swap();
-  _type();
+  dStack_push(')'); _word(); _count(); _type();
 }
 //const char cr_str[] = "cr"; // ( -- ) Carriage Return
 void _cr(void) {
-  Serial.println();
+  Serial.println(); outLen=0;
 }
 //const char space_str[] = "space";
 // ( -- )
 // Display one space
 void _space(void) {
-  Serial.print(sp_str);
+  outLen += Serial.print(sp_str);
 }
 //const char spaces_str[] = "spaces";
 // ( n -- )
 // if n is greater than zero, display n space
 void _spaces(void) {
   char n = (char) dStack_pop();
+  outLen += n;
   while (n > 0) {
     Serial.print(sp_str);
     n--;
@@ -250,11 +241,10 @@ void _nextRamEntry(){ // ( entry -- entry' | 0 )
 	dStack_push( (cell_t) adr );
 }
 
-#define OUTLMT 70
-uint8_t outLen;
 void println(){ Serial.println(); outLen = 0; }
 void queryPrintName(char*name, uint8_t flags, uint8_t n, char*sub, uint8_t outLmt){
-	if (outLen > outLmt) println(), _space();
+	int nameLen = strlen(name)+1;
+	if (outLen+nameLen > outLmt) println(), _space();
 	if(n==0 || strstr(name, sub)) {
 	  if(flags & COMP_ONLY) _bgBlue();
 	  if(flags & IMMEDIATE) _fgRed();

@@ -99,8 +99,8 @@ cr .( 4 led toggles each 500 ms )
 : allWords \ ( -- ) show all wordnames (in decreasing order)
   lastVoc
   begin ?dup
-  while dup voc> cr ." in vocabulary " dup .name execute
-    words prevVoc
+  while dup voc> cr ." in vocabulary " dup fgBrightYellow .name fgWhite
+    execute words prevVoc
   repeat cr ." in vocabulary primitive"
   primitive words ; \ allWords
 : w. ( i -- ) fgBrightYellow base @ >r decimal ." W" 3 .0r fgWhite space
@@ -115,10 +115,10 @@ cr .( 4 led toggles each 500 ms )
   begin ?dup
   while swap 1+ dup w. swap
     dup ['] new <>
-	if dup >entry addrToSee <>
-	  if cr fgRed ." ram word Entry " . ." is not addrToSee " addrToSee . fgWhite
-	  then
-	then
+    if dup >entry addrToSee <>
+      if cr fgRed ." ram word Entry " . ." is not addrToSee " addrToSee . fgWhite
+      then
+    then
     dup (see) nextCFA
   repeat drop ;
 : seeAll \ ( -- ) see all words (in ascending order)

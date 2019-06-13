@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include "../../yaffa.h"
-#include "../../flashDict.h"  // required?
+#include "../../b_flashdict.h"  // required?
 #include "../../Dictionary.h"
 // #include "../../Error_Codes.h"
 

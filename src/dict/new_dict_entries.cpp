@@ -76,7 +76,7 @@ void myword_underscore_seps(void) {
 #include "../../yaffa.h"
 #include "../../Dictionary.h"
 #include "./new_dict_entries.h"
-#include "../../flashDict.h"
+#include "../../b_flashdict.h"
 
 char hexBuf[17];
 char* toHex( cell_t i ) {
@@ -2055,11 +2055,10 @@ void _lastVoc(void) {
 }
 void _vocs(void) { _cr(); cell_t* p = pLastVoc;
 	while(p) {
-		//Serial.print(" 0x"); Serial.print((cell_t) p, 16); _space();
-		char* name = to_name((cell_t)(p-2)); Serial.print(name); _space();
+		dot_name((cell_t)(p-2)); _space();
 		p = (cell_t*) *p;
 	}
-	Serial.print("primitive");
+	outLen += Serial.print("primitive");
 }
 void _context(void) {
 	dStack_push((cell_t) context);

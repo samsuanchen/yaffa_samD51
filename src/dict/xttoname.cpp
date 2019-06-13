@@ -21,9 +21,10 @@ char* to_name(cell_t xt) {
   }
   return name;
 }
+extern uint8_t outLen;
 char* dot_name(cell_t xt) {
   char* name = to_name(xt);
-  if(name) Serial.print(name);
+  if(name) outLen += Serial.print(name);
   return name;
 }
 //const char dot_name_str[] = ".name";

@@ -2,7 +2,7 @@
   
 ## to do
 
-	1. primitive words: >flags .r .0r h. h.r h0.r ?
+	1. new primitive words: >flags .r .0r h. h.r h0.r ? forget nRamWords <= >= 0<= 0>= nextCFA
 
 ## history
 

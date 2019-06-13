@@ -46,9 +46,11 @@
 
 #include <Arduino.h>
 #include "yaffa.h"
-#include "flashDict.h"
-#include "dictionary.h"
 #include "error_codes.h"
+
+#include "b_flashdict.h"
+
+#include "dictionary.h"
 #include "src/dict/new_dict_entries.h" // #include "src/dict/dict_entries.h" // 21 June 2018
 
 
