@@ -2,7 +2,8 @@
   
 ## to do
 
-	1. new primitive words: >flags .r .0r h. h.r h0.r ? forget nRamWords <= >= 0<= 0>= nextCFA
+	1. new primitive words: >flags .r .0r h. h.r h0.r ? forget nRamWords <= >= 0<= 0>= nextCFA outLen
+	2. reorganize .cpp and .h files
 
 ## history
 
