@@ -169,7 +169,6 @@ new definitions
   cell+ @ ;
 : (forget) ( xt -- )
   dup ramFirst <= over >name 0= or abort" cannot forget"
-  dup >voc ( xt voc ) >r 
-  >entry ( entry ) dup pHere! @ ( prev )
-  r> ( prev voc ) ! ; \ 還需刪除其他 vocabularies 中 cfa < xt 的 words
+  >entry ( entry ) dup setHere @ ( prev )
+  setFirstContext ; \ 還需刪除其他 vocabularies 中 cfa < xt 的 words
   
