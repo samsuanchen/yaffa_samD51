@@ -36,11 +36,6 @@ void openEntry(void) {
 void closeEntry(void) { // samsuanchen@gmail.com.tw 20190509
   if (errorCode == 0) {
     pNewUserEntry->flags = 0; // clear the word's flags
-    if (pLastUserEntry == NULL){
-    	extern void printHex(cell_t);
-    	pFirstUserEntry = pNewUserEntry;
-    	//Serial.print("\r\nfirstUserEntry "); printHex((cell_t)pFirstUserEntry);
-    }
 //  Serial.printf("\r\nnewUserEntry %X cfa %X %s (last %X)",pNewUserEntry, pNewUserEntry->cfa, pNewUserEntry->name, pLastUserEntry);
 	pLastUserEntry = pNewUserEntry;
     *current = (cell_t) pLastUserEntry;

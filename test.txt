@@ -153,3 +153,23 @@ vocB words
 new definitions
 : 1234567890123456789012345678901 ;
 \end.
+
+: cfa>entry ( cfa -- ramEntry )
+  >name dup if 9 - then ;
+: >voc ( cfa -- voc ) cell- @ ; \ userEntry_t 尚需增加 voc 資訊
+: >entry ( xt -- romEntry | ramEntry )
+  dup nRomWords <= if romEntry exit then
+  cfa>entry ;
+: entry>name ( entry -- name )
+  dup ramFirst >= if 9 + exit then
+  @ ;
+: entry>flags ( entry -- flags ) 8 + c@ ;
+: entry>xt ( entry -- xt )
+  dup nRomWords <= if 0 romEntry - 12 / 1+ exit then
+  cell+ @ ;
+: (forget) ( xt -- )
+  dup ramFirst <= over >name 0= or abort" cannot forget"
+  dup >voc ( xt voc ) >r 
+  >entry ( entry ) dup pHere! @ ( prev )
+  r> ( prev voc ) ! ; \ 還需刪除其他 vocabularies 中 cfa < xt 的 words
+  
