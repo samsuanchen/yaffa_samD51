@@ -2,10 +2,9 @@
   
 ## to do
 
-	1. new primitive words: forget nRamWords nextCFA
+	1. new primitive words: firstFind setFirstContext forget nRamWords nextCFA
 	2. reorganize .cpp and .h files
 	3. flash file system words: fload <filename> fload <filename> ftype <filename> fdel <filename> fdir
-	
 
 ## history
 
