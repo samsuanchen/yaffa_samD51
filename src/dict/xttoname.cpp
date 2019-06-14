@@ -21,11 +21,14 @@ char* to_name(cell_t xt) {
   }
   return name;
 }
-extern uint8_t outLen;
-char* dot_name(cell_t xt) {
+uint8_t to_flags(cell_t xt) {
+	if(xt <= nFlashEntry) return (uint8_t) flashDict[xt-1].flags;
+	char* name = to_name(xt);
+	return name ? (uint8_t) *(name-1): 0;
+}
+void dot_name(cell_t xt) {
   char* name = to_name(xt);
   if(name) outLen += Serial.print(name);
-  return name;
 }
 //const char dot_name_str[] = ".name";
 void _dot_name(){

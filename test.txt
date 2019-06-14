@@ -34,16 +34,6 @@ vocB definitions order
 words
 new definitions
 decimal
-: .r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
-  if spaces
-  else drop
-  then type ;
-: .0r ( n m -- ) >r 0 <# #s #> r> over - 0 over <
-  if 0
-    do 48 emit
-    loop
-  else drop
-  then type ;
 cr .( 9 * 9 table )
 : t \ ( -- ) show 9 * 9 table
   10 1 do cr 10 1 do i j * 3 .r loop loop ; t

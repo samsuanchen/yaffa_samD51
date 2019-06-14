@@ -77,20 +77,30 @@ void _or(void) {
 void _xor(void) {
   dStack_push(dStack_pop() ^  dStack_pop());
 }
+
+void dot(cell_t i) { displayValue(i); _space(); }
+void h_dot(cell_t i) { displayValue(i,16); _space(); }
+void dot_r(cell_t i, uint8_t n) { displayValue(i,n,' '); }
+void h_dot_r(cell_t i, uint8_t n) { displayValue(i,16,n,' '); }
+void dot_0r(cell_t i, uint8_t n) { displayValue(i,n,'0'); }
+void h_dot_0r(cell_t i, uint8_t n) { displayValue(i,16,n,'0'); }
 //const char dot_str[] = ".";
 // ( n -- )
 // display n in free field format
-extern uint8_t outLen;
-void _dot(void) {
-  displayValue(dStack_pop());
-}
+void _dot(void) { dot(dStack_pop()); }
+void _quest() { dot(*(cell_t*)dStack_pop()); }
+void _h_dot(void) { h_dot(dStack_pop()); }
+void _dot_r(void) { cell_t n = dStack_pop(); dot_r(dStack_pop(), n); }
+void _h_dot_r(void) { cell_t n = dStack_pop(); h_dot_r(dStack_pop(), n); }
+void _dot_0r(void) { cell_t n = dStack_pop(); dot_0r(dStack_pop(), n); }
+void _h_dot_0r(void) { cell_t n = dStack_pop(); h_dot_0r(dStack_pop(), n); }
+void _h8_dot(void) { h_dot_0r(dStack_pop(), 8); _space(); }
 //const char u_dot_str[] = "u.";
 // ( u -- )
 // Displau u in free field format
 // tested and fixed by Alex Moskovskij
 void _u_dot(void) { // need to be fixed
-  displayValue(dStack_pop());
-}
+  dot(dStack_pop()); }
 /**                          Programming Tools Set                            **/
 // #ifdef TOOLS_SET  // YAFFA-ARM organization: TOOLS_SET
 //const char dot_s_str[] = ".s";
@@ -105,7 +115,7 @@ void _dot_s(void) {
   if (depth > 0) {
     for (i = depth; i > 0; i--) { // walk backwards
       j = i - 1; // normalize
-      displayValue(dStack_peek(j));
+      dot(dStack_peek(j));
     }
   }
 }
@@ -278,6 +288,18 @@ void _words(void) { // ( <substr> -- )
 // flag is true if and only if n is equal to zero.
 void _zero_equal(void) {
   dStack_top(dStack_top()==0 ? TRUE : FALSE);
+}
+void _zero_less_equal(void) {
+  dStack_top(dStack_top()<=0 ? TRUE : FALSE);
+}
+void _less_equal(void) {
+  dStack_top(dStack_peek(1)<=dStack_pop() ? TRUE : FALSE);
+}
+void _zero_greater_equal(void) {
+  dStack_top(dStack_top()>=0 ? TRUE : FALSE);
+}
+void _greater_equal(void) {
+  dStack_top(dStack_peek(1)>=dStack_pop() ? TRUE : FALSE);
 }
 //const char delay_str[] = "delay";
 void _delay(void) {

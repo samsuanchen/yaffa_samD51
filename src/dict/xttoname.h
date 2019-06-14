@@ -2,11 +2,14 @@
 // 4735-a0p-03-
 
 extern uint16_t nFlashEntry;
+extern uint8_t outLen;
 
-extern char* dot_name(cell_t xt);
-extern void _dot_name();
+extern void dot_name(cell_t xt);
+extern char* to_name(cell_t xt);
+extern uint8_t to_flags(cell_t xt);
 
 extern cell_t dStack_pop();
-extern userEntry_t* pLastUserEntry; // = NULL;
-extern userEntry_t* pUserEntry; // = NULL;
 
+extern void _dot_name();
+extern void _to_name();
+extern void _to_flags();

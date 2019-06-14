@@ -1,16 +1,12 @@
 // Tue Jun 20 21:33:06 UTC 2017
 // 4735-a0p-02-
 
-extern const char sp_str[]; // = " ";
-extern const char hexidecimal_str[]; // = "$";
-extern const char octal_str[]; // = "0";
-extern const char binary_str[]; // = "%";
-
 // prototypes - this word
-extern void displayValue(cell_t);
+extern uint8_t outLen;
+extern char strBuf[256];
+extern void displayValue(cell_t i, uint8_t base, uint8_t n, char c);
+extern void displayValue(cell_t i, uint8_t n, char c);
+extern void displayValue(cell_t i, uint8_t base);
+extern void displayValue(cell_t i);
 
-// prototypes - variables
-extern cell_t w;     // Working Register
-extern uint8_t base;  // stores the number conversion radix
-extern cell_t* pHere;
-
+extern uint8_t base;

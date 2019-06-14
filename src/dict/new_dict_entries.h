@@ -31,6 +31,7 @@ extern void _bgBlue();
 extern void _bgBlack();
 extern void _fgRed();
 extern void _fgWhite();
+
 // extern char cTokenBuffer[WORD_SIZE];  // Stores Single Parsed token to be acted on
 
 #if defined(INCL_NOP_WORD) || defined(XDICT)

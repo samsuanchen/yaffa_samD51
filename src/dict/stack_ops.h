@@ -23,7 +23,18 @@ extern void _or(void);
 extern void _xor(void);
 
 //extern const char dot_str[];    // = ".";
+extern void _h_dot(void);
 extern void _dot(void);
+extern void _quest(void);
+extern void _h_dot_r(void);
+extern void _dot_r(void);
+extern void _h8_dot(void);
+extern void _h_dot_0r(void);
+extern void _dot_0r(void);
+extern void _zero_less_equal(void);
+extern void _less_equal(void);
+extern void _zero_greater_equal(void);
+extern void _greater_equal(void);
 
 //extern const char u_dot_str[]; // = "u.";
 extern void _u_dot(void);
@@ -80,10 +91,16 @@ extern void _zero_equal(void);
 extern void _delay(void);
 
 extern cell_t dStack_pop();
+extern cell_t dStack_peek(int);
 extern void dStack_top(cell_t);
 extern cell_t dStack_top(void);
 extern userEntry_t* pFirstUserEntry;
 extern void printStr(char*);
+extern uint8_t outLen;
+extern void displayValue(cell_t,uint8_t,uint8_t,char);
+extern void displayValue(cell_t,uint8_t,char);
+extern void displayValue(cell_t,uint8_t);
+extern void displayValue(cell_t);
 
 extern void _dash_rot(void);
 

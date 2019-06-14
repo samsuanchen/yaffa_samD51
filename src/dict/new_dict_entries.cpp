@@ -2009,12 +2009,13 @@ void _analogWrite(void) {
 }
 
 // const char to_name_str[] = ">name";
-void _to_name(void) {
-	extern cell_t dStack_top(void);
-	extern void dStack_top(cell_t);
-	extern char* to_name(cell_t);
+void _to_name(void) { // >name ( xt -- name | 0 )
 	cell_t top = dStack_top();
     dStack_top( top>0 ? (cell_t) to_name(top) : 0 );
+}
+void _to_flags(void) { // >name ( xt -- name | 0 )
+	cell_t top = dStack_top();
+    dStack_top( top>0 ? (cell_t) to_flags(top) : 0 );
 }
 #endif
 void _tone(void) {

@@ -48,7 +48,7 @@
 #include "yaffa.h"
 #include "error_codes.h"
 
-#include "b_flashdict.h"
+#include "b_flashDict.h"
 
 #include "dictionary.h"
 #include "src/dict/new_dict_entries.h" // #include "src/dict/dict_entries.h" // 21 June 2018
@@ -107,11 +107,22 @@ const flashEntry_t flashDict[] = {
 #endif
   { "warm",           _warm,            NORMAL },
   { "print",          _print,           NORMAL },
+  { "h8.",            _h8_dot,          NORMAL },
+  { "h.",             _h_dot,           NORMAL },
+  { "?",              _quest,           NORMAL },
   { ".",              _dot,             NORMAL },
+  { "h.0r",           _h_dot_0r,        NORMAL },
+  { ".0r",            _dot_0r,          NORMAL },
+  { "h.r",            _h_dot_r,         NORMAL },
+  { ".r",             _dot_r,           NORMAL },
   { "-",              _minus,           NORMAL },
   { "+",              _plus,            NORMAL },
   { "*",              _star,            NORMAL },
   { "0=",             _zero_equal,      NORMAL },
+  { "<=",             _less_equal,      NORMAL },
+  { "0<=",            _zero_less_equal, NORMAL },
+  { ">=",             _greater_equal,   NORMAL },
+  { "0>=",            _zero_greater_equal, NORMAL },
   { "abort",          _abort,           NORMAL },
   { "!",              _store,           NORMAL },
   { "#",              _number_sign,     NORMAL }, // added samsuanchen@gmail.com 20190510
@@ -313,6 +324,7 @@ const flashEntry_t flashDict[] = {
   { "pinRead",        _pinRead,         NORMAL },
   { "analogRead",     _analogRead,      NORMAL },  // ISTR this was defined
   { "analogWrite",    _analogWrite,     NORMAL },
+  { ">flags",        _to_flags,          NORMAL },
   { ">name",        _to_name,          NORMAL },
 #endif
 #ifdef EN_EEPROM_OPS

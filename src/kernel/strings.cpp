@@ -18,10 +18,20 @@
 /******************************************************************************/
 uint8_t outLen;
 char strBuf[256];
-void displayValue(cell_t w) {
+void displayValue(cell_t w, uint8_t base, uint8_t n, char c) {
   itoa(w, strBuf, base);
+  uint8_t len = strlen(strBuf);
+  while (len++ < n) outLen += Serial.print(c);
   outLen += Serial.print(strBuf);
-  outLen += Serial.print(sp_str);
+}
+void displayValue(cell_t w, uint8_t base) {
+  displayValue(w, base, 0, 0);
+}
+void displayValue(cell_t w) {
+  displayValue(w, base, 0, 0);
+}
+void displayValue(cell_t w, uint8_t n, char c) {
+  displayValue(w, base, n, c);
 }
 
 #endif
