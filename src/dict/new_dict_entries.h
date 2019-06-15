@@ -185,3 +185,5 @@ extern void _dash_rot(void);		//samsuanchen@gmail.com 20190606
 extern void _nRomWords(void);		//samsuanchen@gmail.com 20190609
 extern void _addrToSee(void);		//samsuanchen@gmail.com 20190609
 extern void _isUserEntry(void);		//samsuanchen@gmail.com 20190610
+
+extern void _findFirst(void);		//samsuanchen@gmail.com 20190615

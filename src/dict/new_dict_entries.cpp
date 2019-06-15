@@ -693,7 +693,7 @@ void _abort_quote(void) {
   *pHere++ = -2;
   *pHere++ = THROW_IDX;
   cell_t* orig = (cell_t*)dStack_pop();
-  *orig = (size_t)pHere - (size_t)orig;
+  *orig = (size_t)pHere;
 }
 
 
@@ -980,51 +980,65 @@ void _does(void) {
 // is not found, return c-addr and zero. If the definition is found, return its
 // execution token xt. If the definition is immediate, also return one (1),
 // otherwise also return minus-one (-1).
-cell_t find(char* ptr, cell_t length) {
-  char* name;
+cell_t voc_find(cell_t* voc, char* str, cell_t len) {
+	char* name;
+	if(voc){
+  	  pUserEntry = (userEntry_t*) *voc;
+	  while (pUserEntry) {
+	  	name = pUserEntry->name;
+  		if ( (strlen(name) == len) && (strncmp(name, str, len) == 0) ) {
+			wordFlags = pUserEntry->flags;
+  			return (cell_t) pUserEntry->cfa;
+  		}
+	    pUserEntry = (userEntry_t*) pUserEntry->prevEntry;
+	  }
+	  return 0;
+	}
+	uint8_t index = 0;
+	while (name = (char*) flashDict[index].name) {
+  		if ( (strlen(name) == len) && (strncmp(name, str, len) == 0) ) {
+  			wordFlags = flashDict[index].flags;
+  			return index + 1;
+  		}
+	    index++;
+	}
+	return 0;
+}
+cell_t find(char* str, cell_t len) {
+  char* name; int i; cell_t* voc;
   // Search through user dictionaries
   for(iContext = nContext-1; iContext >= 0; iContext--){
-  	  cell_t* p = (cell_t*) context[iContext];
-  	  int i;
-  	  for(i = iContext+1; i < nContext; i++) if( p == context[i] ) break; // check if the voc p has already been searched
-  	  if( i == nContext ) { // the voc p has not been searched yet
-  	  	  //Serial.print(iContext); _space();
-	  	  if(p){
-	  	  	  //dot_name((cell_t) (p-1)); _space();
-	  	  	  pUserEntry = (userEntry_t*) *p;
-			  while (pUserEntry) {
-			  	name = pUserEntry->name;
-		  		if ( (strlen(name) == length) && (strncmp(name, ptr, length) == 0) ) {
-					wordFlags = pUserEntry->flags;
-		  			return w = (cell_t) pUserEntry->cfa;
-		  		}
-			    pUserEntry = (userEntry_t*) pUserEntry->prevEntry;
-			  }
-	  	  } else {
-	  	  	  //Serial.print("primitive ");
-			  uint8_t index = 0;
-			  while (name = (char*) flashDict[index].name) {
-		  		if ( (strlen(name) == length) && (strncmp(name, ptr, length) == 0) ) {
-		  			wordFlags = flashDict[index].flags;
-		  			return w = index + 1;
-		  		}
-			    index++;
-			  }
-	  	  }
+  	  voc = (cell_t*) context[iContext];
+  	  for(i = iContext+1; i < nContext; i++) if( voc == context[i] ) break; // voc has already been searched
+  	  if( i == nContext ) { // the voc has not been searched yet
+	  	  w = voc_find(voc, str, len);
+	  	  if(w) return w;
   	  }
   }
   return w = wordFlags = 0;
 }
-void _find(void) {
-  cell_t *addr = (cell_t *) dStack_pop();
-  cell_t length = *addr;
-  if (length <= 0) { dStack_push(-16); _throw(); return; }
-  if (length > BUFFER_SIZE) { dStack_push(-18); _throw(); return; }
-  cell_t xt = find( (char*) (addr+1), length );
+void _findFirst(void) {
+  cell_t *cStr = (cell_t *) dStack_top();
+  cell_t len = *cStr;
+  if (len <= 0) { dStack_top(-16); _throw(); }
+  if (len > BUFFER_SIZE) { dStack_top(-18); _throw(); }
+  cell_t xt = voc_find( context[nContext-1], (char*) (cStr+1), len );
   if(xt) {
-  	  dStack_push( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
+  	  dStack_top( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
   } else {
-  	  dStack_push( (cell_t) addr ); dStack_push( 0 );
+  	  dStack_push( 0 );
+  }
+}
+void _find(void) { // find ( cStr -- cStr 0 | xt 1 | xt -1 )
+  cell_t *cStr = (cell_t *) dStack_top();
+  cell_t len = *cStr;
+if (len <= 0) { dStack_top(-16); _throw(); }
+if (len > BUFFER_SIZE) { dStack_top(-18); _throw(); }
+  cell_t xt = find( (char*) (cStr+1), len );
+  if(xt) {
+  	  dStack_top( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
+  } else {
+  	  dStack_push( 0 );
   }
 }
 

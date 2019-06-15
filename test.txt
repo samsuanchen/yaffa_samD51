@@ -156,7 +156,6 @@ new definitions
 
 : cfa>entry ( cfa -- ramEntry )
   >name dup if 9 - then ;
-: >voc ( cfa -- voc ) cell- @ ; \ userEntry_t 尚需增加 voc 資訊
 : >entry ( xt -- romEntry | ramEntry )
   dup nRomWords <= if romEntry exit then
   cfa>entry ;

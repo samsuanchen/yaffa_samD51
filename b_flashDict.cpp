@@ -207,6 +207,7 @@ const flashEntry_t flashDict[] = {
   { "execute",        _execute,         NORMAL },
   { "fill",           _fill,            NORMAL },
   { "find",           _find,            NORMAL },
+  { "findFirst",      _findFirst,      NORMAL },
   { "fm/mod",   _fm_slash_mod,    NORMAL },
   { "here",           _here,            NORMAL },
   { "hold",           _hold,            NORMAL },
