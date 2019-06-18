@@ -440,9 +440,11 @@ char getKey(void) {
 void _eflmkdir(void) {
 	extern char* cTokenBuffer;
 	extern uint8_t getToken();
-	uint8_t n = getToken(); char* a = &cTokenBuffer[0];
+	extern cell_t dStack_pop();
+	extern void _bl(), _word();
+	_bl(); _word(); char* a = (char*) (dStack_pop() + 4); uint8_t n = strlen(a);
 	Serial.print("\r\n "); Serial.print(n); Serial.print(" "); Serial.print((cell_t) a, HEX);
-	Serial.print(": "); Serial.print((cell_t) cTokenBuffer, HEX);
+	Serial.print(": "); Serial.print(* (cell_t*) a, HEX);
 	char* forthDir = (n ? a : (char*) SPI_FlashROM_TOPDIR);
 	Serial.print("\r\n eflmkdir "), Serial.println(forthDir);
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
