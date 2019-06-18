@@ -28,8 +28,8 @@ void _s_quote(void) {
   else if (state) {
     cDelimiter = '"';
     if (!getToken()) {
-      dStack_push(-16);
-      _throw();
+    //dStack_push(-16);
+      _throw(-16); return;
     }
     length = strlen(cTokenBuffer);
     *pHere++ = S_QUOTE_IDX;

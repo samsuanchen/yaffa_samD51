@@ -12,8 +12,8 @@ void _leave_sys(void) {
   rStack_pop();    // fetch limit
   rStack_pop();    // fetch index
   if (rStack_pop() != LOOP_SYS) {
-    dStack_push(-22);
-    _throw();
+  //dStack_push(-22);
+    _throw(-22);
     return;
   }
   ip = (cell_t*)*ip;

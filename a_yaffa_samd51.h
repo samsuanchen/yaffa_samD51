@@ -29,3 +29,7 @@
 #include "src/kernel/dl_interpreter.h"
 #include "src/kernel/interpreter.h"
 #include "src/kernel/stacks.h"
+extern void printStr(char*);
+extern void printHex(cell_t);
+extern void _cr();
+extern void _space();

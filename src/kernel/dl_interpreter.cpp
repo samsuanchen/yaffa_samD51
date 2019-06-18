@@ -24,8 +24,8 @@ void dl_interpreter(void) { // download interpreter
             /************************/
             if (isDLWord(cTokenBuffer)) { // get w and wordFlags
                 if (wordFlags & COMP_ONLY) {
-                    dStack_push(-14);
-                    _throw();
+                //dStack_push(-14);
+                    _throw(-14);
                     return;
                 }
                 if (w > nFlashEntry) { // w of DLWord could not be greater than 255

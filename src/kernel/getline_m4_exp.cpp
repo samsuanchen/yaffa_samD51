@@ -136,14 +136,14 @@
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 
 void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
-    Serial.print(" Hello from setup_qspi m4 getline stuff.   ");
+//  Serial.print(" Hello from setup_qspi m4 getline stuff.   ");
 
     if (!flash.begin()) { // if (!flash.begin(FLASH_TYPE)) {
         Serial.println("E: could not find flash on QSPI bus.");
         while(1);
     }
     // Serial.print("Flash chip JEDEC ID: 0x"); Serial.println(flash.GetJEDECID(), HEX);
-    Serial.println(" Found QSPI Flash.");
+//  Serial.println(" Found QSPI Flash.");
     // Serial.print("Flash chip JEDEC ID: 0x");
     // Serial.println(flash.GetJEDECID(), HEX);
     // Serial.println(" want to see a message that says: Flash chip JEDEC ID: 0x1401501\r\n");
@@ -156,7 +156,7 @@ void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
         // Serial.println(SPI_FlashROM_FILENAME);
         while(1);
     }
-    Serial.println(" NOV 2018: Mounted filesystem!");
+ // Serial.println(" NOV 2018: Mounted filesystem!");
     Serial.print(" SPI_FlashROM_FILENAME: "), Serial.println(SPI_FlashROM_FILENAME);
 }
         #endif // 15 Jan 2018
@@ -183,6 +183,7 @@ void waitEsc(){
   Serial.print( " to resume" );
   if (spiFlashReading) spiFlashReading = 0;
   while( Serial.read() != 0x1b );
+  delay(1); while( Serial.available() ) Serial.read();
 }
 char lastChar = 0;
 uint8_t getLine(char* ptr, uint8_t buffSize) {

@@ -10,7 +10,7 @@ extern char cTokenBuffer[WORD_SIZE];
 // prototypes - this word
 extern uint8_t getToken(void);
 extern void dStack_push(cell_t); 
-extern void _throw(void);
+extern void _throw(cell_t);
 extern void signOn(void);
 extern void _setEscPrint(void);
 extern void _fgBlack(void);

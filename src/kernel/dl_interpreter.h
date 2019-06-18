@@ -31,7 +31,7 @@ extern void rStack_push(cell_t value);
 extern uint8_t isDLWord(char* addr);
 extern uint8_t isDLNumber(char* subString);
 extern void _literal(void);
-extern void _throw(void);
+extern void _throw(cell_t);
 
 extern uint8_t noInterpreter; // = FALSE ;
 

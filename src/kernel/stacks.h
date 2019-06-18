@@ -22,5 +22,6 @@ extern stack_t dStack;
 extern stack_t rStack;
 
 // prototypes - external functions
-extern void _throw(void);
+extern void _throw(cell_t);
+extern void _throw(char*);
 

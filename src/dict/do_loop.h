@@ -11,7 +11,7 @@ extern cell_t* pHere;               // HERE, points to the next free position in
                                     // Forth Space
 extern void dStack_push(cell_t value);
 extern cell_t dStack_pop(void);
-extern void _throw(void);
+extern void _throw(cell_t);
 
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/

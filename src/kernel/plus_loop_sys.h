@@ -8,5 +8,5 @@ extern void rStack_push(cell_t value);
 extern cell_t dStack_pop(void);
 extern cell_t rStack_pop(void);
 extern cell_t* ip;
-extern void _throw(void);
+extern void _throw(cell_t);
 

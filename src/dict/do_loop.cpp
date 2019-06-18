@@ -37,8 +37,7 @@ void _loop(void) {
     }
   } while (ptr != (cell_t*)stop_addr);
   if ( dStack_pop() != DO_SYS) {
-    dStack_push(-22);
-    _throw();
+    _throw(-22);
   }
 }
 

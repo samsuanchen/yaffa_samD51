@@ -17,7 +17,7 @@ void openEntry(void) {
   pNewUserEntry = (userEntry_t*)pHere;
   pLastUserEntry = (userEntry_t*) *current;
   pNewUserEntry->prevEntry = pLastUserEntry;
-  if (!getToken()) { dStack_push(-16); _throw(); }
+  if (!getToken()) { _throw(-16); return; }
   char* ptr = pNewUserEntry->name;
   do {
     *ptr++ = cTokenBuffer[index++];

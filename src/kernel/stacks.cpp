@@ -38,8 +38,8 @@ void dStack_push(cell_t value) {
   if (dStack.top < dStack.size) {
     dStack.d[++dStack.top] = value;
   } else {
-    dStack.d[dStack.top] = -3;
-    _throw();
+  //dStack.d[dStack.top] = -3;
+    _throw(-3);
   }
 }
 
@@ -47,8 +47,8 @@ void rStack_push(cell_t value) {
   if (rStack.top < rStack.size) {
     rStack.d[++rStack.top] = value;
   } else {
-    dStack_push(-5);
-    _throw();
+  //dStack_push(-5);
+    _throw(-5);
   }
 }
 
@@ -65,8 +65,8 @@ cell_t dStack_pop(void) {
   if (dStack.top > 0) {
     return (dStack.d[dStack.top--]);
   } else {
-    dStack_push(-4);
-    _throw();
+  //dStack_push(-4);
+    _throw(-4);
   }
   return 0;
 }
@@ -75,8 +75,8 @@ cell_t rStack_pop(void) {
   if (rStack.top > 0) {
     return (rStack.d[rStack.top--]);
   } else {
-    dStack_push(-6);
-    _throw();
+  //dStack_push(-6);
+    _throw(-6);
   }
   return 0;
 }
@@ -92,7 +92,7 @@ cell_t dStack_peek(int n) {
   if (n < dStack.top) {
     return dStack.d[dStack.top - (n)];
   } else {
-    Serial.println("Error: Depth too large!");
+    _throw("dStack depth too large!");
   }
   return 0;
 }

@@ -13,7 +13,7 @@
 #include "signon.h"
 void setEscPrint(char* str){ Serial.print("\033["); Serial.print(str); Serial.print("m"); }
 void _setEscPrint(){
-	if(! getToken()) { dStack_push(-16); _throw(); }
+if(! getToken()) { _throw(-16); return; }
 	setEscPrint(cTokenBuffer);
 }
 void _fgBlack(){ setEscPrint("30"); }
@@ -70,7 +70,7 @@ void signOn(void) {
     Serial.print("\r\n\r\n "); // leading black space on the wa1tnr line
     _bgBlue();
 //  Serial.print("\033\133\064\064m"); // ESC [44m - blue bg // for the stanza
-    Serial.print(" YAFFA samd51Forth (");
+    Serial.print("YAFFA samd51Forth (");
     nFlashEntry = 0; while (flashDict[nFlashEntry++].name); Serial.print(--nFlashEntry);
     pLimitFlashEntry = (flashEntry_t*) &flashDict[nFlashEntry];
     Serial.print(" romWords) - 201905 - samsuanchen@gmail.com ");

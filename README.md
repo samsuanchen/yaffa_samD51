@@ -2,7 +2,7 @@
   
 ## to do
 
-	1. new primitive words: firstFind setFirstContext forget nRamWords nextCFA
+	1. new primitive words: firstContext forget nRamWords nextCFA
 	2. reorganize .cpp and .h files
 	3. flash file system words: fload <filename> fload <filename> ftype <filename> fdel <filename> fdir
 
@@ -10,7 +10,7 @@
 
 ### 2019/06/14
 
-	new primitive words: >flags .r .0r h. h.r h0.r h8. <= >= 0<= 0>= outLen ?
+	new primitive words: >flags .r .0r h. h.r h0.r h8. <= >= 0<= 0>= outLen ? findFirst
 
 ### 2019/06/11
 

@@ -45,8 +45,8 @@ void _plus_store(void) {
       address < &forthSpace[FORTH_SIZE])
       *address += dStack_pop();
   else {
-    dStack_push(-9);
-    _throw();
+  //dStack_push(-9);
+    _throw(-9);
   }
 }
 
@@ -61,8 +61,8 @@ void _two_store(void) {
     *address++ = dStack_pop();
     *address = dStack_pop();
   } else {
-    dStack_push(-9);
-    _throw();
+  //dStack_push(-9);
+    _throw(-9);
   }
 }
 

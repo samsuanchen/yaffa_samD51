@@ -26,8 +26,8 @@ void _dot_quote(void) {
   else if (state) {
     cDelimiter = '"';
     if (!getToken()) {
-      dStack_push(-16);
-      _throw();
+    //dStack_push(-16);
+      _throw(-16); return;
     }
     length = strlen(cTokenBuffer);
     *pHere++ = DOT_QUOTE_IDX;

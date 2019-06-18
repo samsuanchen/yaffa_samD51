@@ -22,15 +22,15 @@ void _plus(void) {
 }
 
 
-const char minus_str[] = "-";
-// ( n1|u1 n2|u2 -- n3|u3 )
+//const char minus_str[] = "-";
+// ( n1 n2 -- n1-n2 )
 void _minus(void) {
-  cell_t temp = dStack_pop();
-  dStack_push(dStack_pop() -  temp);
+  cell_t n2 = dStack_pop();
+  dStack_top(dStack_top() -  n2);
 }
 
 
-const char star_str[] = "*";
+//const char star_str[] = "*";
 // ( n1|u1 n2|u2 -- n3|u3 )
 // multiply n1|u1 by n2|u2 giving the product n3|u3
 void _star(void) {
@@ -38,21 +38,20 @@ void _star(void) {
 }
 
 
-const char slash_str[] = "/";
+//const char slash_str[] = "/";
 // ( n1 n2 -- n3 )
 // divide n1 by n2 giving a single cell quotient n3
 void _slash(void) {
-  cell_t temp = dStack_pop();
-  if (temp)
-    dStack_push(dStack_pop() /  temp);
+  cell_t n2 = dStack_pop();
+  if (n2)
+    dStack_push(dStack_pop() / n2);
   else {
-    dStack_push(-10);
-    _throw();
+    _throw(-10);
   }
 }
 
 
-const char negate_str[] = "negate";
+//const char negate_str[] = "negate";
 // ( n1 -- n2 )
 // Negate n1, giving its arithmetic inverse n2.
 void _negate(void) {
@@ -60,7 +59,7 @@ void _negate(void) {
 }
 
 
-const char abs_str[] = "abs";
+//const char abs_str[] = "abs";
 // ( n -- u)
 // u is the absolute value of n 
 void _abs(void) {

@@ -20,5 +20,5 @@ extern cell_t* current;
 // prototypes - external functions
 extern uint8_t getToken(void);
 extern void dStack_push(cell_t value);
-extern void _throw(void);
+extern void _throw(cell_t);
 

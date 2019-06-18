@@ -41,8 +41,8 @@ void interpreter(void) {
       else if (isNumber(cTokenBuffer)) {
         _literal();
       } else {
-        dStack_push(-13);
-        _throw();
+      //dStack_push(-13);
+        _throw(-13); return;
       }
     } // ends stanza that began 'if (state)'
 
@@ -52,8 +52,8 @@ void interpreter(void) {
       /************************/
       if (isWord(cTokenBuffer)) {
         if (wordFlags & COMP_ONLY) {
-          dStack_push(-14);
-          _throw();
+        //dStack_push(-14);
+          _throw(-14);
           return;
         }
         if (w > nFlashEntry) {
@@ -71,8 +71,8 @@ void interpreter(void) {
       else if (isNumber(cTokenBuffer)) {
         // Is something supposed to be here?
       } else {
-        dStack_push(-13);
-        _throw();
+      //dStack_push(-13);
+        _throw(-13);
         return;
       }
     } // ends stanza that began 'if (state)'

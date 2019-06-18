@@ -16,6 +16,6 @@ extern uint8_t state; // Holds the text interpreters compile/interpreter state
 extern cell_t* ip;   // Instruction Pointer
 extern uint8_t getToken(void);
 extern void dStack_push(cell_t value);
-extern void _throw(void);
+extern void _throw(cell_t);
 
 // #endif

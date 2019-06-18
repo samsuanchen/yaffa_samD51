@@ -19,8 +19,8 @@ void _plus_loop_sys(void) {
   } else {
     ip++;
     if (rStack_pop() != LOOP_SYS) {
-      dStack_push(-22);
-      _throw();
+    //dStack_push(-22);
+      _throw(-22);
       return;
     }
   }

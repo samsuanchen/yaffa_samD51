@@ -26,7 +26,7 @@
 //   dStack_push(addr);
 // }
 
-const char allot_str[] = "allot";
+//const char allot_str[] = "allot";
 // ( n -- )
 // if n is greater than zero, reserve n address units of data space. if n is less
 // than zero, release |n| address units of data space. If n is zero, leave the
@@ -34,13 +34,11 @@ const char allot_str[] = "allot";
 void _allot(void) {
   cell_t* pNewHere = pHere + dStack_pop();
 // Check that the new pHere is not outside of the forth space
-  if (pNewHere >= &forthSpace[0] &&
-      pNewHere < &forthSpace[FORTH_SIZE]) {
-        pHere = pNewHere;      // Save the valid address
-  } else {                 // Throw an exception
-    dStack_push(-9);
-    _throw();
+  if (pNewHere < &forthSpace[7] ||
+	  pNewHere >= &forthSpace[FORTH_SIZE]) {
+	_throw(-9); return;
   }
+  pHere = pNewHere;      // Save the valid address
 }
 
 #endif

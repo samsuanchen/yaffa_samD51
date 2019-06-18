@@ -2247,7 +2247,7 @@ void _analogWrite(void) {
 
 const char to_name_str[] = ">name";
 void _toName(void) {
-  dot_name(dStack_pop());
+  to_name(dStack_pop());
 }
 #endif
 

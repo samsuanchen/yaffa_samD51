@@ -145,14 +145,11 @@ stack_t rStack;
 //      }
 //      Serial.println(red);
 
-#if defined(INCL_NOP_WORD) || defined(XDICT)
+//#if defined(INCL_NOP_WORD) || defined(XDICT)
 // const char nop_str[] = "nop";
 void _nop(void) {
-    for (volatile int i = 1; i < 2; i++) {
-        // nothing
-    }
 }
-#endif // #if defined(INCL_NOP_WORD) || defined(XDICT)
+//#endif // #if defined(INCL_NOP_WORD) || defined(XDICT)
 
 // const char here_str[] = "here";
 // ( -- addr )
@@ -160,7 +157,9 @@ void _nop(void) {
 void _here(void) {
     dStack_push((size_t)pHere);
 }
-
+void _pHere(void) {
+    dStack_push((size_t)&pHere);
+}
 // const char count_str[] = "count";
 // ( c-addr -- c-addr+4 u )
 // Return the character string specification for the counted string stored a
@@ -233,8 +232,7 @@ void _execute(void) {
 	if ( ( w <= 0 ) ||
 	     ( ( w > nFlashEntry ) && ( w < (cell_t) &forthSpace[4] ) ) ||
 	     ( w > (cell_t) pLastUserEntry->cfa )
-	   ) {
-		dStack_push(-13); _throw(); }
+	   ) { _throw(-13); return; }
     if (w <= nFlashEntry) {
         function = flashDict[w - 1].function;
         function();
@@ -359,7 +357,7 @@ void _tick(void) { uint8_t n;
 	//	if (isWord(cTokenBuffer,n)) { dStack_push(w); return; }
 		if (isWord(cTokenBuffer)) { dStack_push(w); return; }
     }
-    dStack_push(-13); _throw();
+    _throw(-13); return;
 }
 
 // const char paren_str[] = "(";
@@ -424,8 +422,7 @@ void _plus_loop(void) {
     } 
   } while (ptr != (cell_t*)stop_addr);
   if ( dStack_pop() != DO_SYS) {
-    dStack_push(-22);
-    _throw();
+    _throw(-22);
   }
 }
 
@@ -439,8 +436,7 @@ void _slash_mod(void) {
     dStack_push(n1 %  n2);
     dStack_push(n1 /  n2);
   } else {
-    dStack_push(-10);
-    _throw();
+    _throw(10);
   }
 }
 
@@ -588,8 +584,8 @@ void _to_body(void) {
       return;
     }
   }
-  dStack_push(-31);
-  _throw();
+//dStack_push(-31);
+  _throw(-31);
 }
 
 // const char to_in_str[] = ">in";
@@ -669,8 +665,7 @@ void _question_dup(void) {
 // Empty the data stack and preform the function of QUIT, which includes emptying
 // the return stack, without displaying a message.
 void _abort(void) {
-  dStack_push(-1);
-  _throw();
+  _throw(-1);
 }
 
 
@@ -719,24 +714,24 @@ void _begin(void) { // samsuanchen@gmail.com
 // again (C: begin-sys -- ) // Run-Time: ( -- )
 void _again(void) { // samsuanchen@gmail.com
   cell_t* beginAdr = (cell_t*) dStack_pop();
-  if ( dStack_pop() != BEGIN_SYS) { dStack_push(-22); _throw(); }
+  if ( dStack_pop() != BEGIN_SYS) { _throw(-22); return; }
   *pHere++ = JUMP_IDX; *pHere++ = (cell_t) beginAdr;
 }
 // until (C: begin-sys -- ) // Run-Time: ( flag -- )
 void _until(void) { // samsuanchen@gmail.com
   cell_t* beginAdr = (cell_t*) dStack_pop();
-  if ( dStack_pop() != BEGIN_SYS) { dStack_push(-22); _throw(); }
+if ( dStack_pop() != BEGIN_SYS) { _throw(-22); return; }
   *pHere++ = ZJUMP_IDX; *pHere++ = (cell_t) beginAdr;
 }
 // while (C: begin-sys -- begin-adr whie-sys ) // Run-Time: ( flag -- )
 void _while(void) { _swap(); // samsuanchen@gmail.com
-  if ( dStack_pop() != BEGIN_SYS) { dStack_push(-22); _throw(); }
+  if ( dStack_pop() != BEGIN_SYS) { _throw(-22); return; }
   *pHere++ = ZJUMP_IDX; dStack_push(WHILE_SYS); dStack_push((size_t) pHere++);
 }
 // repeat (C: begin-adr whie-sys -- ) // Run-Time: ( -- )
 void _repeat(void) { // samsuanchen@gmail.com
   cell_t* whileAdr = (cell_t*) dStack_pop();
-  if ( dStack_pop() != WHILE_SYS) { dStack_push(-22); _throw(); }
+  if ( dStack_pop() != WHILE_SYS) { _throw(-22); return; }
   *pHere++ = JUMP_IDX; *pHere++ = dStack_pop(); *whileAdr = (cell_t) pHere;
 }
 // const char align_str[] = "align";
@@ -994,34 +989,38 @@ cell_t voc_find(cell_t* voc, char* str, cell_t len) {
 	  }
 	  return 0;
 	}
-	uint8_t index = 0;
-	while (name = (char*) flashDict[index].name) {
+	uint16_t index = nFlashEntry;
+	while (index--) {
+		name = (char*) flashDict[index].name;
   		if ( (strlen(name) == len) && (strncmp(name, str, len) == 0) ) {
   			wordFlags = flashDict[index].flags;
   			return index + 1;
   		}
-	    index++;
 	}
+	wordFlags = 0;
 	return 0;
 }
 cell_t find(char* str, cell_t len) {
   char* name; int i; cell_t* voc;
   // Search through user dictionaries
+  // _cr();
   for(iContext = nContext-1; iContext >= 0; iContext--){
   	  voc = (cell_t*) context[iContext];
   	  for(i = iContext+1; i < nContext; i++) if( voc == context[i] ) break; // voc has already been searched
   	  if( i == nContext ) { // the voc has not been searched yet
 	  	  w = voc_find(voc, str, len);
+	  //  printStr("voc "), printHex((cell_t)voc), printStr(" w "), printHex(w), _space();
 	  	  if(w) return w;
   	  }
   }
-  return w = wordFlags = 0;
+  w = wordFlags = 0;
+  return w;
 }
 void _findFirst(void) {
   cell_t *cStr = (cell_t *) dStack_top();
   cell_t len = *cStr;
-  if (len <= 0) { dStack_top(-16); _throw(); }
-  if (len > BUFFER_SIZE) { dStack_top(-18); _throw(); }
+if (len <= 0) { _throw(-16); return; }
+if (len > BUFFER_SIZE) { _throw(-18); return; }
   cell_t xt = voc_find( context[nContext-1], (char*) (cStr+1), len );
   if(xt) {
   	  dStack_top( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
@@ -1032,8 +1031,8 @@ void _findFirst(void) {
 void _find(void) { // find ( cStr -- cStr 0 | xt 1 | xt -1 )
   cell_t *cStr = (cell_t *) dStack_top();
   cell_t len = *cStr;
-if (len <= 0) { dStack_top(-16); _throw(); }
-if (len > BUFFER_SIZE) { dStack_top(-18); _throw(); }
+if (len <= 0) { _throw(-16); return; }
+if (len > BUFFER_SIZE) { _throw(-18); return; }
   cell_t xt = find( (char*) (cStr+1), len );
   if(xt) {
   	  dStack_top( xt ); dStack_push( (wordFlags & IMMEDIATE) ? 1 : -1 );
@@ -1205,8 +1204,7 @@ void _move(void) {
 void _postpone(void) {
   func function;
   if (!getToken()) {
-    dStack_push(-16);
-    _throw(); return;
+    _throw(-16); return;
   }
   if (isWord(cTokenBuffer)) {
     if (wordFlags & COMP_ONLY) {
@@ -1223,8 +1221,8 @@ void _postpone(void) {
       *pHere++ = (cell_t)w;
     }
   } else {
-    dStack_push(-13);
-    _throw();
+  //dStack_push(-13);
+    _throw(-13);
     return;
   }
 }
@@ -1489,9 +1487,9 @@ void _left_bracket(void) { state = FALSE; }
 // by the compiled phrase "['] X" is the same value returned by "' X" outside
 // of compilation state.
 void _bracket_tick(void) {
-  if (!getToken()) { dStack_push(-16); _throw(); }
-  if (isWord(cTokenBuffer)) { *pHere++ = LITERAL_IDX; *pHere++ = w; }
-  else { dStack_push(-13); _throw(); return; }
+  if ( ! getToken() ) { _throw( -16 ); return; }
+  if ( ! isWord( cTokenBuffer ) ) { _throw( -13 ); return; }
+  *pHere++ = LITERAL_IDX; *pHere++ = w;
 }
 
 #ifndef MARKED_FOR_DELETE
@@ -1673,8 +1671,8 @@ void _endof(void) {
   *back = (size_t) pHere;
 
   if (dStack_pop() != OF_SYS) { // Make sure control structure is consistent
-    dStack_push(-22);
-    _throw();
+  //dStack_push(-22);
+    _throw(-22);
     return;
   }
   // Place forward jump address onto control stack
@@ -1703,8 +1701,8 @@ void _endcase(void) {
   *pHere++ = DROP_IDX;      // Postpone drop of case selector
 
   if (dStack_pop() != CASE_SYS) {  // Make sure control structure is consistent
-    dStack_push(-22);
-    _throw();
+//  dStack_push(-22);
+    _throw(-22);
   }
 }
 
@@ -1954,12 +1952,13 @@ void _eeprom_write(void) {             // value address --
 /********************************************************************************/
 /**                      Arduino Library Operations                            **/
 /********************************************************************************/
-#ifdef EN_ARDUINO_OPS
-const char freeMem_str[] = "freeMem";
+//#ifdef EN_ARDUINO_OPS
+//const char freeMem_str[] = "freeMem";
+extern unsigned int freeMem();
 void _freeMem(void) { 
-//   dStack_push(freeMem());
+   dStack_push(freeMem());
 }
-#endif
+//#endif
 
 #define EN_PIN_WRITE_MODE_READ
 #ifdef  EN_PIN_WRITE_MODE_READ
@@ -2076,7 +2075,10 @@ void _vocs(void) { _cr(); cell_t* p = pLastVoc;
 	outLen += Serial.print("primitive");
 }
 void _context(void) {
-	dStack_push((cell_t) context);
+	dStack_push((cell_t) &context[0]);
+}
+void _nContext(void) {
+	dStack_push((cell_t) nContext);
 }
 void _current(void) {
 	dStack_push((cell_t) current);
@@ -2111,6 +2113,26 @@ void _order(void) {
 void _nRomWords(void) {
 	dStack_push(nFlashEntry);
 }
+///*
+void _pForget(void) { // ( cfa -- )
+	cell_t* cfa = (cell_t*) dStack_pop();
+	if( cfa <= (cell_t*) pFirstUserEntry->cfa ) { _throw( 0, "invalid cfa to forget" ); return; }
+	pHere = (cell_t*) ( (cell_t) ( to_name( (cell_t) cfa ) - 9 ) );
+	for( cell_t* voc = pLastVoc; voc; voc = (cell_t*) * voc ) { // each vocabulary in vocs
+		if( (voc-2) >= cfa ) {
+			pLastVoc = (cell_t*) * voc; // remove this vocabulary
+			if( current == voc ) current = (cell_t*) pFirstUserEntry;
+			for(int i=0; i<nContext; i++) if( context[i] == voc ) context[i] = (cell_t*) pFirstUserEntry;
+		} else {
+			for( cell_t* ent = (cell_t*) * (voc-1); ent; ent = (cell_t*) * ent ) { // each word entry in vocabulary
+				if( (cell_t*) *(ent+1) >= cfa ) {
+					* (voc-1) = * ent; // remove this word entry
+				}
+			}
+		}
+	}
+}
+//*/
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/
 /**                                                                          **/

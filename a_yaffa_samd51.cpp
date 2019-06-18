@@ -243,26 +243,29 @@ void setup(void) {
   forthSpace[6] = 0; // link to prevVoc
   pLastVoc = &forthSpace[6];
   pHere = &forthSpace[7];
+//printStr("\r\here "),printHex((cell_t) pHere);
   pOldHere = pHere;
   context[2] = context[1] = current = &forthSpace[5];
   nContext = 3;
-  // Serial.print("\n warm boot message - early bird.  //  Gemma M0 29 Jul 2017\r\n          type 'warm' to reboot"); // instant confirmation
+//printStr("\r\ncontext[0] "),printHex((cell_t) &context[0]),_space(),printHex((cell_t) context[0]);
+//printStr("\r\ncontext[1] "),printHex((cell_t) &context[1]),_space(),printHex((cell_t) context[1]);
+//printStr("\r\ncontext[2] "),printHex((cell_t) &context[2]),_space(),printHex((cell_t) context[2]);
   // Serial.print("\n warm boot message - "    );
   // Serial.print("early bird.               " );
-     Serial.print("\r\n GIT " gitShowStamp() );
-     Serial.print("\r\n SIWNA feature " featureList() );
+  // Serial.print("\r\n GIT " gitShowStamp() );
+  // Serial.print("\r\n SIWNA feature " featureList() );
   // Serial.print("  c4e DEVPR - gen-exp-m4  " );
   // Serial.print(" date " dateStamp() );
   // Serial.print("\r\n"                       );
   // Serial.print("          "                 );
   // Serial.print("type 'warm' to reboot, but not" ); // instant confirmation
-     Serial.print("\r\n time "       timeStamp() );
-     Serial.print(" branch "      branchStamp() );
-     Serial.print("\r\n shred "     shredStamp() );
-     Serial.print(" target "      targetStamp() );
+  // Serial.print("\r\n time "       timeStamp() );
+  // Serial.print(" branch "      branchStamp() );
+  // Serial.print("\r\n shred "     shredStamp() );
+  // Serial.print(" target "      targetStamp() );
   // Serial.print(" sand birds");
-     Serial.print("\r\n forthSpace $"), Serial.print((int)pHere,16);
-     Serial.print(" size 0x"), Serial.print(FORTH_SIZE, 16);
+     Serial.print(" forthSpace $"), Serial.print((int)pHere,16);
+     Serial.print(" size $"), Serial.print(FORTH_SIZE, 16);
 
   // 22 august: cosmetic update.  No code changes.
 
@@ -378,8 +381,8 @@ void loop(void) { blink();
 /******************************************************************************/
 /** freeMem returns the amount of free forth space left.                     **/
 /******************************************************************************/
-static unsigned int freeMem(void) {
-//   return (pHere - forthSpace);
+unsigned int freeMem(void) {
+   return ( &forthSpace[FORTH_SIZE] - pHere );
 }
 
 /******************************************************************************/

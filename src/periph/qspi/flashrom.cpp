@@ -128,7 +128,7 @@ void setup_qspiFlashROM(void) {
         Serial.println("Was CircuitPython loaded on the board first to create the filesystem?");
         while(1);
     }
-    Serial.println("NOV 2018: Mounted filesystem!");
+//  Serial.println("NOV 2018: Mounted filesystem!");
 
     // another new section November 2018
 

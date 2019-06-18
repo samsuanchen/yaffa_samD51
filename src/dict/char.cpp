@@ -10,17 +10,13 @@
 /******************************************************************************/
 /** char                                                                     **/
 /******************************************************************************/
-const char char_str[] = "char";
+//const char char_str[] = "char";
 // ( "<spaces>name" -- char )
 // Skip leading space delimiters. Parse name delimited by a space. Put the value
 // of its first character onto the stack.
 void _char(void) {
-  if(getToken()) {
-    dStack_push(cTokenBuffer[0]);
-  } else {
-    dStack_push(-16);
-    _throw();
-  }
+  if(getToken()) dStack_push(cTokenBuffer[0]);
+  else _throw(-16);
 }
 
 /*

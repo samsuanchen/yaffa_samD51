@@ -2,7 +2,9 @@
 // 4735-a0f
 
 // prototypes - this word
-extern const char throw_str[]; // = "throw";
+// extern const char throw_str[]; // = "throw";
+extern void _throw( char* message ); 
+extern void _throw( cell_t errorCode );
 extern void _throw(void);
 
 // prototypes - variables

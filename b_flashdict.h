@@ -70,6 +70,7 @@ extern void _postpone(void);
 extern void _recurse(void);
 extern void _rshift(void);
 extern void _context(void);
+extern void _nContext(void);
 extern void _current(void);
 extern void _defitions(void);
 extern void _voc_sys(void);
@@ -96,3 +97,7 @@ extern void _zero_greater_equal(void);
 extern void _greater_equal(void);
 extern void _quest(void);
 extern void _findFirst(void);
+extern void _freeMem(void);
+extern void _pHere(void);
+extern void _nop(void);
+extern void _pForget(void);   //samsuanchen@gmail.com 20190617

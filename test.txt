@@ -23,6 +23,7 @@
 \ C. erase this script in flash
 \ C.1. enter "remove"
 \
+: forget ' (forget) ;
 vocabulary vocA vocabulary vocB
 order
 words
@@ -36,7 +37,8 @@ new definitions
 decimal
 cr .( 9 * 9 table )
 : t \ ( -- ) show 9 * 9 table
-  10 1 do cr 10 1 do i j * 3 .r loop loop ; t
+  10 1 do cr 10 1 do i j * 3 .r loop loop
+; t
  13 constant led
  14 constant buzzer
   9 constant BR \ red button right
@@ -91,7 +93,7 @@ cr .( 4 led toggles each 500 ms )
   begin ?dup
   while dup voc> cr ." in vocabulary " dup fgBrightYellow .name fgWhite
     execute words prevVoc
-  repeat cr ." in vocabulary primitive"
+  repeat cr ." in vocabulary " fgBrightRed ." primitive" fgWhite
   primitive words ; \ allWords
 : w. ( i -- ) fgBrightYellow base @ >r decimal ." W" 3 .0r fgWhite space
   r> base ! ;
@@ -154,20 +156,35 @@ new definitions
 : 1234567890123456789012345678901 ;
 \end.
 
-: cfa>entry ( cfa -- ramEntry )
-  >name dup if 9 - then ;
-: >entry ( xt -- romEntry | ramEntry )
-  dup nRomWords <= if romEntry exit then
-  cfa>entry ;
-: entry>name ( entry -- name )
-  dup ramFirst >= if 9 + exit then
+: entry>name ( entry -- name ) dup ramFirst >=
+  if 9 + exit then
   @ ;
 : entry>flags ( entry -- flags ) 8 + c@ ;
-: entry>xt ( entry -- xt )
-  dup nRomWords <= if 0 romEntry - 12 / 1+ exit then
+: entry> ( entry -- xt ) dup ramFirst <
+  if 0 romEntry - 12 / 1+ exit then
   cell+ @ ;
+: >entry ( xt -- romEntry | ramEntry )
+  dup nRomWords <= if romEntry exit then
+  >name dup if 9 - then ;
+: setHere pHere ! ;
+: setFirstContext context nContext 1- cells + @ ! ;
+: voc> ( voc -- cfa ) 8 - ;
 : (forget) ( xt -- )
   dup ramFirst <= over >name 0= or abort" cannot forget"
-  >entry ( entry ) dup setHere @ ( prev )
-  setFirstContext ; \ 還需刪除其他 vocabularies 中 cfa < xt 的 words
+  dup >entry ( xt entry ) setHere ( xt )
+  lastVoc ( xt voc ) 2dup voc> <=
+  if begin  @ ( xt voc' ) 2dup voc> >
+     until ( xt voc" ) dup setLastVoc
+  then
+  begin ( xt voc ) ?dup
+  while dup >r
+    cell- @ ( xt entry )
+    begin dup
+      if ( voc xt entry ) 2dup entry> >
+        if @ false
+        then
+      else true
+      then 
+    until ( xt entry ) r@ cell- ! ( xt ) r> @ ( xt voc' )
+  repeat drop ;
   
