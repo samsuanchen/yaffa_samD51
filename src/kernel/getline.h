@@ -46,7 +46,7 @@ extern void setup_spi_flash(void);
 
 
 // prototypes
-extern const char eflmkdir_str[]; // = "eflmkdir"; // forth vocabulary external flash mkdir
+//extern const char eflmkdir_str[]; // = "eflmkdir"; // forth vocabulary external flash mkdir
 extern void _eflmkdir(void); // OLD NAME WAS: extern void create_test_directory(void);
 
 extern void remove_a_file(void); // new 24 Nov 2017

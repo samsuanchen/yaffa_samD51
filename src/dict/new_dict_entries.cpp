@@ -349,13 +349,9 @@ void _number_sign_s(void) {
 // return xt, the execution token for name. An ambiguous condition exists if 
 // name is not found. When interpreting "' xyz EXECUTE" is equivalent to xyz.
 void _tick(void) { uint8_t n;
-    if (n=getToken()) {
-    //	Serial.print("\r\_tick() isWord(\""), Serial.print(cTokenBuffer);
-    //	Serial.print("\", 0x"), Serial.print(n,16);
-    //	Serial.print(") = 0x"), Serial.print((int) isWord(cTokenBuffer,n),16);
-    //	Serial.println();
-	//	if (isWord(cTokenBuffer,n)) { dStack_push(w); return; }
-		if (isWord(cTokenBuffer)) { dStack_push(w); return; }
+    if (getToken()) {
+    	w = isWord(cTokenBuffer);
+		if (w) { dStack_push(w); return; }
     }
     _throw(-13); return;
 }
@@ -2118,11 +2114,11 @@ void _pForget(void) { // ( cfa -- )
 	cell_t* cfa = (cell_t*) dStack_pop();
 	if( cfa <= (cell_t*) pFirstUserEntry->cfa ) { _throw( 0, "invalid cfa to forget" ); return; }
 	pHere = (cell_t*) ( (cell_t) ( to_name( (cell_t) cfa ) - 9 ) );
+	if( current > pHere ) current = (cell_t*) pFirstUserEntry->cfa + 1;
+	for(int i=0; i<nContext; i++) if( context[i] > pHere ) context[i] = (cell_t*) pFirstUserEntry->cfa + 1;
 	for( cell_t* voc = pLastVoc; voc; voc = (cell_t*) * voc ) { // each vocabulary in vocs
 		if( (voc-2) >= cfa ) {
 			pLastVoc = (cell_t*) * voc; // remove this vocabulary
-			if( current == voc ) current = (cell_t*) pFirstUserEntry;
-			for(int i=0; i<nContext; i++) if( context[i] == voc ) context[i] = (cell_t*) pFirstUserEntry;
 		} else {
 			for( cell_t* ent = (cell_t*) * (voc-1); ent; ent = (cell_t*) * ent ) { // each word entry in vocabulary
 				if( (cell_t*) *(ent+1) >= cfa ) {

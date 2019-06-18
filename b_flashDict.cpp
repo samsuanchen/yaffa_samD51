@@ -185,7 +185,7 @@ const flashEntry_t flashDict[] = {
   { "echo!",      _echo_bang,       NORMAL }, 
 //{ "eeRead",     _eeprom_read,     NORMAL },
 //{ "eeWrite",      _eeprom_write,      NORMAL },
-  { "eflmkdir",     _eflmkdir,        IMMEDIATE + COMP_ONLY },
+  { "eflmkdir",     _eflmkdir,        NORMAL },
   { "else",       _else,          IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
   { "emit",       _emit,          NORMAL },
   { "endcase",      _endcase,       IMMEDIATE + COMP_ONLY },    // CAL
