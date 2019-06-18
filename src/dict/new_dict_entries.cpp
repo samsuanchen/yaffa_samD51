@@ -1832,40 +1832,40 @@ void _psee(void) { // samsuanchen@gmail.com
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt <= nFlashEntry) {
-    	Serial.print("LowLevel Rom Word "); dot_name(xt);
-    	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
+    	Serial.print("lowLevel Rom Word "); dot_name(xt);
+    	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD ");
     	addrToSee = entry = (cell_t*) &flashDict[xt-1];
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" nfa" ); addrToSee++;
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" code"); addrToSee++;
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" flag"); addrToSee++;
+    	printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" nfa" ); addrToSee++;
+    	Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" code"); addrToSee++;
+    	Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" flag"); addrToSee++;
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("HighLevel Ram Word "); dot_name(xt);
+    	Serial.print("highLevel Ram Word "); dot_name(xt);
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addrToSee =  entry  =  (cell_t*) (to_name(xt)-9);
     //  Serial.print(" (ramEntry %X)", addrToSee);
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" link"); addrToSee++;
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" cfa" ); addrToSee++;
-    	Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" name, flag"); addrToSee++;
-		while (addrToSee<(cell_t*)xt) { Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); addrToSee++; }
+    	Serial.print(" "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" link"); addrToSee++;
+    	Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" cfa" ); addrToSee++;
+    	Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" name, flag"); addrToSee++;
+		while (addrToSee<(cell_t*)xt) { Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); addrToSee++; }
 		Serial.print("\r\n CODE ");
         do {
             cell_t n = *addrToSee;
             done = isLiteral = false;
-            Serial.print("\r\n "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(n,8); Serial.print(" ");
+            printHex((cell_t) addrToSee); Serial.print(" "); printHex(n,8); Serial.print(" ");
             dot_name(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
             	Serial.print("(does> "); dot_name(*(++addrToSee)); Serial.print(")\r\n BODY");
-            	Serial.print("\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee++,8);
+            	Serial.print("\r\n      "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee++,8);
             	break;
             }
         	switch (n) {
                 case VARIABLE_IDX:
                 case CONST_IDX:
                 case VOC_SYS_IDX:
-            		Serial.print("\r\n BODY\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
+            		Serial.print("\r\n BODY "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
             		if(n == VOC_SYS_IDX){
-            			Serial.print("\r\n "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
+            			Serial.print("\r\n      "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee,8);
             		}
             		done = true;
             		break;
