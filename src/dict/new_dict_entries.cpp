@@ -1832,7 +1832,7 @@ void _psee(void) { // samsuanchen@gmail.com
 	Serial.print("\r\n ");
     _showWordType(xt);
     if (xt <= nFlashEntry) {
-    	Serial.print("lowLevel Rom Word "); dot_name(xt);
+    	Serial.print("lowLevel Rom Word "); _fgBrightYellow(); dot_name(xt); _fgWhite();
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD ");
     	addrToSee = entry = (cell_t*) &flashDict[xt-1];
     	printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" nfa" ); addrToSee++;
@@ -1840,7 +1840,7 @@ void _psee(void) { // samsuanchen@gmail.com
     	Serial.print("\r\n      "); printHex((cell_t) addrToSee); Serial.print(" "); printHex(*addrToSee,8); Serial.print(" flag"); addrToSee++;
     //  Serial.print(" (romEntry %X)", &flashDict[xt-1]); 
     } else {
-    	Serial.print("highLevel Ram Word "); dot_name(xt);
+    	Serial.print("highLevel Ram Word "); _fgBrightYellow(); dot_name(xt); _fgWhite();
     	Serial.print(" (xt $"); printHex(xt); Serial.print(")\r\n HEAD");
     	addrToSee =  entry  =  (cell_t*) (to_name(xt)-9);
     //  Serial.print(" (ramEntry %X)", addrToSee);
