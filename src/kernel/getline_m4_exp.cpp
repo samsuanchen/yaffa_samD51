@@ -190,15 +190,16 @@ void waitEsc(){
   delay(1); while( Serial.available() ) Serial.read();
 }
 char lastChar = 0;
+char* workingFile = (char*) SPI_FlashROM_FILENAME;
 uint8_t getLine(char* ptr, uint8_t buffSize) {
   char inChar;
   uint8_t count = 0;
   _fgGreen();
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
   if (spiFlashReading) {
-      if (pythonfs.exists(SPI_FlashROM_FILENAME)) {
+      if (pythonfs.exists(workingFile)) {
           if (fileClosed) {
-            thisFile = pythonfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+            thisFile = pythonfs.open(workingFile, FILE_READ);
             fileClosed = FALSE ; // it is open, now.
           }
       }
@@ -434,95 +435,46 @@ char getKey(void) {
 
 // Adafruit_W25Q16BV_FatFs ascii_xfer_fatfs(ascii_xfer_flash);
 
+extern uint8_t getToken();
+extern cell_t dStack_pop();
+extern void _bl(), _word();
+char* workingDir = 0;
 
-//const char eflmkdir_str[] = "eflmkdir"; // forth vocabulary external flash mkdir
-// void create_test_directory(void) {
 void _eflmkdir(void) {
-	extern char* cTokenBuffer;
-	extern uint8_t getToken();
-	extern cell_t dStack_pop();
-	extern void _bl(), _word();
-	_bl(); _word(); char* a = (char*) (dStack_pop() + 4); uint8_t n = strlen(a);
-	Serial.print("\r\n "); Serial.print(n); Serial.print(" "); Serial.print((cell_t) a, HEX);
-	Serial.print(": "); Serial.print(* (cell_t*) a, HEX);
-	char* forthDir = (n ? a : (char*) SPI_FlashROM_TOPDIR);
-	Serial.print("\r\n eflmkdir "), Serial.println(forthDir);
-#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
-// #ifdef HAS_STANDARD_BUILD_HERE
-
-// #define SPI_FlashROM_TOPDIR   "/forth"
-// if (!fatfs.exists("/test")) {
-  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
-  if (!pythonfs.exists(forthDir)) {
-    Serial.print("forth directory not found, Creating "), Serial.println(forthDir);
-    // Use mkdir to create directory (note you should _not_ have a trailing slash).
-  // if (!fatfs.mkdir("/test")) {
-    // if (!fatfs.mkdir(SPI_FlashROM_TOPDIR)) {
-    if (!pythonfs.mkdir(forthDir)) {
-      Serial.println("Error, failed to create test directory!");
-      while(1);
-    }
-    Serial.print(forthDir); Serial.println(" forth directory Created");
-  }
-  Serial.print("forth directory: "); Serial.println(forthDir);
-#endif
-
-
-
-
-#ifdef NEVER_DEFINED_TEN_THREE // nonsense tag to prevent compile
-#ifndef HAS_STANDARD_BUILD_HERE
-
-#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
-// #define SPI_FlashROM_TOPDIR   "/forth"
-// if (!fatfs.exists("/test")) { Serial.println("BAD ROBOT - fatfs.exists fails on line 97.");
-  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
-  if (!pythonfs.exists(SPI_FlashROM_TOPDIR)) {
-    Serial.println("BAD ROBOT - fatfs.exists fails on line 473 June 17, 2018.");
-  } else {
-    Serial.println("local: assuming /forth directory already exists.");
-  }
-#endif // 15 Jan 2018
-
-#endif
-#endif
+	_bl(); _word(); char* a = (char*) (dStack_pop() + 4); uint8_t n = a ? strlen(a): 0;
+	char* workingDir = (n ? a : (char*) SPI_FlashROM_TOPDIR);
+	if (pythonfs.exists(workingDir)) {
+		Serial.print(workingDir); Serial.println(" already Created");
+	} else {
+		if (!pythonfs.mkdir(workingDir)) {
+			Serial.print("Error! failed to create "); Serial.println(workingDir);
+			while(1);
+		}
+		Serial.print(workingDir); Serial.println(" Created");
+	}
 }
 
-
-#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 void remove_a_file(void) {
   Serial.print("file Deleting ");
-  Serial.print(SPI_FlashROM_FILENAME);
-  Serial.println(" ...");
-
-  // if (!fatfs.remove(SPI_FlashROM_FILENAME)) {
-  if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
+  Serial.print(workingFile);
+  Serial.print(" ... ");
+  
+  if (!pythonfs.remove(workingFile)) {
       Serial.print("Error, file ");
-      Serial.print(SPI_FlashROM_FILENAME);
+      Serial.print(workingFile);
       Serial.println(" was not removed!");
-      while(1);
-  }
-  Serial.println("file Deleted!");
-  // kludge: disallow this filename to be missing from the directory - create a blank new file:
-  // File writeFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  File writeFile = pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  // if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
-
+  } else Serial.println("file Deleted!");
+  File writeFile = pythonfs.open(workingFile, FILE_WRITE);
   if (!writeFile) {
       Serial.print("Error, failed to open ");
-      Serial.print(SPI_FlashROM_FILENAME);
+      Serial.print(workingFile);
       Serial.println(" for writing!");
-      while(1); // what does this do .. hold the program in a forever loop upon failure?
-      Serial.println("Exiting forever loop of getline.cpp -- probably means a serious error occurred. LINE 408.");
+      while(1);
   } else {
-  Serial.println("An empty new file was created in its place.");
-  Serial.println("This kludge will go away when multi-filename usage is more fully integrated.");
-  writeFile.println(" ");
-  // writeFile.println(".( WRITE FILE is done.\) cr");
-  writeFile.close(); // housekeeping.
+	  writeFile.println(" ");
+	  writeFile.close();
   }
 }
-#endif // 15 Jan 2018
 
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 void write_a_capture_file(void) {
@@ -541,10 +493,10 @@ void write_a_capture_file(void) {
   // File writeFile = ascii_xfer_fatfs.open("/test/ascii_xfer_test.txt", FILE_WRITE);
     // pythonfs fatfs
   // File writeFile =               fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  File writeFile =               pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  File writeFile =               pythonfs.open(workingFile, FILE_WRITE);
   if (!writeFile) {
     Serial.print("Error, failed to open ");
-    Serial.print(SPI_FlashROM_FILENAME);
+    Serial.print(workingFile);
     Serial.println(" for writing!");
     while(1);
   }

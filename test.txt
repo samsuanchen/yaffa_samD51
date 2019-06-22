@@ -24,11 +24,11 @@
 \ C.1. enter "remove"
 \
 : forget ' (forget) ;
-vocabulary vocA vocabulary vocB
+vocabulary 中文 vocabulary vocB
 order
 words
-vocA definitions order
-: a1 ; : a2 ;
+中文 definitions order
+: 中1 ; : 文1 ;
 words
 vocB definitions order
 : b1 ; : b2 ;
@@ -148,12 +148,26 @@ see keyNote:
 see keyA
 keyA
 see keyNote
-vocA definitions : a3 ; : a4 ;
+中文 definitions : 中2 ; : 文2 ;
 vocB definitions : b3 ; : b4 ;
-vocA words
+中文 words
 vocB words
 new definitions
 : 1234567890123456789012345678901 ;
+: xk ( -- ) \ emit pressed key until ESC
+  begin
+    begin key?
+    while key dup emit $1b =
+      if 2 spaces exit
+      then
+    repeat
+  again ;
+: xn ( n -- ) \ print i from 1 to 9 for each i <= n
+  10 1 
+  do i . dup i =
+    if leave
+    then
+  loop drop ;
 \end.
 
 : entry>name ( entry -- name ) dup ramFirst >=
@@ -169,22 +183,4 @@ new definitions
 : setHere pHere ! ;
 : setFirstContext context nContext 1- cells + @ ! ;
 : voc> ( voc -- cfa ) 8 - ;
-: (forget) ( xt -- )
-  dup ramFirst <= over >name 0= or abort" cannot forget"
-  dup >entry ( xt entry ) setHere ( xt )
-  lastVoc ( xt voc ) 2dup voc> <=
-  if begin  @ ( xt voc' ) 2dup voc> >
-     until ( xt voc" ) dup setLastVoc
-  then
-  begin ( xt voc ) ?dup
-  while dup >r
-    cell- @ ( xt entry )
-    begin dup
-      if ( voc xt entry ) 2dup entry> >
-        if @ false
-        then
-      else true
-      then 
-    until ( xt entry ) r@ cell- ! ( xt ) r> @ ( xt voc' )
-  repeat drop ;
   

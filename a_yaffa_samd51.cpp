@@ -205,10 +205,18 @@ void setup(void) {
   extern void _fgYellow(void), _bgBlack(void), _bgBrightYellow(void);
   _fgYellow(), _bgBlack();
   Serial.print("\r\n Serial.begin(115200) buzzer pin A0 = "), Serial.println(A0);
-
+  Serial.print(" CPU / Board "), Serial.println(PROC_STR);
+  Serial.print(" "); Serial.print(HOLD_SIZE); Serial.println("-byte for the pictured numeric output string buffer at end of the last ram word");
+  Serial.print(" "); Serial.print(PAD_SIZE); Serial.println("-byte as the scratch area pointed to by PAD");
+  Serial.print(" "); Serial.print(RSTACK_SIZE); Serial.println("-cell as the return stack");
+  Serial.print(" "); Serial.print(STACK_SIZE); Serial.println("-cell as the data stack");
+  Serial.print(" "); Serial.print(BUFFER_SIZE); Serial.println("-byte as the input text buffer");
+//Serial.print(" "); Serial.print(TOKEN_SIZE); Serial.println("-byte as the token (Word) buffer");
+  Serial.print(" "); Serial.print(FORTH_SIZE); Serial.print("-cell as Forth Space $");
+  Serial.print((cell_t) &forthSpace[0], 16); Serial.print(" ~ $"); 
+  Serial.println((cell_t) &forthSpace[FORTH_SIZE], 16);
 #ifdef HAS_QSPI_FLASHROM_LIB // see yaffa.h for setting this toggle
   setup_qspiFlashROM(); // for Metro M4 Express Beta w/QSPI flashROM, only.
-//Serial.println("setup_qspiFlashROM(); // Seen: Line 250 sketch");
 #endif
 
 #ifdef HAS_SPI_FLASH_DEMO
@@ -264,8 +272,6 @@ void setup(void) {
   // Serial.print("\r\n shred "     shredStamp() );
   // Serial.print(" target "      targetStamp() );
   // Serial.print(" sand birds");
-     Serial.print(" forthSpace $"), Serial.print((int)pHere,16);
-     Serial.print(" size $"), Serial.print(FORTH_SIZE, 16);
 
   // 22 august: cosmetic update.  No code changes.
 

@@ -1307,54 +1307,54 @@ void _source(void) {
 // const char u_lt_str[] = "u<";
 // ( u1 u2 -- flag )
 // flag is true if and only if u1 is less than u2.
-// void _u_lt(void) {
-//   if ((ucell_t)dStack_pop() > ucell_t(dStack_pop())) dStack_push(TRUE);
-//   else dStack_push(FALSE);
-// }
+void _u_lt(void) {
+  if ((ucell_t)dStack_pop() > ucell_t(dStack_pop())) dStack_push(TRUE);
+  else dStack_push(FALSE);
+}
 
 
 
 // const char um_star_str[] = "um*";
 // ( u1 u2 -- ud )
 // multiply u1 by u2, giving the unsigned double-cell product ud
-// void _um_star(void) {
-//   ucell_t u2 = (ucell_t)dStack_pop();
-//   ucell_t u1 = (ucell_t)dStack_pop();
-//   udcell_t ud = (udcell_t)u1 * (udcell_t)u2;
-//   ucell_t lsb = ud;
-//   ucell_t msb = (ud >> sizeof(ucell_t) * 8);
-//   dStack_push(lsb);
-//   dStack_push(msb);
-// }
+void _um_star(void) {
+  ucell_t u2 = (ucell_t)dStack_pop();
+  ucell_t u1 = (ucell_t)dStack_pop();
+  udcell_t ud = (udcell_t)u1 * (udcell_t)u2;
+  ucell_t lsb = ud;
+  ucell_t msb = (ud >> sizeof(ucell_t) * 8);
+  dStack_push(lsb);
+  dStack_push(msb);
+}
 
 
 
 // const char um_slash_mod_str[] = "um/mod";
 // ( ud u1 -- u2 u3 )
 // Divide ud by u1 giving quotient u3 and remainder u2.
-// void _um_slash_mod(void) {
-//   ucell_t u1 = dStack_pop();
-//   udcell_t lsb = dStack_pop();
-//   udcell_t msb = dStack_pop();
-//   udcell_t ud = (msb << 16) + (lsb);
-//   dStack_push(ud % u1);
-//   dStack_push(ud / u1);
-// }
+void _um_slash_mod(void) {
+  ucell_t u1 = dStack_pop();
+  udcell_t lsb = dStack_pop();
+  udcell_t msb = dStack_pop();
+  udcell_t ud = (msb << 16) + (lsb);
+  dStack_push(ud % u1);
+  dStack_push(ud / u1);
+}
 
 
 
 // const char unloop_str[] = "unloop";
 // Interpretation: Undefine
 // Execution: ( -- )(R: loop-sys -- )
-// void _unloop(void) {
-//   Serial.print(not_done_str); 
-//   rStack_pop();
-//   rStack_pop();
-//   if (rStack_pop() != LOOP_SYS) {
-//     dStack_push(-22);
-//     _throw();
-//   }
-// }
+void _unloop(void) {
+  Serial.print(not_done_str); 
+  rStack_pop();
+  rStack_pop();
+  if (rStack_pop() != LOOP_SYS) {
+    dStack_push(-22);
+    _throw();
+  }
+}
 
 // const char until_str[] = "until";
 // Interpretation: Undefine

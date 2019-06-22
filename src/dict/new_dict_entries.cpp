@@ -733,18 +733,16 @@ void _repeat(void) { // samsuanchen@gmail.com
 // const char align_str[] = "align";
 // ( -- )
 // if the data-space pointer is not aligned, reserve enough space to align it.
-// void _align(void) {
-//   ALIGN_P(pHere);
-// }
+void _align(void) { ALIGN_P(pHere); }
 
 // const char aligned_str[] = "aligned";
 // ( addr -- a-addr)
 // a-addr is the first aligned address greater than or equal to addr.
-// void _aligned(void) {
-//   ucell_t addr = dStack_pop();
-//   ALIGN(addr);
-//   dStack_push(addr);
-// }
+void _aligned(void) {
+  ucell_t addr = dStack_pop();
+  ALIGN(addr);
+  dStack_push(addr);
+}
 
 // const char base_str[] = "base";
 // ( -- a-addr)
@@ -1102,11 +1100,9 @@ void _invert(void) { // invert ( n -- ~n ) // for example: make 0x1 as 0xfffffff
 
 // const char key_str[] = "key";
 // ( -- char )
-// void _key(void) {
-//   dStack_push(getKey());
-// }
-
-
+void _key(void) {
+  dStack_push(getKey());
+}
 
 const char leave_str[] = "leave";
 // Interpretation: undefined
@@ -1297,34 +1293,30 @@ void _rshift(void) {
 
 // const char s_to_d_str[] = "s>d";
 // ( n -- d )
-// void _s_to_d(void) {
-//   cell_t n = dStack_pop();
-//   dStack_push(n);
-//   dStack_push(0);
-// }
+void _s_to_d(void) { dStack_push( dStack_top() < 0 ? -1 : 0 ); }
 
 
 
 // const char sign_str[] = "sign";
 // ( n -- )
-// void _sign(void) {
-//   if (flags & NUM_PROC) {
-//     cell_t sign = dStack_pop();
-//     if (sign < 0) *--pPNO = '-';
-//   }
-// }
+void _sign(void) {
+  if (flags & NUM_PROC) {
+    cell_t sign = dStack_pop();
+    if (sign < 0) *--pPNO = '-';
+  }
+}
 
 
 
 // const char sm_slash_rem_str[] = "sm/rem";
 // ( d1 n1 -- n2 n3 )
 // Divide d1 by n1, giving the symmetric quotient n3 and remainder n2.
-// void _sm_slash_rem(void) {
-//   cell_t n1 = dStack_pop();
-//   cell_t d1 = dStack_pop();
-//   dStack_push(d1 /  n1);
-//   dStack_push(d1 %  n1);
-// }
+void _sm_slash_rem(void) {
+  cell_t n1 = dStack_pop();
+  cell_t d1 = dStack_pop();
+  dStack_push(d1 /  n1);
+  dStack_push(d1 %  n1);
+}
 
 
 // 2018 May 23rd 03:12z uncommented.
@@ -1338,7 +1330,7 @@ void _rshift(void) {
 
 // ###bookmark five-unsequenced
 // 2018 May 23rd 03:12z uncommented.
-const char source_str[] = "source"; // ( -- c-addr u )
+//const char source_str[] = "source"; // ( -- c-addr u )
 // c-addr is the address of, and u is the number of characters in, the input buffer.
 void _source(void) {
     dStack_push((size_t)&cInputBuffer);
@@ -1348,9 +1340,9 @@ void _source(void) {
 // const char state_str[] = "state";
 // ( -- a-addr )
 // a-addr is the address of the cell containing compilation state flag.
-// void _state(void) {
-//   dStack_push((size_t)&state);
-// }
+void _state(void) {
+  dStack_push((size_t)&state);
+}
 
 
 
@@ -1368,54 +1360,57 @@ void _source(void) {
 // const char u_lt_str[] = "u<";
 // ( u1 u2 -- flag )
 // flag is true if and only if u1 is less than u2.
-// void _u_lt(void) {
-//   if ((ucell_t)dStack_pop() > ucell_t(dStack_pop())) dStack_push(TRUE);
-//   else dStack_push(FALSE);
-// }
+void _u_lt(void) {
+  if ((ucell_t)dStack_pop() > ucell_t(dStack_pop())) dStack_push(TRUE);
+  else dStack_push(FALSE);
+}
 
 
 
 // const char um_star_str[] = "um*";
 // ( u1 u2 -- ud )
 // multiply u1 by u2, giving the unsigned double-cell product ud
-// void _um_star(void) {
-//   ucell_t u2 = (ucell_t)dStack_pop();
-//   ucell_t u1 = (ucell_t)dStack_pop();
-//   udcell_t ud = (udcell_t)u1 * (udcell_t)u2;
-//   ucell_t lsb = ud;
-//   ucell_t msb = (ud >> sizeof(ucell_t) * 8);
-//   dStack_push(lsb);
-//   dStack_push(msb);
-// }
+void _um_star(void) {
+  ucell_t u2 = (ucell_t)dStack_pop();
+  ucell_t u1 = (ucell_t)dStack_pop();
+  udcell_t ud = (udcell_t)u1 * (udcell_t)u2;
+  ucell_t lsb = ud;
+  ucell_t msb = (ud >> sizeof(ucell_t) * 8);
+  dStack_push(lsb);
+  dStack_push(msb);
+}
 
 
 
 // const char um_slash_mod_str[] = "um/mod";
-// ( ud u1 -- u2 u3 )
-// Divide ud by u1 giving quotient u3 and remainder u2.
-// void _um_slash_mod(void) {
-//   ucell_t u1 = dStack_pop();
-//   udcell_t lsb = dStack_pop();
-//   udcell_t msb = dStack_pop();
-//   udcell_t ud = (msb << 16) + (lsb);
-//   dStack_push(ud % u1);
-//   dStack_push(ud / u1);
-// }
+// ( ud u -- ur uq ) // hex 80000011 8 10 um/mod .s <2> 1 88000001  OK..
+// Divide ud by u giving quotient uq and remainder ur.
+void _um_slash_mod(void) {
+  ucell_t u = dStack_pop();
+//printStr("\r\n u=$"); printHex(u);
+  ucell_t msb = dStack_pop();
+  ucell_t lsb = dStack_pop();
+  udcell_t ud = ((udcell_t) msb << 32) + lsb;
+//printStr(" ud=$"); printHex(msb); printHex(lsb,8);
+  ucell_t ur = ud % u;
+//printStr(" ur=$"); printHex(ur);
+  ucell_t uq = ud / u;
+//printStr(" uq=$"); printHex(uq);
+  dStack_push(ur);
+  dStack_push(uq);
+}
 
-
-
-// const char unloop_str[] = "unloop";
+// const char unloop_str[] = "unloop"; // leave
 // Interpretation: Undefine
 // Execution: ( -- )(R: loop-sys -- )
-// void _unloop(void) {
-//   Serial.print(not_done_str); 
-//   rStack_pop();
-//   rStack_pop();
-//   if (rStack_pop() != LOOP_SYS) {
-//     dStack_push(-22);
-//     _throw();
-//   }
-// }
+//void _unloop(void) {
+//  rStack_pop();
+//  rStack_pop();
+//  if (rStack_pop() != LOOP_SYS) {
+//    dStack_push(-22);
+//    _throw();
+//  }
+//}
 
 // const char until_str[] = "until";
 // Interpretation: Undefine
@@ -1730,14 +1725,9 @@ void _endcase(void) {
 
 // ###bookmark six-unseq
 // 2018 June 21: key? is not in the current forth vocabulary.
-const char key_question_str[] = "key?";
+//const char key_question_str[] = "key?";
 void _key_question(void) {
-    
-//     if( Serial.available() > 0) {
-//         dStack_push(TRUE);
-//     } else {
-//         dStack_push(FALSE);
-//     }
+    dStack_push( Serial.available() ? TRUE : FALSE );
 }
 #endif
 
@@ -1855,8 +1845,8 @@ void _psee(void) { // samsuanchen@gmail.com
             printHex((cell_t) addrToSee); Serial.print(" "); printHex(n,8); Serial.print(" ");
             dot_name(n);
             if(n>(uint)forthSpace && *(cell_t*)(n-4)==SUBROUTINE_IDX){
-            	Serial.print("(does> "); dot_name(*(++addrToSee)); Serial.print(")\r\n BODY");
-            	Serial.print("\r\n      "); printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee++,8);
+            	Serial.print("(does> "); dot_name(*(++addrToSee)); Serial.print(")\r\n BODY ");
+            	printHex((cell_t) ++addrToSee); Serial.print(" "); printHex(*addrToSee++,8);
             	break;
             }
         	switch (n) {
@@ -1896,6 +1886,7 @@ void _psee(void) { // samsuanchen@gmail.com
           //Serial.print(")");
             done = done || ( (n == EXIT_IDX) && (addrLmt <= (cell_t) addrToSee) );
             addrToSee++;
+            if(! done) printStr("\r\n      ");
         } while (! done); // do
     } // else
 //  _space(); printHex((cell_t) addrToSee);
@@ -2127,6 +2118,9 @@ void _pForget(void) { // ( cfa -- )
 			}
 		}
 	}
+}
+void _pad(void) {
+	dStack_push( (cell_t) pHere + PAD_SIZE );
 }
 //*/
 /******************************************************************************/

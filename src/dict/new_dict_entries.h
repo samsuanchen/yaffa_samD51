@@ -1,14 +1,3 @@
-// Fri 22 Jun 18:03:52 UTC 2018
-// 4737-a3b-005-
-
-// Thu 21 Jun 22:17:21 UTC 2018
-// 4737-a3b-001-  +dict_comments_only.cpp file
-
-// Sat Jul 29 18:14:02 UTC 2017
-// 4735-b0b-01-
-
-// count word evaluate : ; c, here 
-
 extern uint16_t nFlashEntry;
 extern flashEntry_t* pLimitFlashEntry;
 extern userEntry_t* pUserEntry;
@@ -28,23 +17,20 @@ extern cell_t* pDoes;
 extern cell_t dStack_top();
 extern void dStack_top(cell_t);
 extern char cInputBuffer[BUFFER_SIZE]; // Input Buffer that gets parsed
+extern unsigned int freeMem();
+extern cell_t* firstUserEntry;
+extern char* to_name(cell_t xt);
+
 extern void _bgBlue();
 extern void _bgBlack();
 extern void _fgRed();
 extern void _fgWhite();
-extern unsigned int freeMem();
 extern void _throw( cell_t errorCode, char* message );
-extern cell_t* firstUserEntry;
-extern char* to_name(cell_t xt);
-
-// extern char cTokenBuffer[WORD_SIZE];  // Stores Single Parsed token to be acted on
-
-//#if defined(INCL_NOP_WORD) || defined(XDICT)
-// extern const char nop_str[]; // = "nop";
+extern void _pad();
+extern void _align();
+extern void _aligned();
+extern void _s_to_d();
 extern void _nop();
-//#endif // #if defined(INCL_NOP_WORD) || defined(XDICT)
-
-// extern const char here_str[]; // = "here";
 extern void _here(); // here ( -- here )
 extern void _count(); // count ( cStr -- str u )
 extern void _evaluate();
@@ -186,4 +172,14 @@ extern void _findFirst();		//samsuanchen@gmail.com 20190615
 extern void _freeMem();			//samsuanchen@gmail.com 20190615
 extern void _pHere();			//samsuanchen@gmail.com 20190615
 
-extern void _pForget(void);		//samsuanchen@gmail.com 20190617
+extern void _pForget();			//samsuanchen@gmail.com 20190617
+
+extern void _key();				//samsuanchen@gmail.com 20190620
+extern void _key_question();	//samsuanchen@gmail.com 20190620
+
+extern void _sign();			//samsuanchen@gmail.com 20190621
+extern void _sm_slash_rem();	//samsuanchen@gmail.com 20190621
+extern void _state();			//samsuanchen@gmail.com 20190621
+extern void _u_lt();			//samsuanchen@gmail.com 20190621
+extern void _um_star();			//samsuanchen@gmail.com 20190621
+extern void _um_slash_mod();	//samsuanchen@gmail.com 20190621

@@ -18,7 +18,7 @@
 /*********************************************************************************/
 
 const flashEntry_t DLflashDict[] = {
-  { dl_ends_str,        _dl_ends,         NORMAL },
+  { "\\end.",        _dl_ends,         NORMAL },
   { NULL,               NULL,             NORMAL }
 };
 
@@ -29,28 +29,28 @@ const flashEntry_t flashDict[] = {
   /* they always have the same index. They get called  */
   /* referenced when compiling code                    */
   /*****************************************************/
-  { "exit",        _exit,          NORMAL }, // 01
-  { "literal",      _literal,       IMMEDIATE }, // 02
-  { "type",       _type,          NORMAL }, // 03
-  { "bran",       _jump,          SMUDGE }, // 04
-  { "zbran",      _zjump,         SMUDGE }, // 05
-  { "(does>)",      _subroutine,      SMUDGE }, // 06
-  { "throw",      _throw,         NORMAL }, // 07
-  { "(do)",       _do_sys,        SMUDGE }, // 08
-  { "(loop)",     _loop_sys,        SMUDGE }, // 09
-  { "(leave)",      _leave_sys,       SMUDGE }, // 10
-  { "(+loop)",      _plus_loop_sys,     SMUDGE }, // 11
-  { "evaluate",     _evaluate,        NORMAL }, // 12
-  { "s\"",        _s_quote,       IMMEDIATE + COMP_ONLY }, // 13
-  { ".\"",        _dot_quote,       IMMEDIATE + COMP_ONLY }, // 14
-  { "(var)",      _var_sys,       NORMAL }, // 15 // samsuanchen@gmail.com 20190508
-  { "over",       _over,          NORMAL }, // 16 // CAL
-  { "=",        _eq,          NORMAL }, // 17 // CAL
-  { "drop",       _drop,          NORMAL }, // 18 // CAL
-  { "(con)",      _con_sys,       NORMAL }, // 19 // samsuanchen@gmail.com 20190508
-  { "variable",     _variable,        NORMAL }, // 20 // moved to here samsuanchen@gmail.com 20190508
-  { "(voc)",      _voc_sys,       NORMAL }, // 21 // samsuanchen@gmail.com 20190603
-  { "vocabulary",   _vocabulary,      NORMAL }, // 22 // samsuanchen@gmail.com 20190603
+  /*01*/{ "exit",        _exit,          NORMAL },
+  /*02*/{ "literal",      _literal,       IMMEDIATE },
+  /*03*/{ "type",       _type,          NORMAL },
+  /*04*/{ "bran",       _jump,          SMUDGE },
+  /*05*/{ "zbran",      _zjump,         SMUDGE },
+  /*06*/{ "(does>)",      _subroutine,      SMUDGE },
+  /*07*/{ "throw",      _throw,         NORMAL },
+  /*08*/{ "(do)",       _do_sys,        SMUDGE },
+  /*09*/{ "(loop)",     _loop_sys,        SMUDGE },
+  /*10*/{ "(leave)",      _leave_sys,       SMUDGE },
+  /*11*/{ "(+loop)",      _plus_loop_sys,     SMUDGE },
+  /*12*/{ "evaluate",     _evaluate,        NORMAL },
+  /*13*/{ "s\"",        _s_quote,       IMMEDIATE + COMP_ONLY },
+  /*14*/{ ".\"",        _dot_quote,       IMMEDIATE + COMP_ONLY },
+  /*15*/{ "(var)",      _var_sys,       NORMAL },
+  /*16*/{ "over",       _over,          NORMAL },
+  /*17*/{ "=",        _eq,          NORMAL },
+  /*18*/{ "drop",       _drop,          NORMAL },
+  /*19*/{ "(con)",      _con_sys,       NORMAL },
+  /*20*/{ "variable",     _variable,        NORMAL },
+  /*21*/{ "(voc)",      _voc_sys,       NORMAL },
+  /*22*/{ "vocabulary",   _vocabulary,      NORMAL },
   { "'",        _tick,          NORMAL }, // added samsuanchen@gmail.com 20190502
   { "-",        _minus,         NORMAL },
   { "-rot",       _dash_rot,        NORMAL }, // added samsuanchen@gmail.com 20190606
@@ -129,6 +129,8 @@ const flashEntry_t flashDict[] = {
   { "accept",     _accept,        NORMAL },
   { "addrToSee",    _addrToSee,       NORMAL },
   { "again",      _again,         IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
+  { "align",      _align,         NORMAL },
+  { "aligned",      _aligned,       NORMAL },
   { "allot",      _allot,         NORMAL },
   { "also",       _also,          NORMAL },
   { "analogRead",   _analogRead,      NORMAL },  // ISTR this was defined
@@ -231,6 +233,8 @@ const flashEntry_t flashDict[] = {
   { "isUserEntry",    _isUserEntry,     NORMAL },
   { "isWord",     _isWord,        NORMAL },
   { "j",        _j,           NORMAL }, // added samsuanchen@gmail.com 20190502
+  { "key",        _key,         NORMAL },
+  { "key?",       _key_question,      NORMAL },
   { "lastVoc",      _lastVoc,       NORMAL },
   { "leave",      _leave,         IMMEDIATE + COMP_ONLY },
   { "load",       _load,          NORMAL },
@@ -255,6 +259,7 @@ const flashEntry_t flashDict[] = {
   { "order",      _order,         NORMAL },
   { "(forget)",   _pForget,       NORMAL },
   { "pHere",      _pHere,         NORMAL },
+  { "pad",      _pad,         NORMAL },
   { "pick",       _pick,          NORMAL }, // added samsuanchen@gmail.com 20190511
   { "pinMode",      _pinMode,       NORMAL },
   { "pinRead",      _pinRead,       NORMAL },
@@ -276,17 +281,25 @@ const flashEntry_t flashDict[] = {
   { "romEntry",     _romEntry,        NORMAL }, // added samsuanchen@gmail.com 20190503
   { "rot",        _rot,         NORMAL },
   { "rshift",     _rshift,        NORMAL },
+  { "s>d",        _s_to_d,        NORMAL },
   { "see",        _see,         NORMAL }, // updated samsuanchen@gmail.com 20190503
   { "setEscPrint",    _setEscPrint,     NORMAL },
+  { "sign",       _sign,          NORMAL },
+  { "sm/rem",     _sm_slash_rem,      NORMAL },
   { "source",     _source,        NORMAL }, // uncommented 2018 23 May
   { "space",      _space,         NORMAL },
   { "spaces",     _spaces,        NORMAL },
+  { "state",      _state,         NORMAL },
   { "strlen",     _strlen,        NORMAL }, // added samsuanchen@gmail.com 20190502
   { "swap",       _swap,          NORMAL },
   { "then",       _then,          IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
   { "tone",       _tone,          NORMAL },
   { "true",       _true,          NORMAL },
   { "u.",       _u_dot,         NORMAL },
+  { "u<",       _u_lt,          NORMAL },
+  { "um*",        _um_star,       NORMAL },
+  { "um/mod",     _um_slash_mod,      NORMAL },
+//{ "unloop",     _unloop,        NORMAL + COMP_ONLY }, // try to use "leave"
   { "until",      _until,         IMMEDIATE + COMP_ONLY }, // added samsuanchen@gmail.com 20190502
   { "vocs",       _vocs,          NORMAL },
   { "warm",       _warm,          NORMAL },
@@ -295,18 +308,6 @@ const flashEntry_t flashDict[] = {
   { "word",       _word,          NORMAL },
   { "words",      _words,         NORMAL },
   { "xor",        _xor,         NORMAL },
-//{ "align",      _align,         NORMAL },
-//{ "aligned",      _aligned,       NORMAL },
 //{ "environment",    _environment,     NORMAL },
-//{ "key",        _key,         NORMAL },
-//{ "key?",       _key_question,      NORMAL },
-//{ "s>d",        _s_to_d,        NORMAL },
-//{ "sign",       _sign,          NORMAL },
-//{ "sm/rem",     _sm_slash_rem,      NORMAL },
-//{ "state",      _state,         NORMAL },
-//{ "u<",       _u_lt,          NORMAL },
-//{ "um*",        _um_star,       NORMAL },
-//{ "um/mod",     _um_slash_mod,      NORMAL },
-//{ "unloop",     _unloop,        NORMAL + COMP_ONLY },
   { NULL,           NULL,    NORMAL }
 };

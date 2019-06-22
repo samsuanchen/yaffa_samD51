@@ -17,7 +17,7 @@ void _download(void) {
 
 // 53   { dl_ends_str,        _dl_ends,         NORMAL },  // IMMEDIATE
 
-const char dl_ends_str[] = "\\end.";  // type '\end.' to exit the download vocabulary.
+//const char dl_ends_str[] = "\\end.";  // type '\end.' to exit the download vocabulary.
 void _dl_ends(void) {
     noInterpreter = FALSE; 
     Serial.println("\r\n DOWNLOAD ENDS. Please see: src/kernel/download.cpp");

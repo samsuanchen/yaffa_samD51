@@ -15,7 +15,6 @@
 const char remove_str[] = "remove";
 void _remove(void) {
     remove_a_file();
-    Serial.print(" the remove word was called.  see remove.cpp in the kernel directory.");
 }
 
 // end.

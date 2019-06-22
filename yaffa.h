@@ -43,8 +43,6 @@
 #ifndef __YAFFA_H__
 #define __YAFFA_H__
 
-
-
 // QSPI_FLASHROM
 // #ifdef QSPI_FLASHROM_PRESENT // switched in compatibility.h
 #ifdef QSPI_FLASHROM_PRESENT // switched in compatibility.h
@@ -61,7 +59,6 @@
     #define HAS_QSPI_FLASHROM_LIB
   #endif
 #endif
-
 #ifndef QSPI_FLASHROM_LIB_ENABLED
   #ifdef HAS_QSPI_FLASHROM_LIB
     #undef HAS_QSPI_FLASHROM_LIB
@@ -73,12 +70,9 @@
 #ifdef NEVER_DEF_JUNE_2018
 // NEO_PIXEL
 // -------  use this to switch between them   ---------
-
 #define NEO_PIXEL_LIB_ENABLED // swap these two
 #undef NEO_PIXEL_LIB_ENABLED  // swap these two
-
 // -------  use this to switch between them   ---------
-
 
 #ifdef NEO_PIXEL_LIB_ENABLED
   #ifndef HAS_NEO_PIXEL_LIB
@@ -93,11 +87,6 @@
 #endif
 
 #endif // #ifdef NEVER_DEF_JUNE_2018
-
-
-
-
-
 
 #define EXT_KERN_ACCEPT // new 25 Nov - reinstate the accept word from original upstream source
 #define EXT_KERN_ALLOT
@@ -167,7 +156,7 @@ typedef uint64_t udcell_t;
 
 
 /******************************************************************************/
-/** CPU / Board Specific                                                           **/
+/** CPU / Board Specific                                                     **/
 /**   STRING_SIZE - Maximum length of a counted string, in characters        **/
 /**   HOLD_SIZE   - Size of the pictured numeric output string buffer, in    **/
 /**                 characters                                               **/

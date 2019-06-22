@@ -8,19 +8,20 @@
 #include "download.h"
 
 
-const char download_str[] = "download"; // part of the main forth vocabulary, only
+//const char download_str[] = "download"; // part of the main forth vocabulary, only
 void _download(void) {
     noInterpreter = TRUE; // download mode -- no standard interpreter -- use dl_interpreter
-    Serial.print("     NOTE: the \'\\end.\' word will exit the download-interpreter vocabulary.");
+    Serial.print(" NOTE: the \'\\end.\' word will exit the downloadwords");
     // debug: // Serial.println("\r\n debug: download.cpp - the download word.\r\n");
 }
 
 // 53   { dl_ends_str,        _dl_ends,         NORMAL },  // IMMEDIATE
 
-const char dl_ends_str[] = "\\end.";  // type '\end.' to exit the download vocabulary.
+//const char dl_ends_str[] = "\\end.";  // type '\end.' to exit the download vocabulary.
 void _dl_ends(void) {
-    noInterpreter = FALSE; 
-    Serial.println("\r\n DOWNLOAD ENDS. Please see: src/kernel/download.cpp");
+    noInterpreter = FALSE;
+    Serial.println("\r\n DOWNLOAD ENDS.");
+//  Serial.println("\r\n DOWNLOAD ENDS. Please see: src/kernel/download.cpp");
 
     // August 3, 2017:
     // There was no file captured (at all).  This is just

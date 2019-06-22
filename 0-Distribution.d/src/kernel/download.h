@@ -2,9 +2,6 @@
 // 4735-b0e-05-
 
 // prototypes - this word
-extern const char download_str[]; // = "download"; // main forth vocabulary
-extern const char dl_ends_str[];  // = "endeth";   // download vocabulary
-
 extern void _download(void);
 extern void _dl_ends(void);
 
