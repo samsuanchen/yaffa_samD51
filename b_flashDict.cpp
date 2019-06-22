@@ -308,6 +308,6 @@ const flashEntry_t flashDict[] = {
   { "word",       _word,          NORMAL },
   { "words",      _words,         NORMAL },
   { "xor",        _xor,         NORMAL },
-//{ "environment",    _environment,     NORMAL },
+//{ "environment",    _environment,     NORMAL }, // ???
   { NULL,           NULL,    NORMAL }
 };

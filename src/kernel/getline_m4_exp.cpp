@@ -230,8 +230,7 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
     if (inChar == ASCII_NL && lastChar == ASCII_CR) continue;
     if (inChar == ASCII_BS || inChar == ASCII_DEL) {  // new: was only ASCII_BS
        if (count) {
-         *--ptr = 0;
-         count--; // ainsuForth improvement -- backspace behavior
+         *--ptr = 0; count--; // ainsuForth improvement -- backspace behavior
 
 		if (! silentReading) {
 		    if (flags & ECHO_ON) Serial.print("\b \b");
@@ -308,9 +307,7 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
           }
       }
 
-      *ptr++ = inChar;
-      *ptr = 0;
-      count++;
+      *ptr++ = inChar; *ptr = 0; count++;
     }
   } while (count < buffSize);
   _fgWhite();
