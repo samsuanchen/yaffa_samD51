@@ -161,7 +161,7 @@ void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
         // Serial.println(SPI_FlashROM_FILENAME);
         while(1);
     }
-    Serial.println(" filesystem Mounted!");
+    Serial.println("filesystem Mounted!");
 }
         #endif // 15 Jan 2018
 
@@ -190,28 +190,47 @@ void waitEsc(){
   delay(1); while( Serial.available() ) Serial.read();
 }
 char lastChar = 0;
-char* workingFile = (char*) SPI_FlashROM_FILENAME;
 uint8_t getLine(char* ptr, uint8_t buffSize) {
   char inChar;
   uint8_t count = 0;
   _fgGreen();
+  // if (fileClosed) { Serial.println("Indeed, fileClosed is TRUE"); }
+
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
   if (spiFlashReading) {
-      if (pythonfs.exists(workingFile)) {
+      // cheap_test: if (fatfs.exists("/forth/job.fs")) {
+
+
+
+      // if (pythonfs.exists("data.txt")) { // if (fatfs.exists(SPI_FlashROM_FILENAME)) {
+      if (pythonfs.exists(SPI_FlashROM_FILENAME)) {
+
           if (fileClosed) {
-            thisFile = pythonfs.open(workingFile, FILE_READ);
+
+        //  File bootPy = pythonfs.open("data.txt", FILE_READ);
+            File bootPy = pythonfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+
+        //  File forthSrcFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+
+        //  thisFile = (File) forthSrcFile;
+            thisFile = (File) bootPy;
             fileClosed = FALSE ; // it is open, now.
           }
       }
   }
         #endif // 15 Jan 2018
+
+
+// another getLine() stanza:
   do {
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
     if (spiFlashReading) {
         if (thisFile) {
             if (thisFile.available()) {
              // this is where every character of job.fs is read from SPI flash:
-                inChar = thisFile.read(); spiFlashWaiting = FALSE;
+                inChar = thisFile.read();
+
+                spiFlashWaiting = FALSE;
                 if (thisFile.available()) {
                     spiFlashWaiting = TRUE;
                 } else {
@@ -220,30 +239,48 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
                 }
             }
         }
+
     } else {
         #endif // 15 Jan 2018
-        inChar = getKey();
+
+        if (noInterpreter) {
+            inChar = getKey();
+            if (inChar == '\\') {
+                // Serial.print("ESC \\ SEEN in getLine().\r\n");
+            }
+        } else {
+            inChar = getKey(); 
+        }
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
     }
         #endif // 15 Jan 2018
+
     // inChar is now populated; either by keypress or by byte stored in SPI flash.
     if (inChar == ASCII_NL && lastChar == ASCII_CR) continue;
     if (inChar == ASCII_BS || inChar == ASCII_DEL) {  // new: was only ASCII_BS
        if (count) {
-         *--ptr = 0; count--; // ainsuForth improvement -- backspace behavior
+         *--ptr = 0;
+         count--; // ainsuForth improvement -- backspace behavior
 
-		if (! silentReading) {
-		    if (flags & ECHO_ON) Serial.print("\b \b");
-		}
-		
+
+if (silentReading) { } else {
+    if (flags & ECHO_ON) Serial.print("\b \b");
+}
+
+
+
       }
     }
     else if (inChar == ASCII_TAB || inChar == ASCII_ESC) {
 
-		if (! silentReading) {
-		      if (flags & ECHO_ON) Serial.print("\a");
-		}
-		
+
+if (silentReading) { } else {
+      if (flags & ECHO_ON) Serial.print("\a");
+}
+
+
+
+
     }
     else if (inChar == ASCII_CR || inChar == ASCII_NL) { // ainsuForth improvement
 
@@ -265,7 +302,8 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
 // -----------------------------------------------------
 
       // if (silentReading && spiFlashReading) { // the 'load' word
-      if (! silentReading) { // the 'load' word
+      if (silentReading) { // the 'load' word
+      } else {
               if (flags & ECHO_ON) Serial.print(" "); // seems to want a space after 'dot' for example.
       }
 // -----------------------------------------------------
@@ -286,28 +324,42 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
 
       // debug // Serial.println("EVERYONE");
       // Serial.println("debug: is flash waiting or not?");
-      if (! spiFlashWaiting) {
+      if (spiFlashWaiting) {
+          // Serial.println("a good spot to turn off silentReading perhaps.");
+          // Serial.println("Flash is WAITING .. more to read.");
+      } else { 
           silentReading = FALSE; // we are interactive once more, when spiFlashWaiting changes state
       }
-      break; // exit loop
+
+      break;
 
     } else {
-    	
+
+
+
 // always suppress echo when the load word is executed.
       if (silentReading && spiFlashReading) { // the 'load' word
           int fakeSPxT = 0;
       } else {
           if (flags & ECHO_ON) {
 // -----------------------------------------------------
-			if (! silentReading) {
-			              // main forth interpreter typing echo is right here:
-			              Serial.print(inChar); // do NOT suppress this ordinarily, if ever.
-			}
+// -----------------------------------------------------
+// -----------------------------------------------------
+if (silentReading) {
+} else {
+              // main forth interpreter typing echo is right here:
+              Serial.print(inChar); // do NOT suppress this ordinarily, if ever.
+}
+// -----------------------------------------------------
+// -----------------------------------------------------
+// -----------------------------------------------------
 // -----------------------------------------------------
           }
       }
 
-      *ptr++ = inChar; *ptr = 0; count++;
+      *ptr++ = inChar;
+      *ptr = 0;
+      count++;
     }
   } while (count < buffSize);
   _fgWhite();
@@ -318,6 +370,7 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
         #endif
     #endif // #ifdef EXT_KERN_GETLINE
 
+
 #ifdef EXT_KERN_GETKEY
 
 /******************************************************************************/
@@ -326,7 +379,7 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
 /**   Valid characters are:  Backspace, Carriage Return (0x0d), Escape,      **/
 /**   Tab, Newline (0x0a) and standard (printable) characters                **/
 /******************************************************************************/
-char isPrintable(char key){ 
+char isPrintable(char key){
 	return (key >= 0x20 && key <= 0xfe) ? 1 : 0;
 }
 char getKey(void) {
@@ -432,46 +485,90 @@ char getKey(void) {
 
 // Adafruit_W25Q16BV_FatFs ascii_xfer_fatfs(ascii_xfer_flash);
 
-extern uint8_t getToken();
-extern cell_t dStack_pop();
-extern void _bl(), _word();
-char* workingDir = 0;
 
+//const char eflmkdir_str[] = "eflmkdir"; // forth vocabulary external flash mkdir
+// void create_test_directory(void) {
 void _eflmkdir(void) {
-	_bl(); _word(); char* a = (char*) (dStack_pop() + 4); uint8_t n = a ? strlen(a): 0;
-	char* workingDir = (n ? a : (char*) SPI_FlashROM_TOPDIR);
-	if (pythonfs.exists(workingDir)) {
-		Serial.print(workingDir); Serial.println(" already Created");
-	} else {
-		if (!pythonfs.mkdir(workingDir)) {
-			Serial.print("Error! failed to create "); Serial.println(workingDir);
-			while(1);
-		}
-		Serial.print(workingDir); Serial.println(" Created");
-	}
+  // Check if a directory called 'test' exists and create it if not there.
+  // Note you should _not_ add a trailing slash (like '/test/') to directory names!
+  // You can use the same exists function to check for the existance of a file too.
+
+#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
+// #ifdef HAS_STANDARD_BUILD_HERE
+
+// #define SPI_FlashROM_TOPDIR   "/forth"
+// if (!fatfs.exists("/test")) {
+  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
+  if (!pythonfs.exists(SPI_FlashROM_TOPDIR)) {
+    Serial.println("directory not found, Creating...");
+    // Use mkdir to create directory (note you should _not_ have a trailing slash).
+  // if (!fatfs.mkdir("/test")) {
+    // if (!fatfs.mkdir(SPI_FlashROM_TOPDIR)) {
+    if (!pythonfs.mkdir(SPI_FlashROM_TOPDIR)) {
+      Serial.println("Error, failed to create test directory!");
+      while(1);
+    }
+    Serial.println("Created forth directory");
+  }
+  Serial.print("forth directory: "); Serial.println(SPI_FlashROM_TOPDIR);
+#endif
+
+
+
+
+#ifdef NEVER_DEFINED_TEN_THREE // nonsense tag to prevent compile
+#ifndef HAS_STANDARD_BUILD_HERE
+
+#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
+// #define SPI_FlashROM_TOPDIR   "/forth"
+// if (!fatfs.exists("/test")) { Serial.println("BAD ROBOT - fatfs.exists fails on line 97.");
+  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
+  if (!pythonfs.exists(SPI_FlashROM_TOPDIR)) {
+    Serial.println("BAD ROBOT - fatfs.exists fails on line 473 June 17, 2018.");
+  } else {
+    Serial.println("local: assuming /forth directory already exists.");
+  }
+#endif // 15 Jan 2018
+
+#endif
+#endif
 }
 
+
+#ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 void remove_a_file(void) {
   Serial.print("file Deleting ");
-  Serial.print(workingFile);
-  Serial.print(" ... ");
-  
-  if (!pythonfs.remove(workingFile)) {
+  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.println(" ...");
+
+  // if (!fatfs.remove(SPI_FlashROM_FILENAME)) {
+  if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
       Serial.print("Error, file ");
-      Serial.print(workingFile);
+      Serial.print(SPI_FlashROM_FILENAME);
       Serial.println(" was not removed!");
-  } else Serial.println("file Deleted!");
-  File writeFile = pythonfs.open(workingFile, FILE_WRITE);
+      while(1);
+  }
+  Serial.println("file Deleted!");
+  // kludge: disallow this filename to be missing from the directory - create a blank new file:
+  // File writeFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  File writeFile = pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  // if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
+
   if (!writeFile) {
       Serial.print("Error, failed to open ");
-      Serial.print(workingFile);
+      Serial.print(SPI_FlashROM_FILENAME);
       Serial.println(" for writing!");
-      while(1);
+      while(1); // what does this do .. hold the program in a forever loop upon failure?
+      Serial.println("Exiting forever loop of getline.cpp -- probably means a serious error occurred. LINE 408.");
   } else {
-	  writeFile.println(" ");
-	  writeFile.close();
+  Serial.println("An empty new file was created in its place.");
+  Serial.println("This kludge will go away when multi-filename usage is more fully integrated.");
+  writeFile.println(" ");
+  // writeFile.println(".( WRITE FILE is done.\) cr");
+  writeFile.close(); // housekeeping.
   }
 }
+#endif // 15 Jan 2018
 
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 void write_a_capture_file(void) {
@@ -490,10 +587,10 @@ void write_a_capture_file(void) {
   // File writeFile = ascii_xfer_fatfs.open("/test/ascii_xfer_test.txt", FILE_WRITE);
     // pythonfs fatfs
   // File writeFile =               fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  File writeFile =               pythonfs.open(workingFile, FILE_WRITE);
+  File writeFile =               pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
   if (!writeFile) {
     Serial.print("Error, failed to open ");
-    Serial.print(workingFile);
+    Serial.print(SPI_FlashROM_FILENAME);
     Serial.println(" for writing!");
     while(1);
   }

@@ -30,8 +30,7 @@ void dl_interpreter(void) { // download interpreter
                 }
                 if (w > nFlashEntry) { // w of DLWord could not be greater than 255
                 //  Serial.printf("\r\ndebug: Error w=$%X line 32 dl_interpreter.cpp.\r\n", w);
-                }
-                else { // execute the DLWord
+                } else { // execute the DLWord
                     function = DLflashDict[w - 1].function;
                     function();
                     if (errorCode) return;
