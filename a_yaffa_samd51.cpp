@@ -184,7 +184,6 @@ void blink_m(void) {
 /******************************************************************************/
 /** Initialization                                                           **/
 /******************************************************************************/
-extern void _fgYellow(void), _bgBlack(void), _bgBrightYellow(void);
 void setup(void) {              
 //uint16_t mem;
   
@@ -203,6 +202,7 @@ void setup(void) {
     blink_m();
   }
   tone(A0, 440, 1000), delay(250), tone(A0, 330, 1000); //noTone(A0);
+  extern void _fgYellow(void), _bgBlack(void), _bgBrightYellow(void);
   _fgYellow(), _bgBlack();
   Serial.print("\r\n Serial.begin(115200) buzzer pin A0 = "), Serial.println(A0);
   Serial.print(" CPU / Board "), Serial.println(PROC_STR);
@@ -333,32 +333,42 @@ void loop(void) { blink();
 // -------------------------------------------------------------
     cpSourceEnd = cpSource + getLine(cpSource, BUFFER_SIZE);
     if (cpSourceEnd > cpSource) { // 106 uint8_t noInterpreter = FALSE ;
-        if (noInterpreter) dl_interpreter();
+        if (noInterpreter)
+            dl_interpreter(); // if download sets noInterpreter == TRUE, then
+                              // this is called after the 'download' word has
+                              // executed, and, some other word has, also ..
+                              // a bit too late, without further considerations.
         else interpreter();
-
+        // if (spiFlashWaiting) { Serial.println("debug: LOOP - flash is WAITING."); }
         if (errorCode) errorCode = 0;
         else {
-            if (!state) {
-                if (noInterpreter) { // int fake_intptrTwo = 0;
-                } else if (!silentReading) _ok();
-
+            if (!state) { // not compiling mode
+                // suppress the ok prompt during ASCII upload:
+                if (noInterpreter) int fake_intptrTwo = 0;
+                else {
+// was good but not quite enough to suppress CR/LF echo during a 'load' op:
+                  if (!silentReading) _ok();
+                }
+                // This shows a DOT for each item on the data stack
                 char n = dStack_size(); while(n--) Serial.print(".");
                 if (! silentReading) Serial.println();
             }
         }
-    } else { // end of line
+    } else { // test failed; do not run interpreter().
 
-        if (noInterpreter) Serial.print("\r\n"); // just echo the CR/LF here
-        else {
-          if (silentReading) { // int fake_SRT = 0;
-          } else if (! state) _ok(); // Leo Brodie 'Starting Forth' expects an ok here
+        if (noInterpreter) {
+            // if (!silentReading)
+                Serial.print("\r\n"); // just echo the CR/LF here
+        } else {
+          if (silentReading) int fake_SRT = 0;
+          else if (! state) _ok(); // Leo Brodie 'Starting Forth' expects an ok here
         }
     } // replace these four lines with a single closing curly brace
       // to restore YAFFA behavior.
     if (state) {
         // if (silentReading && spiFlashReading && fileClosed) {
         if (silentReading && spiFlashReading) {
-        // int siRea = 0;
+            int siRea = 0;
         } else {
           compilePrompt();
         }
@@ -367,7 +377,7 @@ void loop(void) { blink();
         // if (silentReading && fileClosed) {
         // if (silentReading) {
         if (spiFlashReading) {
-        //  int fake = 0;
+            int fake = 0;
             // Serial.println("debug: we are still reading near compilePrompt.");
         } else { // dont be shy -- print it to the console
             Serial.print(prompt_str);
@@ -380,7 +390,6 @@ void loop(void) { blink();
 unsigned int freeMem(void) {
    return ( &forthSpace[FORTH_SIZE] - pHere );
 }
-
 /******************************************************************************/
 /**  YAFFA - Yet Another Forth for Arduino                                   **/
 /**  Version 0.7.0                                                           **/

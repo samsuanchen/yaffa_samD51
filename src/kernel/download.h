@@ -2,7 +2,7 @@
 // 4735-b0e-05-
 
 // prototypes - this word
-#define SPI_FlashROM_FILENAME "/forth/ascii_xfer_a001.txt"
+#define workinFilename "/forth/ascii_xfer_a001.txt"
 
 extern uint8_t noInterpreter;
 extern char* workingFile;

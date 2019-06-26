@@ -1,7 +1,7 @@
 // Sun Nov 11 20:45:12 UTC 2018
 // 4737-a3c-00g- // ainsuForth-gen-exp-m4
 // On branch testing-hh-ii-
-
+// SPI_FlashROM_FILENAME
 #ifdef HAS_EXP_MFOUR_QSPI_FLASH
 
 
@@ -41,7 +41,7 @@
 // macro to name the file read or written to SPI flashROM.
 // #ifdef HAS_SPI_FLASH_DEMO // 15 Jan 2018
     #define SPI_FlashROM_FILENAME "/forth/ascii_xfer_a001.txt"
-    #define SPI_FlashROM_TOPDIR   "/forth"
+    #define SPI_FlashROM_TOPDIR "/forth"
 // #endif
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -135,6 +135,8 @@
 
         #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 
+char* workingFilename = SPI_FlashROM_FILENAME;
+char* workingDirname = SPI_FlashROM_TOPDIR;
 void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
 //	Serial.print(" Hello from setup_qspi m4 getline stuff.   ");
 
@@ -145,8 +147,6 @@ void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
     Serial.print(" HAS_EXP_MFOUR_QSPI_FLASH "); Serial.println(HAS_EXP_MFOUR_QSPI_FLASH);
     Serial.print(" HAS_QSPI_FLASH_DEMO "); Serial.println(HAS_QSPI_FLASH_DEMO);
 	Serial.print(" FLASH_TYPE 0x"); Serial.println(FLASH_TYPE, HEX);
-	Serial.print(" default SPI_FlashROM_TOPDIR "); Serial.println(SPI_FlashROM_TOPDIR);
-	Serial.print(" default SPI_FlashROM_FILENAME "); Serial.println(SPI_FlashROM_FILENAME);
     Serial.print(" Flash chip JEDEC ID: 0x"); Serial.println(flash.GetJEDECID(), HEX);
 //  Serial.println(" Found QSPI Flash.");
     // Serial.print("Flash chip JEDEC ID: 0x");
@@ -158,14 +158,159 @@ void setup_qspiFlashROM(void) { // void setup_spi_flash(void) {
     if (!pythonfs.begin()) { //  if (!fatfs.begin()) {
         Serial.println("Failed to mount filesystem!");
         Serial.println("Was CircuitPython loaded on the board first to create the filesystem?");
-        // Serial.println(SPI_FlashROM_FILENAME);
+        // Serial.println(workingFilename);
         while(1);
     }
     Serial.println("filesystem Mounted!");
+	Serial.print(" default workingDirname "); Serial.println(workingDirname);
+	Serial.print(" default workingFilename "); Serial.println(workingFilename);
 }
         #endif // 15 Jan 2018
 
+extern void printStr(char*);
+extern void printHex(cell_t);
+extern void printHex(cell_t, uint8_t);
+extern cell_t dStack_pop();
+extern cell_t*pHere;
+extern void _throw(char*);
+extern void _cr();
+extern void _bl();
+extern void _word();
+extern void _download();
+extern void _load();
+extern void _remove();
 
+char* parseStr(void) {
+	_bl(); _word(); cell_t n = dStack_pop();
+	cell_t* cStr = (cell_t*) n;
+	char* str = 0;
+	if(cStr) {
+		n = *cStr++; str = (char*) cStr;
+	//	printStr("\r\n "), Serial.print(n), printStr("-byte \""), printStr(str), printStr("\"");
+	}
+//	printStr(" ==> str "), printHex((cell_t) str);
+	return str;
+}
+char* fullPath(char* dirname){
+	char* path;
+	if(dirname == 0 || *dirname == 0) path = workingDirname;
+	else if(*dirname == '/') path = dirname;
+	else {
+		path = (char*)pHere + 128;
+		strcpy(path, workingDirname);
+		char* pathEnd = path + strlen(path);
+		*pathEnd++ = '/';
+		strcpy(pathEnd, dirname);
+	}
+//	printStr("\r\n fullPath "), printStr(path);
+	return path;
+}
+void _chdir(void){ // list filenames in given dir
+	char* path = fullPath( parseStr() );
+	if (!pythonfs.exists(path)) {
+		printStr("\r\n directory ");
+		printStr(path);
+		printStr(" not exist");
+		_throw("not exist");
+		return;
+	}
+	workingDirname = path;
+	printStr("\r\n working directory "); printStr(path);
+}
+void _dir(void){ // list filenames in given dir
+	char* path = fullPath( parseStr() );
+	if (!pythonfs.exists(path)) {
+		Serial.print("\r\n directory ");
+		Serial.print(path);
+		Serial.println(" not exist");
+		_throw("not exist");
+		return;
+	}
+	Serial.print("\r\n directory ");
+	Serial.print(path);
+	File testDir = pythonfs.open(path);
+	if (!testDir.isDirectory()) {
+    	_throw("not a dir");
+		return;
+	}
+	File child = testDir.openNextFile();
+	int i = 0;
+	while( child ) {
+	    printStr("\r\n "); Serial.print(++i); printStr(" "); printStr(child.name());
+	    if (child.isDirectory()) printStr(" (dir)");
+	    child = testDir.openNextFile();
+	}
+	if(! i) printStr(" empty");
+}
+void _rmdir(void){
+	char* path = fullPath( parseStr() );
+	if (!pythonfs.exists(path)) {
+		_throw("dir not exist");
+		return;
+	}
+	if (!pythonfs.rmdir(path)) {
+	  _throw("failed to remove dir");
+	  return;
+	}
+	printStr("\r\n Removed dir "); printStr(path);
+}
+void _mkdir(void){
+	char* path = fullPath( parseStr() );
+	if (!pythonfs.exists(path)) {
+		if (!pythonfs.mkdir(path)) {
+		  _throw("failed to create dir");
+		  return;
+		}
+		printStr("\r\n Created dir ");
+	} else printStr("\r\n Already had dir ");
+	printStr(path);
+}
+void _fdel(void){
+	workingFilename = fullPath( parseStr() );
+	if (!pythonfs.exists(workingFilename)) {
+		_throw( "file not exist" ); return;
+	}
+	_remove();
+}
+void _fload(void){
+	char* filename = fullPath( parseStr() );
+	if (!pythonfs.exists(filename)) {
+		Serial.print("file ");
+		Serial.print(filename);
+		Serial.println(" not found");
+		_throw(" not found");
+		return;
+	}
+	workingFilename = filename;
+	_load();
+}
+void _fsave(void){
+	workingFilename = fullPath( parseStr() );
+	if (!pythonfs.exists(workingFilename)) {
+		File writeFile = pythonfs.open(workingFilename, FILE_WRITE);
+		if (!writeFile){
+			_throw( "cannot create empty file" );
+			return;
+		}
+		writeFile.println();
+		writeFile.close();
+	}
+	_download();
+}
+void _ftype(void){
+	char* filename = fullPath( parseStr() );
+	if (!pythonfs.exists(filename)) {
+		Serial.print("file ");
+		Serial.print(filename);
+		Serial.println(" not found");
+		_throw(" not found");
+		return;
+	}
+	File readFile = pythonfs.open(filename, FILE_READ);
+	_cr();
+	while (readFile.available()) Serial.print((char) readFile.read());
+	readFile.close();
+}
 /******************************************************************************/
 /** getLine                                                                  **/
 /**   read in a line of text ended by a Carriage Return (ASCII 13)           **/
@@ -202,15 +347,15 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
 
 
 
-      // if (pythonfs.exists("data.txt")) { // if (fatfs.exists(SPI_FlashROM_FILENAME)) {
-      if (pythonfs.exists(SPI_FlashROM_FILENAME)) {
+      // if (pythonfs.exists("data.txt")) { // if (fatfs.exists(workingFilename)) {
+      if (pythonfs.exists(workingFilename)) {
 
           if (fileClosed) {
 
         //  File bootPy = pythonfs.open("data.txt", FILE_READ);
-            File bootPy = pythonfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+            File bootPy = pythonfs.open(workingFilename, FILE_READ);
 
-        //  File forthSrcFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+        //  File forthSrcFile = fatfs.open(workingFilename, FILE_READ);
 
         //  thisFile = (File) forthSrcFile;
             thisFile = (File) bootPy;
@@ -496,21 +641,21 @@ void _eflmkdir(void) {
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 // #ifdef HAS_STANDARD_BUILD_HERE
 
-// #define SPI_FlashROM_TOPDIR   "/forth"
+// #define workingDirname   "/forth"
 // if (!fatfs.exists("/test")) {
-  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
-  if (!pythonfs.exists(SPI_FlashROM_TOPDIR)) {
+  // if (!fatfs.exists(workingDirname)) {
+  if (!pythonfs.exists(workingDirname)) {
     Serial.println("directory not found, Creating...");
     // Use mkdir to create directory (note you should _not_ have a trailing slash).
   // if (!fatfs.mkdir("/test")) {
-    // if (!fatfs.mkdir(SPI_FlashROM_TOPDIR)) {
-    if (!pythonfs.mkdir(SPI_FlashROM_TOPDIR)) {
+    // if (!fatfs.mkdir(workingDirname)) {
+    if (!pythonfs.mkdir(workingDirname)) {
       Serial.println("Error, failed to create test directory!");
       while(1);
     }
     Serial.println("Created forth directory");
   }
-  Serial.print("forth directory: "); Serial.println(SPI_FlashROM_TOPDIR);
+  Serial.print("forth directory: "); Serial.println(workingDirname);
 #endif
 
 
@@ -520,10 +665,10 @@ void _eflmkdir(void) {
 #ifndef HAS_STANDARD_BUILD_HERE
 
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
-// #define SPI_FlashROM_TOPDIR   "/forth"
+// #define workingDirname   "/forth"
 // if (!fatfs.exists("/test")) { Serial.println("BAD ROBOT - fatfs.exists fails on line 97.");
-  // if (!fatfs.exists(SPI_FlashROM_TOPDIR)) {
-  if (!pythonfs.exists(SPI_FlashROM_TOPDIR)) {
+  // if (!fatfs.exists(workingDirname)) {
+  if (!pythonfs.exists(workingDirname)) {
     Serial.println("BAD ROBOT - fatfs.exists fails on line 473 June 17, 2018.");
   } else {
     Serial.println("local: assuming /forth directory already exists.");
@@ -538,35 +683,17 @@ void _eflmkdir(void) {
 #ifdef HAS_QSPI_FLASH_DEMO // 15 Jan 2018
 void remove_a_file(void) {
   Serial.print("file Deleting ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.println(" ...");
 
-  // if (!fatfs.remove(SPI_FlashROM_FILENAME)) {
-  if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
+  // if (!fatfs.remove(workingFilename)) {
+  if (!pythonfs.remove(workingFilename)) {
       Serial.print("Error, file ");
-      Serial.print(SPI_FlashROM_FILENAME);
+      Serial.print(workingFilename);
       Serial.println(" was not removed!");
-      while(1);
+      return;
   }
   Serial.println("file Deleted!");
-  // kludge: disallow this filename to be missing from the directory - create a blank new file:
-  // File writeFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  File writeFile = pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  // if (!pythonfs.remove(SPI_FlashROM_FILENAME)) {
-
-  if (!writeFile) {
-      Serial.print("Error, failed to open ");
-      Serial.print(SPI_FlashROM_FILENAME);
-      Serial.println(" for writing!");
-      while(1); // what does this do .. hold the program in a forever loop upon failure?
-      Serial.println("Exiting forever loop of getline.cpp -- probably means a serious error occurred. LINE 408.");
-  } else {
-  Serial.println("An empty new file was created in its place.");
-  Serial.println("This kludge will go away when multi-filename usage is more fully integrated.");
-  writeFile.println(" ");
-  // writeFile.println(".( WRITE FILE is done.\) cr");
-  writeFile.close(); // housekeeping.
-  }
 }
 #endif // 15 Jan 2018
 
@@ -586,13 +713,13 @@ void write_a_capture_file(void) {
 
   // File writeFile = ascii_xfer_fatfs.open("/test/ascii_xfer_test.txt", FILE_WRITE);
     // pythonfs fatfs
-  // File writeFile =               fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
-  File writeFile =               pythonfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  // File writeFile =               fatfs.open(workingFilename, FILE_WRITE);
+  File writeFile =               pythonfs.open(workingFilename, FILE_WRITE);
   if (!writeFile) {
     Serial.print("Error, failed to open ");
-    Serial.print(SPI_FlashROM_FILENAME);
+    Serial.print(workingFilename);
     Serial.println(" for writing!");
-    while(1);
+    return;
   }
   // debug: // Serial.println("Opened file /forth/ascii_xfer_test.txt for writing/appending...");
 
@@ -618,13 +745,13 @@ void read_a_test_file(void) {
   // Now open the same file but for reading.
   // cheap_test: File readFile = fatfs.open("/forth/job.fs",             FILE_READ);
     // pythonfs fatfs
-  // File readFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
-  File readFile = pythonfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+  // File readFile = fatfs.open(workingFilename, FILE_READ);
+  File readFile = pythonfs.open(workingFilename, FILE_READ);
   if (!readFile) {
     // cheap_test: Serial.println("Error, failed to open job.fs for reading!");
     // Serial.println("Error, failed to open /forth/ascii_xfer_test.txt for reading!");
     Serial.print("Error, failed to open ");
-    Serial.print(SPI_FlashROM_FILENAME);
+    Serial.print(workingFilename);
     Serial.println(" for reading!");
     while(1);
   }
@@ -635,11 +762,11 @@ void read_a_test_file(void) {
   String line = readFile.readStringUntil('\n');
   // cheap_test: Serial.print("First line of job.fs: "); Serial.println(line);
   Serial.print("First line of ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.println(line);
   // You can get the current position, remaining data, and total size of the file:
   Serial.print("Ignore job.fs and say ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.print(" here - several lines.");
   Serial.print("Total size of job.fs (bytes): "); Serial.println(readFile.size(), DEC);
   Serial.print("Current position in job.fs: "); Serial.println(readFile.position(), DEC);
@@ -753,9 +880,8 @@ void tail_code_bb(void) {
   if (!testDirRoot) {
     Serial.println("Error, failed to open root directory!");
     while(1);
-  } else {
-    Serial.println("Made it past the opening of the root directory.");
   }
+  Serial.println("Made it past the opening of the root directory.");
 #endif
 
 #ifdef HAS_STANDARD_BUILD_HERE

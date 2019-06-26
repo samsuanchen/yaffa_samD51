@@ -193,6 +193,14 @@ const flashEntry_t flashDict[] = {
   { "endcase",      _endcase,       IMMEDIATE + COMP_ONLY },    // CAL
   { "endof",      _endof,         IMMEDIATE + COMP_ONLY },    // CAL
   { "execute",      _execute,       NORMAL },
+  { "chdir",      _chdir,       NORMAL },
+  { "dir",      _dir,       NORMAL },
+  { "rmdir",      _rmdir,       NORMAL },
+  { "mkdir",      _mkdir,       NORMAL },
+  { "fdel",      _fdel,       NORMAL },
+  { "fload",      _fload,       NORMAL },
+  { "fsave",      _fsave,       NORMAL },
+  { "ftype",      _ftype,       NORMAL },
   { "false",      _false,         NORMAL },
   { "fgBlack",      _fgBlack,       NORMAL },
   { "fgBlue",     _fgBlue,        NORMAL },

@@ -11,7 +11,7 @@
 //const char download_str[] = "download"; // part of the main forth vocabulary, only
 void _download(void) {
     noInterpreter = TRUE; // download mode -- no standard interpreter -- use dl_interpreter
-    Serial.print(" NOTE: the \'\\end.\' word will exit the downloadwords");
+    Serial.print(" NOTE: the \'\\end.\' word will exit the download words");
     // debug: // Serial.println("\r\n debug: download.cpp - the download word.\r\n");
 }
 

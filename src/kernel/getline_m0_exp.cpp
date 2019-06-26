@@ -11,7 +11,7 @@
 
 // Tue Jan 16 02:30:09 UTC 2018
 // 4737-a0d-05j-
-
+extern char* workingFilename;
 #ifdef HAS_EXP_MZERO_SPI_FLASH
 
 
@@ -40,7 +40,7 @@
 
 // macro to name the file read or written to SPI flashROM.
 // #ifdef HAS_SPI_FLASH_DEMO // 15 Jan 2018
-#define SPI_FlashROM_FILENAME "/forth/ascii_xfer_a001.txt"
+#define workingFilename "/forth/ascii_xfer_a001.txt"
 #define SPI_FlashROM_TOPDIR   "/forth"
 // #endif
 
@@ -143,7 +143,7 @@ void setup_spi_flash(void) {
   if (!fatfs.begin()) {
     Serial.println("E: fatfs.begin() fault.  LINE 099");
     Serial.print("Can haz ");
-    Serial.println(SPI_FlashROM_FILENAME);
+    Serial.println(workingFilename);
     Serial.println("Was the flash chip formatted with the fatfs_format example?");
     while(1);
   }
@@ -173,12 +173,12 @@ uint8_t getLine(char* ptr, uint8_t buffSize) {
 #ifdef HAS_SPI_FLASH_DEMO // 15 Jan 2018
   if (spiFlashReading) {
       // cheap_test: if (fatfs.exists("/forth/job.fs")) {
-      if (fatfs.exists(SPI_FlashROM_FILENAME)) {
+      if (fatfs.exists(workingFilename)) {
           if (fileClosed) {
             // Serial.println("(re)opening fatfs .. verify it is okay to do so.");
 
             // cheap_test: File forthSrcFile = fatfs.open("/forth/job.fs",             FILE_READ);
-            File forthSrcFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+            File forthSrcFile = fatfs.open(workingFilename, FILE_READ);
             thisFile = (File) forthSrcFile;
             fileClosed = FALSE ; // it is open, now.
           }
@@ -493,22 +493,22 @@ void _eflmkdir(void) {
 #ifdef HAS_SPI_FLASH_DEMO // 15 Jan 2018
 void remove_a_file(void) {
   Serial.print("file: Deleting ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.println("...");
 
-  if (!fatfs.remove(SPI_FlashROM_FILENAME)) {
+  if (!fatfs.remove(workingFilename)) {
       Serial.print("Error, file ");
-      Serial.print(SPI_FlashROM_FILENAME);
+      Serial.print(workingFilename);
       Serial.println(" was not removed!");
       while(1);
   }
   Serial.println("Deleted file!");
   // kludge: disallow this filename to be missing from the directory - create a blank new file:
-  File writeFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  File writeFile = fatfs.open(workingFilename, FILE_WRITE);
 
   if (!writeFile) {
       Serial.print("Error, failed to open ");
-      Serial.print(SPI_FlashROM_FILENAME);
+      Serial.print(workingFilename);
       Serial.println(" for writing!");
       while(1); // what does this do .. hold the program in a forever loop upon failure?
       Serial.println("Exiting forever loop of getline.cpp -- probably means a serious error occurred. LINE 408.");
@@ -537,10 +537,10 @@ void write_a_capture_file(void) {
   // result: does compile just fine.
 
   // File writeFile = ascii_xfer_fatfs.open("/test/ascii_xfer_test.txt", FILE_WRITE);
-  File writeFile =               fatfs.open(SPI_FlashROM_FILENAME, FILE_WRITE);
+  File writeFile =               fatfs.open(workingFilename, FILE_WRITE);
   if (!writeFile) {
     Serial.print("Error, failed to open ");
-    Serial.print(SPI_FlashROM_FILENAME);
+    Serial.print(workingFilename);
     Serial.println(" for writing!");
     while(1);
   }
@@ -567,12 +567,12 @@ void write_a_capture_file(void) {
 void read_a_test_file(void) {
   // Now open the same file but for reading.
   // cheap_test: File readFile = fatfs.open("/forth/job.fs",             FILE_READ);
-  File readFile = fatfs.open(SPI_FlashROM_FILENAME, FILE_READ);
+  File readFile = fatfs.open(workingFilename, FILE_READ);
   if (!readFile) {
     // cheap_test: Serial.println("Error, failed to open job.fs for reading!");
     // Serial.println("Error, failed to open /forth/ascii_xfer_test.txt for reading!");
     Serial.print("Error, failed to open ");
-    Serial.print(SPI_FlashROM_FILENAME);
+    Serial.print(workingFilename);
     Serial.println(" for reading!");
     while(1);
   }
@@ -583,11 +583,11 @@ void read_a_test_file(void) {
   String line = readFile.readStringUntil('\n');
   // cheap_test: Serial.print("First line of job.fs: "); Serial.println(line);
   Serial.print("First line of ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.println(line);
   // You can get the current position, remaining data, and total size of the file:
   Serial.print("Ignore job.fs and say ");
-  Serial.print(SPI_FlashROM_FILENAME);
+  Serial.print(workingFilename);
   Serial.print(" here - several lines.");
   Serial.print("Total size of job.fs (bytes): "); Serial.println(readFile.size(), DEC);
   Serial.print("Current position in job.fs: "); Serial.println(readFile.position(), DEC);

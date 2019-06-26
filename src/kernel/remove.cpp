@@ -12,7 +12,7 @@
 #include "getline.h"
 
 
-const char remove_str[] = "remove";
+//const char remove_str[] = "remove";
 void _remove(void) {
     remove_a_file();
 }

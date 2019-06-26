@@ -277,3 +277,13 @@ extern void _zero_less(void);
 extern void _zero_less_equal(void);
 extern void _zero_not_equal(void);
 extern void _zjump(void);
+
+extern void _dir(void);
+extern void _chdir(void);
+extern void _rmdir(void);
+extern void _mkdir(void);
+
+extern void _fdel(void);
+extern void _fload(void);
+extern void _fsave(void);
+extern void _ftype(void);

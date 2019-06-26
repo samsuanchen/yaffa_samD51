@@ -262,25 +262,25 @@ void _execute(void) {
 // not depend on the existence of the space.
 void _word(void) {
     uint8_t *start, *ptr;
-    cell_t n;
+    cell_t n = 0;
 
     cDelimiter = (char)dStack_pop();
     start = (uint8_t *)pHere++;
     ptr = (uint8_t *)pHere;
     while (cpToIn <= cpSourceEnd) {
-        if (*cpToIn == cDelimiter || *cpToIn == 0) {
-        	n = (ptr - start) - sizeof(cell_t);
-            *((cell_t *)start) = n; // write the length byte
+        if (*cpToIn == cDelimiter || *cpToIn == 0) break;
+        *ptr++ = *cpToIn++;
+    }
+    *ptr = 0;
+    n = (ptr - start) - sizeof(cell_t);
+     *((cell_t*) start) = n; // write the length byte
         //	Serial.print("\r\n 0x"); Serial.print(*start, 16);
         //	Serial.print(" \""); Serial.print((char*) (start+4));
         //	Serial.print("\" at 0x"); Serial.print((cell_t) (start+4), 16);
-            pHere = (cell_t *)start;                     // reset pHere (transient memory)
-            dStack_push((size_t)start);                // push the c-addr onto the stack
-            cpToIn++;
-            break;
-        } else *ptr++ = *cpToIn++;
-    }
+    pHere = (cell_t *)start;                     // reset pHere (transient memory)
+    cpToIn++;
     cDelimiter = ' ';
+    dStack_push((size_t)start);                // push the c-addr onto the stack
 }
 
 // const char back_slash_str[] = "\\";
